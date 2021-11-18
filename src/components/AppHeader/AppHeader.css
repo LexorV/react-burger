@@ -1,0 +1,13 @@
+.header {
+    display:flex;
+    justify-content: space-between;
+
+}
+.header__menu {
+    display:flex;
+
+}
+.header__menu-link {
+display:flex;
+cursor: pointer;
+}
