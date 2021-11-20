@@ -1,0 +1,30 @@
+.constructor {
+display: flex;
+flex-direction: column;
+}
+.constructor__open-elements {
+display:grid;
+gap:16px;
+max-height: 464px;
+overflow-y: scroll;
+overflow-x: hidden;
+}
+.constructor__lock-elements {
+    display:grid;
+}
+.constructor__open-elements::-webkit-scrollbar {
+    width: 8px;
+    background-color:  #2F2F37;
+}
+.constructor__open-elements::-webkit-scrollbar-thumb {
+    background-color:  #8585AD;
+
+}
+.constructor__price-container  {
+    display: flex;
+    align-self: flex-end;
+}
+.constructor__price-text {
+    display:flex;
+    align-items: center;
+}

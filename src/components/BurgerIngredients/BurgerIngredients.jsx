@@ -4,7 +4,7 @@ import {data} from  '../../utils/data.js';
 export default function BurgerIngredients() {
     console.log(data.length)
     return(
-        <div  className="ingredients" >
+        <section  className="ingredients" >
             <h1 className="text text_type_main-large">Соберите бургер</h1>
             <div style={{ display: 'flex' }}>
                 <Tab value="Булки">Булки</Tab>
@@ -107,6 +107,6 @@ export default function BurgerIngredients() {
             </ul>
             </div>
 
-        </div>
+        </section>
     )
 }
