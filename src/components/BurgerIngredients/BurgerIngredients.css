@@ -1,0 +1,38 @@
+.ingredients {
+    max-width: 600px;
+    max-height: 912px;
+}
+.ingredients__lists {
+    display: flex;
+    max-width: 600px;
+    flex-wrap: wrap;
+}
+.ingredients__card-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style-type: none;
+    position: relative;
+}
+
+.ingredients__card-price-box {
+    display: flex;
+}
+.ingredients__picture {
+    width: 240px;
+    height: 120px;
+
+}
+.ingredients__box {
+    max-height: 686px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.ingredients__box::-webkit-scrollbar {
+    width: 8px;
+    background-color:  #2F2F37;
+}
+.ingredients__box::-webkit-scrollbar-thumb {
+    background-color:  #8585AD;
+
+}
