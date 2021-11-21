@@ -12,4 +12,10 @@
 .header__menu-link {
 display:flex;
 cursor: pointer;
-}
+} 
+  @media screen and (max-width: 1880px) {
+    .header {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  }
