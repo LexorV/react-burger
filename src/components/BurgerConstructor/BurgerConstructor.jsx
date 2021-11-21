@@ -13,27 +13,27 @@ return(
     <div className="constructor__open-elements-box">
     <DragIcon type="primary" />
     <ConstructorElement isLocked={false}
- thumbnail={ data[0].image} text={data[0].name} price ={data[0].price}/>
+ thumbnail={ data[6].image} text={data[6].name} price ={data[6].price}/>
     </div>
     <div className="constructor__open-elements-box">
     <DragIcon type="primary" />
     <ConstructorElement isLocked={false}
- thumbnail={ data[0].image} text={data[0].name} price ={data[0].price}/>
+ thumbnail={ data[2].image} text={data[2].name} price ={data[2].price}/>
     </div>
     <div className="constructor__open-elements-box">
     <DragIcon type="primary" />
     <ConstructorElement isLocked={false}
- thumbnail={ data[0].image} text={data[0].name} price ={data[0].price}/>
+ thumbnail={ data[5].image} text={data[5].name} price ={data[5].price}/>
     </div>
     <div className="constructor__open-elements-box">
     <DragIcon type="primary" />
     <ConstructorElement isLocked={false}
- thumbnail={ data[0].image} text={data[0].name} price ={data[0].price}/>
+ thumbnail={ data[3].image} text={data[3].name} price ={data[3].price}/>
     </div>
     <div className="constructor__open-elements-box">
     <DragIcon type="primary" />
     <ConstructorElement isLocked={false}
- thumbnail={ data[0].image} text={data[0].name} price ={data[0].price}/>
+ thumbnail={ data[4].image} text={data[4].name} price ={data[4].price}/>
     </div>
     <div className="constructor__open-elements-box">
     <DragIcon type="primary" />
