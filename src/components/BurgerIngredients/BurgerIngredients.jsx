@@ -24,9 +24,8 @@ const Ingtrdients = ({data, type}) => {
     return listItems
 }
 export default function BurgerIngredients() {
+    const [dataIngrid, setDataIngrid] = React.useState(dataIngredients)
     const [current, setCurrent] = React.useState('Булки')
-    const [state,
-        setState] = React.useState({dataIngrid: dataIngredients})
     return (
         <section className="ingredients">
 
@@ -45,15 +44,15 @@ export default function BurgerIngredients() {
                     Булки
                 </h2>
                 <ul className="ingredients__lists pl-2">
-                    <Ingtrdients data={state.dataIngrid} type='bun' />
+                    <Ingtrdients data={dataIngrid} type='bun' />
                 </ul>
                 <h2 className="text text_type_main-medium">Соусы</h2>
                 <ul className="ingredients__lists pl-2">
-                <Ingtrdients data={state.dataIngrid} type='sauce' />
+                <Ingtrdients data={dataIngrid} type='sauce' />
                 </ul>
                 <h2 className="text text_type_main-medium">Начинки</h2>
                 <ul className="ingredients__lists pl-2">
-                <Ingtrdients data={state.dataIngrid} type='main' />
+                <Ingtrdients data={dataIngrid} type='main' />
                 </ul>
             </div>
 
