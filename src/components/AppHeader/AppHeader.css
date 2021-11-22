@@ -1,21 +1,30 @@
 .header {
-    display:flex;
-    justify-content: space-between;
-    margin-left: 320px;
-    margin-right:320px;
+  display: flex;
+  margin-left: 320px;
+  margin-right: 320px;
+  max-width: 1240px;
+  justify-content: space-between
+}
+
+.header__logo-box {
+  align-self: center;
+  align-items: center;
 
 }
+
 .header__menu {
-    display:flex;
+  display: flex;
 
 }
+
 .header__menu-link {
-display:flex;
-cursor: pointer;
-} 
-  @media screen and (max-width: 1880px) {
-    .header {
-      margin-left: 10%;
-      margin-right: 10%;
-    }
+  display: flex;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1880px) {
+  .header {
+    margin-left: 10%;
+    margin-right: 10%;
   }
+}
