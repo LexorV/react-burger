@@ -27,6 +27,22 @@
 .App-link {
   color: #61dafb;
 }
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-left: 320px;
+  margin-right: 320px;
+}
+
+@media screen and (max-width: 1880px) {
+  .main {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+
 
 @keyframes App-logo-spin {
   from {

@@ -1,0 +1,21 @@
+.header {
+    display:flex;
+    justify-content: space-between;
+    margin-left: 320px;
+    margin-right:320px;
+
+}
+.header__menu {
+    display:flex;
+
+}
+.header__menu-link {
+display:flex;
+cursor: pointer;
+} 
+  @media screen and (max-width: 1880px) {
+    .header {
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+  }
