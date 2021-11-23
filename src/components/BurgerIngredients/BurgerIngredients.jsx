@@ -5,6 +5,7 @@ import {
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import './BurgerIngredients.css';
+import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
 //import {dataIngredients} from '../../utils/data.js';
 const Ingtrdients = ({ data, type }) => {
     if (data !== null) {
@@ -31,6 +32,7 @@ export default function BurgerIngredients({ dataIngrid }) {
     const [current, setCurrent] = React.useState('Булки')
     return (
         <section className="ingredients">
+            <ModalOverlay elementOpen = {true} />
 
             <h1 className="text text_type_main-large">Соберите бургер</h1>
             <div
