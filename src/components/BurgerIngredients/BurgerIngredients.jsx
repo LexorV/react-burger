@@ -5,13 +5,26 @@ import {
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import './BurgerIngredients.css';
-import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
+
+import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 //import {dataIngredients} from '../../utils/data.js';
 const Ingtrdients = ({ data, type }) => {
+    const [modalIsOpen, setModalIsOpen] = React.useState(false)
+    const toggleModal = () => {
+        console.log('tets')
+        if(modalIsOpen === false) {
+            setModalIsOpen(true)
+        }
+    }
+    const closeModel = () => {
+        setModalIsOpen(false)
+    }
+
     if (data !== null) {
         const listItems = data
             .filter(e => e.type === type)
-            .map((element) => <li key={element._id} className="ingredients__card-list pl-4">
+            .map((element) => <li onClick={toggleModal} key={element._id} className="ingredients__card-list pl-4">
+                <IngredientDetails modalOpen={modalIsOpen} toggleModal = {toggleModal} closeModel={closeModel}   />
                 <Counter count={1} size="default" />
                 <img alt={element.name} src={element.image} className="ingredients__picture pl-4 pr-4 "></img>
                 <div className="ingredients__card-price-box pt-1 pb-1">
@@ -32,8 +45,6 @@ export default function BurgerIngredients({ dataIngrid }) {
     const [current, setCurrent] = React.useState('Булки')
     return (
         <section className="ingredients">
-            <ModalOverlay elementOpen = {true} />
-
             <h1 className="text text_type_main-large">Соберите бургер</h1>
             <div
                 className="mt-10 mb-5"
