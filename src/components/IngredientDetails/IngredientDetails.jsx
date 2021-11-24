@@ -1,12 +1,13 @@
 import React from 'react';
 import './ingredient-details.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
-export default function IngredientDetails({ modalOpen, toggleModal, closeModel }) {
+ const IngredientDetails = React.memo (({ modalOpen, closeModel, dataIngrid }) => {
     return (
-        <ModalOverlay elementIsOpen={modalOpen} toggleModal={toggleModal} closeModel={closeModel} >
-            <p>Test</p>
+        <ModalOverlay elementIsOpen={modalOpen} closeModel={closeModel} >
+            <p>{dataIngrid.name}</p>
         </ModalOverlay>
     )
 
 
-}
+})
+export default IngredientDetails

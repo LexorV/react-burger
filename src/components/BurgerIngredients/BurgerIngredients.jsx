@@ -5,12 +5,10 @@ import {
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import './BurgerIngredients.css';
-
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
-//import {dataIngredients} from '../../utils/data.js';
-const Ingtrdients = ({ data, type }) => {
+const Ingtrdient = ({ingtrdient}) => {
     const [modalIsOpen, setModalIsOpen] = React.useState(false)
-    const toggleModal = () => {
+    const openModal = () => {
         console.log('tets')
         if(modalIsOpen === false) {
             setModalIsOpen(true)
@@ -19,20 +17,26 @@ const Ingtrdients = ({ data, type }) => {
     const closeModel = () => {
         setModalIsOpen(false)
     }
-
+    return(
+        <li onClickCapture={openModal} key={ingtrdient._id} className="ingredients__card-list pl-4">
+                <IngredientDetails modalOpen={modalIsOpen} dataIngrid={ingtrdient} closeModel={closeModel}   />
+                <Counter count={1} size="default" />
+                <img alt={ingtrdient.name} src={ingtrdient.image} className="ingredients__picture pl-4 pr-4 "></img>
+                <div className="ingredients__card-price-box pt-1 pb-1">
+                    <p className="text text_type_digits-default pr-2">{ingtrdient.price}</p>
+                    <CurrencyIcon type="primary" />
+                </div>
+                <p className="text text_type_main-small">{ingtrdient.name}</p>
+            </li>)
+}
+//import {dataIngredients} from '../../utils/data.js';
+const Ingtrdients = ({ data, type }) => {
     if (data !== null) {
         const listItems = data
             .filter(e => e.type === type)
-            .map((element) => <li onClick={toggleModal} key={element._id} className="ingredients__card-list pl-4">
-                <IngredientDetails modalOpen={modalIsOpen} toggleModal = {toggleModal} closeModel={closeModel}   />
-                <Counter count={1} size="default" />
-                <img alt={element.name} src={element.image} className="ingredients__picture pl-4 pr-4 "></img>
-                <div className="ingredients__card-price-box pt-1 pb-1">
-                    <p className="text text_type_digits-default pr-2">{element.price}</p>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <p className="text text_type_main-small">{element.name}</p>
-            </li>)
+            .map((ingtrdient) =>
+            <Ingtrdient key={ingtrdient._id} ingtrdient = {ingtrdient} />
+            )
         return listItems
     }
     else {
@@ -42,7 +46,7 @@ const Ingtrdients = ({ data, type }) => {
 }
 export default function BurgerIngredients({ dataIngrid }) {
     //  const [dataIngrid, setDataIngrid] = React.useState(dataIngredients)
-    const [current, setCurrent] = React.useState('Булки')
+    const [current] = React.useState('Булки')
     return (
         <section className="ingredients">
             <h1 className="text text_type_main-large">Соберите бургер</h1>
