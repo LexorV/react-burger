@@ -1,12 +1,26 @@
 import React from 'react';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import './BurgerConstructor.css';
+import OrderDetails from '../OrderDetails/OrderDetails.jsx';
+import PropTypes from 'prop-types';
 //import { dataIngredients } from '../../utils/data.js';
 
 export default function BurgerConstructor({ dataIngredients }) {
+   const [modalIsOpen, setModalIsOpen] = React.useState(false)
+   const openModal = () => {
+       if (modalIsOpen === false) {
+           setModalIsOpen(true)
+       }
+   }
+   const closeModel = () => {
+      if (modalIsOpen === true) {
+         setModalIsOpen(false)
+     }
+   }
    if (dataIngredients !== null) {
       return (
          <section className="constructor pt-25 mt-4">
+            <OrderDetails elementIsOpen={modalIsOpen} closeModel={closeModel}  />
             <div className="constructor__lock-elements">
                <ConstructorElement isLocked={true}
                   thumbnail={dataIngredients[0].image} text={dataIngredients[0].name} price={dataIngredients[0].price} />
@@ -57,7 +71,7 @@ export default function BurgerConstructor({ dataIngredients }) {
                   <p className="text text_type_digits-medium pr-2"> 400</p>
                   <CurrencyIcon type="primary" />
                </div>
-               <Button type="primary" size="large">
+               <Button onClick={openModal} type="primary" size="large">
                   Оформить заказ
                </Button>
             </div>
@@ -70,3 +84,7 @@ export default function BurgerConstructor({ dataIngredients }) {
       )
    }
 }
+
+BurgerConstructor.propTypes = {
+   dataIngredients: PropTypes.array
+};

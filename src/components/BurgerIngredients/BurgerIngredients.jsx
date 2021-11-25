@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
     CurrencyIcon,
     Tab,
@@ -77,4 +78,14 @@ export default function BurgerIngredients({ dataIngrid }) {
 
         </section>
     )
+}
+Ingtrdients.propTypes = {
+    data:PropTypes.array,
+    type: PropTypes.string
+}
+Ingtrdient.propTypes = {
+    ingtrdientn: PropTypes.object,
+}
+BurgerIngredients.propTypes = {
+    dataIngrid: PropTypes.array
 }

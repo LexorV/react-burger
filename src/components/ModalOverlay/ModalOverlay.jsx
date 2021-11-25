@@ -1,4 +1,5 @@
 import './modal-overlay.css';
+import PropTypes from 'prop-types';
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -44,3 +45,8 @@ export default function ModalOverlay(props) {
         return null
     }
 }
+ModalOverlay.PropTypes = {
+    height: PropTypes.number,
+    closeModel: PropTypes.bool,
+    elementIsOpen: PropTypes.bool
+};

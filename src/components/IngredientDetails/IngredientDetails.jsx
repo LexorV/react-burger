@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './ingredient-details.css';
 import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
  const IngredientDetails = React.memo (({ modalOpen, closeModel, dataIngrid }) => {
@@ -30,4 +31,11 @@ import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
 
 
 })
+IngredientDetails.propTypes = {
+    modalOpen: PropTypes.bool,
+    closeModel:PropTypes.bool,
+    dataIngrid:PropTypes.object
+}
+
+
 export default IngredientDetails
