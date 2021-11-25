@@ -6,28 +6,27 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import './BurgerIngredients.css';
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
-const Ingtrdient = ({ingtrdient}) => {
+const Ingtrdient = ({ ingtrdient }) => {
     const [modalIsOpen, setModalIsOpen] = React.useState(false)
     const openModal = () => {
-        console.log('tets')
-        if(modalIsOpen === false) {
+        if (modalIsOpen === false) {
             setModalIsOpen(true)
         }
     }
     const closeModel = () => {
         setModalIsOpen(false)
     }
-    return(
+    return (
         <li onClickCapture={openModal} key={ingtrdient._id} className="ingredients__card-list pl-4">
-                <IngredientDetails modalOpen={modalIsOpen} dataIngrid={ingtrdient} closeModel={closeModel}   />
-                <Counter count={1} size="default" />
-                <img alt={ingtrdient.name} src={ingtrdient.image} className="ingredients__picture pl-4 pr-4 "></img>
-                <div className="ingredients__card-price-box pt-1 pb-1">
-                    <p className="text text_type_digits-default pr-2">{ingtrdient.price}</p>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <p className="text text_type_main-small">{ingtrdient.name}</p>
-            </li>)
+            <IngredientDetails modalOpen={modalIsOpen} dataIngrid={ingtrdient} closeModel={closeModel} />
+            <Counter count={1} size="default" />
+            <img alt={ingtrdient.name} src={ingtrdient.image} className="ingredients__picture pl-4 pr-4 "></img>
+            <div className="ingredients__card-price-box pt-1 pb-1">
+                <p className="text text_type_digits-default pr-2">{ingtrdient.price}</p>
+                <CurrencyIcon type="primary" />
+            </div>
+            <p className="text text_type_main-small">{ingtrdient.name}</p>
+        </li>)
 }
 //import {dataIngredients} from '../../utils/data.js';
 const Ingtrdients = ({ data, type }) => {
@@ -35,7 +34,7 @@ const Ingtrdients = ({ data, type }) => {
         const listItems = data
             .filter(e => e.type === type)
             .map((ingtrdient) =>
-            <Ingtrdient key={ingtrdient._id} ingtrdient = {ingtrdient} />
+                <Ingtrdient key={ingtrdient._id} ingtrdient={ingtrdient} />
             )
         return listItems
     }
