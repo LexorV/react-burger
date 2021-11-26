@@ -1,4 +1,4 @@
-import './modal-overlay.css';
+import modalOverlayStyle from './modalOverlay.module.css'
 import React from 'react';
 export default function ModalOverlay(props) {
     //const [popap, setPopap] = React.useState(document.createElement())
@@ -27,7 +27,7 @@ export default function ModalOverlay(props) {
     if (props.elementIsOpen) {
         document.body.appendChild(element)
         return (
-            <div onClick={handleCloseOverlay} className="modal-overlay modal-overlay_open">
+            <div onClick={handleCloseOverlay} className={modalOverlayStyle.modal_overlay}>
                     {props.children}
                 </div>
         )
