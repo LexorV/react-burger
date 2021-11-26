@@ -14,12 +14,12 @@ const Ingtrdient = ({ ingtrdient }) => {
             setModalIsOpen(true)
         }
     }
-    const closeModel = () => {
+    const closeModal = () => {
         setModalIsOpen(false)
     }
     return (
         <li onClickCapture={openModal} key={ingtrdient._id} className="ingredients__card-list pl-4">
-            <IngredientDetails modalOpen={modalIsOpen} dataIngrid={ingtrdient} closeModel={closeModel} />
+            <IngredientDetails modalOpen={modalIsOpen} dataIngrid={ingtrdient} closeModal={closeModal} />
             <Counter count={1} size="default" />
             <img alt={ingtrdient.name} src={ingtrdient.image} className="ingredients__picture pl-4 pr-4 "></img>
             <div className="ingredients__card-price-box pt-1 pb-1">

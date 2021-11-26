@@ -12,7 +12,7 @@ export default function BurgerConstructor({ dataIngredients }) {
            setModalIsOpen(true)
        }
    }
-   const closeModel = () => {
+   const closeModal = () => {
       if (modalIsOpen === true) {
          setModalIsOpen(false)
      }
@@ -20,7 +20,7 @@ export default function BurgerConstructor({ dataIngredients }) {
    if (dataIngredients !== null) {
       return (
          <section className="constructor pt-25 mt-4">
-            <OrderDetails elementIsOpen={modalIsOpen} closeModel={closeModel}  />
+            <OrderDetails elementIsOpen={modalIsOpen} closeModal={closeModal}  />
             <div className="constructor__lock-elements">
                <ConstructorElement isLocked={true}
                   thumbnail={dataIngredients[0].image} text={dataIngredients[0].name} price={dataIngredients[0].price} />

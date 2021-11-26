@@ -9,37 +9,39 @@ export default function App() {
   const [ingredients, setIngredients] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   React.useEffect(() => {
- fetch("https://norma.nomoreparties.space/api/ingredients")
- .then(res => res.json())
- .then((result) => {
-  setIsLoaded(true);
-  setIngredients(result.data)
-},
-(error) => {
-  setIsLoaded(true);
-  setError(error);
-}
- )
- .catch((error) => {
-  console.log(error)
- })
+    fetch("https://norma.nomoreparties.space/api/ingredients")
+      .then(res => res.json())
+      .then((result) => {
+        setIsLoaded(true);
+        setIngredients(result.data)
+      },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+      .catch((error) => {
+        console.log(error)
+      })
   }, [])
-  if(error) {
+  if (error) {
     return <div>Произошла ошибка</div>;
   } else if (!isLoaded) {
     return <div>Загрузка...</div>;
   }
   else {
-  return (
-    <div>
-      
-      <AppHeader />
-      <main className="main">
-      <BurgerIngredients dataIngrid = {ingredients}/>
-      <BurgerConstructor dataIngredients = {ingredients} />
-      </main>
-    </div>
-  )}
+    return (
+      <div>
+
+        <AppHeader />
+        <main className="main">
+          <BurgerIngredients dataIngrid={ingredients} />
+          <BurgerConstructor dataIngredients={ingredients} />
+        </main>
+        <div id="modal"></div>
+      </div>
+    )
+  }
 }
 
 

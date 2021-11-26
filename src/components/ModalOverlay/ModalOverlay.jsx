@@ -4,18 +4,17 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 export default function ModalOverlay(props) {
-    const element = React.useMemo(() => document.createElement("div"), []);
     //const [popap, setPopap] = React.useState(document.createElement())
+    const element = document.getElementById('modal');
     const closeModal = () => {
-        props.closeModel()
-        document.body.removeChild(element)
+        props.closeModal()
     }
     React.useEffect(() => {
         const handleEscClose = (e) => {
             e.preventDefault()
             if (e.key === 'Escape') {
                 document.removeEventListener('keydown', handleEscClose);
-                props.closeModel()
+                props.closeModal()
             }
         }
         document.addEventListener('keydown', handleEscClose);
@@ -30,23 +29,18 @@ export default function ModalOverlay(props) {
     }
     if (props.elementIsOpen) {
         document.body.appendChild(element)
-        return createPortal(
+        return (
             <div onClick={handleCloseOverlay} className="modal-overlay modal-overlay_open">
-                <div className={`modal-overlay__container modal-overlay__container_height_${props.height}`}>
-                    <button onClick={closeModal} type="button" className="modal-overlay__btn-close ">
-                        <CloseIcon />
-                    </button>
                     {props.children}
                 </div>
-            </div>, element
         )
     }
     else {
         return null
     }
-}
+}/*
 ModalOverlay.PropTypes = {
     height: PropTypes.number,
     closeModel: PropTypes.bool,
     elementIsOpen: PropTypes.bool
-};
+};*/
