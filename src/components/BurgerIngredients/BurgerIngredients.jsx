@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Modal from '../Modal/Modal';
 import {
     CurrencyIcon,
     Tab,
@@ -19,7 +20,9 @@ const Ingtrdient = ({ ingtrdient }) => {
     }
     return (
         <li onClickCapture={openModal} key={ingtrdient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
-            <IngredientDetails modalOpen={modalIsOpen} dataIngrid={ingtrdient} closeModal={closeModal} />
+            <Modal height={539} elementIsOpen={modalIsOpen} closeModal={closeModal} >
+            <IngredientDetails dataIngrid={ingtrdient} />
+            </Modal>
             <Counter count={1} size="default" />
             <img alt={ingtrdient.name} src={ingtrdient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
             <div className={`${burgerIngredientsStyle.card_price_box} pt-1 pb-1`}>
