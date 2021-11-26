@@ -3,6 +3,7 @@ import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktiku
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
+import Modal from '../Modal/Modal.jsx';
 //import { dataIngredients } from '../../utils/data.js';
 export default function BurgerConstructor({ dataIngredients }) {
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
@@ -19,7 +20,9 @@ export default function BurgerConstructor({ dataIngredients }) {
    if (dataIngredients !== null) {
       return (
          <section className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
-            <OrderDetails elementIsOpen={modalIsOpen} closeModal={closeModal} />
+            <Modal height={718} elementIsOpen={modalIsOpen} closeModal={closeModal}>
+            <OrderDetails />
+            </Modal>
             <div className={burgerConstructorStyle.lock_elements}>
                <ConstructorElement type="top" isLocked={true}
                   thumbnail={dataIngredients[0].image} text={`${dataIngredients[0].name} (Верх)`} price={dataIngredients[0].price} />
@@ -79,7 +82,7 @@ export default function BurgerConstructor({ dataIngredients }) {
    }
    else {
       return (
-         <h2> Нет связи с сервером</h2>
+         <h2> Загрузка...</h2>
       )
    }
 }

@@ -1,3 +1,7 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
 .picture {
     width: 120px;
     height: 120px;
