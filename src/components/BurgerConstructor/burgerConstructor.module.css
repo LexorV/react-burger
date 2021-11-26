@@ -4,7 +4,7 @@
     max-width: 600px;
 }
 
-.constructor__open-elements {
+.open_elements {
     display: grid;
     gap: 16px;
     max-height: 464px;
@@ -12,32 +12,32 @@
     overflow-x: hidden;
 }
 
-.constructor__lock-elements {
+.lock_elements {
     display: grid;
     margin-left: 34px;
     margin-right: 8px;
 }
 
-.constructor__open-elements::-webkit-scrollbar {
+.open_elements::-webkit-scrollbar {
     width: 8px;
     background-color: #2F2F37;
 }
 
-.constructor__open-elements::-webkit-scrollbar-thumb {
+.open_elements::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
 
-.constructor__price-container {
+.price_container {
     display: flex;
     align-self: flex-end;
 }
 
-.constructor__price-text {
+.price_text {
     display: flex;
     align-items: center;
 }
 
-.constructor__open-elements-box {
+.open_elements_box {
     display: flex;
     align-items: center;
     gap: 10px;

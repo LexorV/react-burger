@@ -6,18 +6,17 @@
   justify-content: space-between;
 }
 
-.header__logo-box {
+.logo_box {
   align-self: center;
   align-items: center;
 
 }
 
-.header__menu {
+.menu {
   display: flex;
-
 }
 
-.header__menu-link {
+.menu_link {
   display: flex;
   cursor: pointer;
 }

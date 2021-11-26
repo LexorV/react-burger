@@ -1,8 +1,5 @@
 import './modal-overlay.css';
-import PropTypes from 'prop-types';
 import React from 'react';
-import { createPortal } from 'react-dom';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 export default function ModalOverlay(props) {
     //const [popap, setPopap] = React.useState(document.createElement())
     const element = document.getElementById('modal');

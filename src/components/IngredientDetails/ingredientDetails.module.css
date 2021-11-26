@@ -1,18 +1,18 @@
-.ingredient-details__picture {
+.picture {
     align-self: center;
     max-width: 480px;
     min-height:240px;
 }
-.ingredient-details__name{
+.name{
     align-self: center;
 }
-.ingredient-details__сomposition {
+.сomposition {
     display: flex;
     list-style-type: none;
     gap: 20px;
     align-self: center;
 }
-.ingredient-details__сomposition-list-box {
+.сomposition_list_box {
 width: 125px;
 display: flex;
 flex-direction: column;
