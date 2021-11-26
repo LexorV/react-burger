@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ingredientDetailsStyles from './ingredientDetails.module.css';
-import Modal from '../Modal/Modal';
 const IngredientDetails = React.memo(({ dataIngrid }) => {
 
     return (
@@ -33,8 +32,6 @@ const IngredientDetails = React.memo(({ dataIngrid }) => {
 
 })
 IngredientDetails.propTypes = {
-    modalOpen: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
     dataIngrid: PropTypes.object.isRequired,
 }
 
