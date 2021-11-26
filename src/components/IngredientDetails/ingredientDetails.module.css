@@ -1,20 +1,23 @@
 .picture {
     align-self: center;
     max-width: 480px;
-    min-height:240px;
+    min-height: 240px;
 }
-.name{
+
+.name {
     align-self: center;
 }
+
 .сomposition {
     display: flex;
     list-style-type: none;
     gap: 20px;
     align-self: center;
 }
+
 .сomposition_list_box {
-width: 125px;
-display: flex;
-flex-direction: column;
-align-items: center;
+    width: 125px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

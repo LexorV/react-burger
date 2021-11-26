@@ -27,6 +27,7 @@
 .App-link {
   color: #61dafb;
 }
+
 .main {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -49,6 +50,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

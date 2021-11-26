@@ -1,16 +1,22 @@
 import React from 'react';
-import AppHeader from './components/AppHeader/AppHeader.jsx';
-import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients.jsx';
-import './App.css';
-import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor';
+import AppHeader from '../AppHeader/AppHeader.jsx';
+import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
+import appStyle from './App.module.css'
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
 
 export default function App() {
+  const urlServ = "https://norma.nomoreparties.space/api/ingredients"
   const [error, setError] = React.useState(null);
   const [ingredients, setIngredients] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   React.useEffect(() => {
-    fetch("https://norma.nomoreparties.space/api/ingredients")
-      .then(res => res.json())
+    fetch(urlServ)
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      })
       .then((result) => {
         setIsLoaded(true);
         setIngredients(result.data)
@@ -34,7 +40,7 @@ export default function App() {
       <div>
 
         <AppHeader />
-        <main className="main">
+        <main className={appStyle.main}>
           <BurgerIngredients dataIngrid={ingredients} />
           <BurgerConstructor dataIngredients={ingredients} />
         </main>

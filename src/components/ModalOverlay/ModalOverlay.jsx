@@ -1,7 +1,7 @@
 import modalOverlayStyle from './modalOverlay.module.css'
 import React from 'react';
+import PropTypes from 'prop-types';
 export default function ModalOverlay(props) {
-    //const [popap, setPopap] = React.useState(document.createElement())
     const element = document.getElementById('modal');
     const closeModal = () => {
         props.closeModal()
@@ -15,9 +15,6 @@ export default function ModalOverlay(props) {
             }
         }
         document.addEventListener('keydown', handleEscClose);
-        return () => {
-            document.removeEventListener('keydown', handleEscClose);
-        };
     });
     const handleCloseOverlay = (e) => {
         if (e.target === e.currentTarget) {
@@ -28,16 +25,16 @@ export default function ModalOverlay(props) {
         document.body.appendChild(element)
         return (
             <div onClick={handleCloseOverlay} className={modalOverlayStyle.modal_overlay}>
-                    {props.children}
-                </div>
+                {props.children}
+            </div>
         )
     }
     else {
         return null
     }
-}/*
-ModalOverlay.PropTypes = {
-    height: PropTypes.number,
-    closeModel: PropTypes.bool,
-    elementIsOpen: PropTypes.bool
-};*/
+}
+
+ModalOverlay.propTypes = {
+    elementIsOpen: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+};

@@ -1,25 +1,25 @@
 import React from 'react';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerConstructorStyle  from  './burgerConstructor.module.css';
+import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 //import { dataIngredients } from '../../utils/data.js';
 export default function BurgerConstructor({ dataIngredients }) {
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const openModal = () => {
-       if (modalIsOpen === false) {
-           setModalIsOpen(true)
-       }
+      if (modalIsOpen === false) {
+         setModalIsOpen(true)
+      }
    }
    const closeModal = () => {
       if (modalIsOpen === true) {
          setModalIsOpen(false)
-     }
+      }
    }
    if (dataIngredients !== null) {
       return (
          <section className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
-            <OrderDetails elementIsOpen={modalIsOpen} closeModal={closeModal}  />
+            <OrderDetails elementIsOpen={modalIsOpen} closeModal={closeModal} />
             <div className={burgerConstructorStyle.lock_elements}>
                <ConstructorElement type="top" isLocked={true}
                   thumbnail={dataIngredients[0].image} text={`${dataIngredients[0].name} (Верх)`} price={dataIngredients[0].price} />
@@ -79,7 +79,7 @@ export default function BurgerConstructor({ dataIngredients }) {
    }
    else {
       return (
-         <h2> Загрузка...</h2>
+         <h2> Нет связи с сервером</h2>
       )
    }
 }

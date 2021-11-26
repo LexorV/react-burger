@@ -33,9 +33,9 @@ const IngredientDetails = React.memo(({ modalOpen, closeModal, dataIngrid }) => 
 
 })
 IngredientDetails.propTypes = {
-    modalOpen: PropTypes.bool,
-    closeModel: PropTypes.bool,
-    dataIngrid: PropTypes.object
+    modalOpen: PropTypes.bool.isRequired,
+    closeModal: PropTypes.func.isRequired,
+    dataIngrid: PropTypes.object.isRequired,
 }
 
 

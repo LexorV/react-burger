@@ -14,6 +14,6 @@ export default function OrderDetails({ elementIsOpen, closeModal }) {
     )
 }
 OrderDetails.propTypes = {
-    closeModel: PropTypes.bool,
-    elementIsOpen: PropTypes.bool
+    closeModal: PropTypes.func.isRequired,
+    elementIsOpen: PropTypes.bool.isRequired
 };

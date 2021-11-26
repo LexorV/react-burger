@@ -5,7 +5,6 @@ import {
     Tab,
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
-//import './BurgerIngredients.css';
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 const Ingtrdient = ({ ingtrdient }) => {
@@ -30,7 +29,6 @@ const Ingtrdient = ({ ingtrdient }) => {
             <p className="text text_type_main-small">{ingtrdient.name}</p>
         </li>)
 }
-//import {dataIngredients} from '../../utils/data.js';
 const Ingtrdients = ({ data, type }) => {
     if (data !== null) {
         const listItems = data
@@ -42,11 +40,10 @@ const Ingtrdients = ({ data, type }) => {
     }
     else {
         return (
-            <h2>Загрузка</h2>)
+            <h2>Нет связи с сервером</h2>)
     }
 }
 export default function BurgerIngredients({ dataIngrid }) {
-    //  const [dataIngrid, setDataIngrid] = React.useState(dataIngredients)
     const [current] = React.useState('Булки')
     return (
         <section className={burgerIngredientsStyle.ingredients}>
