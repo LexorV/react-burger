@@ -43,7 +43,7 @@ const Ingtrdients = ({ data, type }) => {
     }
     else {
         return (
-            <h2>Нет связи с сервером</h2>)
+            <h2>нет</h2>)
     }
 }
 export default function BurgerIngredients({ dataIngrid }) {
