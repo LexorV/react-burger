@@ -44,7 +44,6 @@ export default function App() {
           <BurgerIngredients dataIngrid={ingredients} />
           <BurgerConstructor dataIngredients={ingredients} />
         </main>
-        <div id="modal"></div>
       </div>
     )
   }
