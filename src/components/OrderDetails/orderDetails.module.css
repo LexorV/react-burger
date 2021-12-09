@@ -1,0 +1,13 @@
+.main {
+    display: flex;
+    flex-direction: column;
+}
+.picture {
+    width: 120px;
+    height: 120px;
+    align-self: center;
+}
+
+.position_center {
+    align-self: center;
+}
