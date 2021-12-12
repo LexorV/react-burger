@@ -4,8 +4,32 @@ import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
-//import { dataIngredients } from '../../utils/data.js';
-export default function BurgerConstructor({ dataIngredients }) {
+import {IngredientsContext} from '../../services/appContext.js'
+const IngredientInConstructorLock = ({ingredients, type, position}) => {
+   return (
+   <div className={burgerConstructorStyle.lock_elements}>
+   <ConstructorElement type={type} isLocked={true}
+      thumbnail={ingredients[0].image} text={`${ingredients[0].name} ${position}`} price={ingredients[0].price} />
+</div>)
+}
+const IngredientInConstructor = ({ingredients, type}) => {
+   if (ingredients !==null) {
+      const listItems = ingredients.filter(e => e.type !== type).map((ingredients) => 
+      <li key={ingredients._id} className={burgerConstructorStyle.open_elements_box}>
+      <DragIcon type="primary" />
+      <ConstructorElement  isLocked={false}
+         thumbnail={ingredients.image} text={ingredients.name} price={ingredients.price} />
+   </li>
+      )
+      return listItems
+   }
+   else {
+      <p>Выберите ингредиент</p>
+   }
+}
+
+export default function BurgerConstructor() {
+   const {ingredients, setIngredients} = React.useContext(IngredientsContext)
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const openModal = () => {
       if (modalIsOpen === false) {
@@ -17,57 +41,17 @@ export default function BurgerConstructor({ dataIngredients }) {
          setModalIsOpen(false)
       }
    }
-   if (dataIngredients !== null) {
+   if (ingredients !== null) {
       return (
          <section className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
             <Modal height={718} elementIsOpen={modalIsOpen} closeModal={closeModal}>
             <OrderDetails />
             </Modal>
-            <div className={burgerConstructorStyle.lock_elements}>
-               <ConstructorElement type="top" isLocked={true}
-                  thumbnail={dataIngredients[0].image} text={`${dataIngredients[0].name} (Верх)`} price={dataIngredients[0].price} />
-            </div>
-            <div className={`${burgerConstructorStyle.open_elements} pt-4`}>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[6].image} text={dataIngredients[6].name} price={dataIngredients[6].price} />
-               </div>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[2].image} text={dataIngredients[2].name} price={dataIngredients[2].price} />
-               </div>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[5].image} text={dataIngredients[5].name} price={dataIngredients[5].price} />
-               </div>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[3].image} text={dataIngredients[3].name} price={dataIngredients[3].price} />
-               </div>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[4].image} text={dataIngredients[4].name} price={dataIngredients[4].price} />
-               </div>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[6].image} text={dataIngredients[0].name} price={dataIngredients[0].price} />
-               </div>
-               <div className={burgerConstructorStyle.open_elements_box}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement isLocked={false}
-                     thumbnail={dataIngredients[7].image} text={dataIngredients[0].name} price={dataIngredients[0].price} />
-               </div>
-            </div>
-            <div className={`${burgerConstructorStyle.lock_elements} pt-4`}>
-               <ConstructorElement type="bottom" isLocked={true}
-                  thumbnail={dataIngredients[0].image} text={`${dataIngredients[0].name} (Низ)`} price={dataIngredients[0].price} />
-            </div>
+            <IngredientInConstructorLock type={'top'} position={'Верх'} ingredients={ingredients}  />
+            <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
+               <IngredientInConstructor type={'bun'} ingredients ={ingredients} />
+            </ul>
+            <IngredientInConstructorLock type={'bottom'} position={'Низ'} ingredients={ingredients}  />
             <div className={`${burgerConstructorStyle.price_container} mt-10 mr-4`}>
                <div className={`${burgerConstructorStyle.price_text} mr-10`}>
                   <p className="text text_type_digits-medium pr-2"> 400</p>
