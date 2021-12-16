@@ -4,7 +4,8 @@ import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
-import {IngredientsContext} from '../../services/appContext.js';
+import {IngredientsContext} from '../../services/Context.js';
+import {sendOrder} from '../../utils/burgerApi';
 const ConstructorIngredient = ({ingredient, setIngredients, ingredients}) => {
    const handleClose = () => {
       setIngredients(ingredients.filter(item => item._id !== ingredient._id))
@@ -48,14 +49,21 @@ export default function BurgerConstructor() {
    const [arrayInConstructor, setArrayInConstructor] = React.useState(null)
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
+   const [order, setOreder] = React.useState(null)
    const openModal = () => {
       if (modalIsOpen === false) {
          setModalIsOpen(true)
+         let arrayId = arrayInConstructor.map(e => e._id);
+         sendOrder(arrayId).then((result) => {
+            setOreder(result);
+         })
       }
    }
+   
    const closeModal = () => {
       if (modalIsOpen === true) {
          setModalIsOpen(false)
+         setOreder(null)
       }
    }
    React.useEffect( () => {
@@ -79,7 +87,7 @@ export default function BurgerConstructor() {
       return (
          <section className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
             <Modal height={718} elementIsOpen={modalIsOpen} closeModal={closeModal}>
-            <OrderDetails />
+            <OrderDetails order = {order}   />
             </Modal>
             <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} ingredients={arrayInConstructor}  />
             <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>

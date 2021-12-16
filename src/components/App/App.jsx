@@ -4,7 +4,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import appStyle from './App.module.css'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
 import {getIngredients} from '../../utils/burgerApi.js';
-import {IngredientsContext} from '../../services/appContext.js'
+import {IngredientsContext} from '../../services/Context.js'
 
 export default function App() {
   const [error, setError] = React.useState(null);
@@ -12,14 +12,6 @@ export default function App() {
   const [isLoaded, setIsLoaded] = React.useState(false);
   React.useEffect(() => {
     getIngredients()
-    /*
-    fetch(urlServ)
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })*/
       .then((result) => {
         setIsLoaded(true);
         setIngredients(result.data)
