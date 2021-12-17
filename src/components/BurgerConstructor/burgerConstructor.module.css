@@ -10,6 +10,8 @@
     max-height: 464px;
     overflow-y: scroll;
     overflow-x: hidden;
+    list-style-type: none;
+    padding: 0;
 }
 
 .lock_elements {

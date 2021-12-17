@@ -3,20 +3,15 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import appStyle from './App.module.css'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
+import {getIngredients} from '../../utils/burgerApi.js';
+import {IngredientsContext} from '../../services/Context.js'
 
 export default function App() {
-  const urlServ = "https://norma.nomoreparties.space/api/ingredients"
   const [error, setError] = React.useState(null);
   const [ingredients, setIngredients] = React.useState(null);
   const [isLoaded, setIsLoaded] = React.useState(false);
   React.useEffect(() => {
-    fetch(urlServ)
-      .then(res => {
-        if (res.ok) {
-          return res.json()
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      })
+    getIngredients()
       .then((result) => {
         setIsLoaded(true);
         setIngredients(result.data)
@@ -42,7 +37,10 @@ export default function App() {
         <AppHeader />
         <main className={appStyle.main}>
           <BurgerIngredients dataIngrid={ingredients} />
-          <BurgerConstructor dataIngredients={ingredients} />
+          <IngredientsContext.Provider value={{ ingredients, setIngredients}}>
+          <BurgerConstructor />
+          </IngredientsContext.Provider>
+
         </main>
       </div>
     )
