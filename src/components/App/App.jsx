@@ -36,7 +36,7 @@ export default function App() {
 
         <AppHeader />
         <main className={appStyle.main}>
-          <BurgerIngredients dataIngrid={ingredients} />
+          <BurgerIngredients />
           <IngredientsContext.Provider value={{ ingredients, setIngredients}}>
           <BurgerConstructor />
           </IngredientsContext.Provider>
