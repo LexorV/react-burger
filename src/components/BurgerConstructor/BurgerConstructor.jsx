@@ -6,10 +6,13 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
 import { IngredientsContext } from '../../services/Context.js';
 import { sendOrder } from '../../utils/burgerApi';
+import { useSelector, useDispatch } from 'react-redux';
+import {ADD_INGREDIENT} from '../../services/action/constructorArray'
+import {dataIngredients} from '../../utils/data'
 const ConstructorIngredient = ({ ingredient, setArrayInConstructor, ingredients }) => {
    const handleClose = () => {
-      setArrayInConstructor(ingredients.filter(item => item._id !== ingredient._id))
-
+     // setArrayInConstructor(ingredients.filter(item => item._id !== ingredient._id))
+     console.log('del')
    }
    return (
       <li className={burgerConstructorStyle.open_elements_box}>
@@ -43,11 +46,16 @@ return arrayInConstructor.filter(e => e.type !== type).map((ingredient) =>
 }
 
 export default function BurgerConstructor() {
-   const { ingredients } = React.useContext(IngredientsContext);
-   const [arrayInConstructor, setArrayInConstructor] = React.useState(null)
+  // const { ingredients } = React.useContext(IngredientsContext);
+  const ingredients = dataIngredients
+   //const [arrayInConstructor, setArrayInConstructor] = React.useState(null)
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
-   const [order, setOreder] = React.useState(null)
+   const {order} = useSelector(state => state.ingredients);
+   const {arrayInConstructor} = useSelector(state => state.arrayInConstructor);
+   const dispatch = useDispatch();
+console.log(ingredients)
+/*
    const openModal = () => {
       if (modalIsOpen === false) {
          setModalIsOpen(true)
@@ -59,19 +67,21 @@ export default function BurgerConstructor() {
                console.log(error)
             })
       }
-   }
-
+   }*/
+/*
    const closeModal = () => {
       if (modalIsOpen === true) {
          setModalIsOpen(false)
          setOreder(null)
       }
-   }
+   }*/
    React.useEffect(() => {
       if (ingredients !== null) {
-         setArrayInConstructor(ingredients)
+         console.log(ingredients)
+         dispatch(ADD_INGREDIENT(ingredients))
+        // setArrayInConstructor(ingredients)
       }
-   }, [ingredients])
+   }, []);
    React.useEffect(
       () => {
          if (arrayInConstructor !== null) {
@@ -81,17 +91,17 @@ export default function BurgerConstructor() {
             setCommonPrice(price);
          }
       },
-      [arrayInConstructor, setArrayInConstructor]
-   )
+      [arrayInConstructor]
+   )/*
+   <Modal height={718} elementIsOpen={modalIsOpen} closeModal={closeModal}>
+   <OrderDetails order={order} />
+</Modal>*/
    if (ingredients !== null) {
       return (
          <section className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
-            <Modal height={718} elementIsOpen={modalIsOpen} closeModal={closeModal}>
-               <OrderDetails order={order} />
-            </Modal>
             <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} arrayInConstructor={arrayInConstructor} />
             <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
-               <IngredientsInConstructor setArrayInConstructor={setArrayInConstructor} type={'bun'} arrayInConstructor={arrayInConstructor} />
+               <IngredientsInConstructor  type={'bun'} arrayInConstructor={arrayInConstructor} />
             </ul>
             <IngredientsInConstructorLock positionEn={'bottom'} position={'Низ'} arrayInConstructor={arrayInConstructor} />
             <div className={`${burgerConstructorStyle.price_container} mt-10 mr-4`}>
@@ -99,7 +109,7 @@ export default function BurgerConstructor() {
                   <p className="text text_type_digits-medium pr-2">{commonPrice}</p>
                   <CurrencyIcon type="primary" />
                </div>
-               <Button onClick={openModal} type="primary" size="large">
+               <Button onClick={console.log('test')} type="primary" size="large">
                   Оформить заказ
                </Button>
             </div>

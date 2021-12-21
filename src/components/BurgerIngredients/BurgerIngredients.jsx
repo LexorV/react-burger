@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredientsAction } from '../../services/action/Ingredients'
+import {OPEN_INGREDIENT_DETAILS} from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
     Tab,
@@ -12,19 +13,15 @@ import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 const Ingtrdient = ({ ingtrdient }) => {
     const [modalIsOpen, setModalIsOpen] = React.useState(false)
+    const dispatch = useDispatch()
     const openModal = () => {
-        if (modalIsOpen === false) {
-            setModalIsOpen(true)
-        }
+        dispatch(OPEN_INGREDIENT_DETAILS(ingtrdient));
     }
     const closeModal = () => {
         setModalIsOpen(false)
     }
     return (
         <li onClickCapture={openModal} key={ingtrdient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
-            <Modal height={539} elementIsOpen={modalIsOpen} closeModal={closeModal} >
-                <IngredientDetails dataIngrid={ingtrdient} />
-            </Modal>
             <Counter count={1} size="default" />
             <img alt={ingtrdient.name} src={ingtrdient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
             <div className={`${burgerIngredientsStyle.card_price_box} pt-1 pb-1`}>
@@ -51,6 +48,7 @@ const Ingtrdients = ({ data, type }) => {
 export default function BurgerIngredients() {
     const [current] = React.useState('Булки');
     const dispatch = useDispatch();
+    const {ingredient} = useSelector(state => state.ingredientDetail)
     const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(state => state.ingredients);
     React.useEffect(() => {
         dispatch(getIngredientsAction())
@@ -67,6 +65,7 @@ export default function BurgerIngredients() {
     }
     else {
         return (
+            <>
             <section className={burgerIngredientsStyle.ingredients}>
                 <h1 className="text text_type_main-large">Соберите бургер</h1>
                 <div
@@ -95,6 +94,10 @@ export default function BurgerIngredients() {
                     </ul>
                 </div>
             </section>
+           { ingredient && (<Modal height={539} >
+             <IngredientDetails dataIngrid={ingredient} />
+         </Modal>)}
+         </>
         )
     }
    
