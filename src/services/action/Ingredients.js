@@ -21,7 +21,8 @@ export function getIngredientsAction() {
                 }
             })
             .catch(err => {
-                dispatch({
+                dispatch(
+                    {
                     type: GET_INGREDIENTS_FAILED
                 })
             })

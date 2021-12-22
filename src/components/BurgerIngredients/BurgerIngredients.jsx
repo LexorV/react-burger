@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredientsAction } from '../../services/action/Ingredients'
-import {OPEN_INGREDIENT_DETAILS} from '../../services/action/IngredientDetail'
+import {OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS} from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
     Tab,
@@ -11,14 +11,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
-const Ingtrdient = ({ ingtrdient }) => {
-    const [modalIsOpen, setModalIsOpen] = React.useState(false)
+const Ingtrdient = ({ ingtrdient, setModalIsOpen}) => {
     const dispatch = useDispatch()
     const openModal = () => {
         dispatch(OPEN_INGREDIENT_DETAILS(ingtrdient));
-    }
-    const closeModal = () => {
-        setModalIsOpen(false)
+        setModalIsOpen(true)
     }
     return (
         <li onClickCapture={openModal} key={ingtrdient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
@@ -31,12 +28,12 @@ const Ingtrdient = ({ ingtrdient }) => {
             <p className="text text_type_main-small">{ingtrdient.name}</p>
         </li>)
 }
-const Ingtrdients = ({ data, type }) => {
+const Ingtrdients = ({ data, type, setModalIsOpen}) => {
     if (data !== null) {
         const listItems = data
             .filter(e => e.type === type)
             .map((ingtrdient) =>
-                <Ingtrdient key={ingtrdient._id} ingtrdient={ingtrdient} />
+                <Ingtrdient key={ingtrdient._id} ingtrdient={ingtrdient} setModalIsOpen = {setModalIsOpen} />
             )
         return listItems
     }
@@ -46,10 +43,15 @@ const Ingtrdients = ({ data, type }) => {
     }
 }
 export default function BurgerIngredients() {
+    const [modalIsOpen, setModalIsOpen] = React.useState(false)
     const [current] = React.useState('Булки');
     const dispatch = useDispatch();
     const {ingredient} = useSelector(state => state.ingredientDetail)
     const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(state => state.ingredients);
+    const closeModal = () => {
+        dispatch({type: CLOSE_INGREDIENT_DETAILS})
+        setModalIsOpen(false)
+    }
     React.useEffect(() => {
         dispatch(getIngredientsAction())
     }, [dispatch])
@@ -82,20 +84,20 @@ export default function BurgerIngredients() {
                         Булки
                     </h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingtrdients data={ingredients} type='bun' />
+                        <Ingtrdients setModalIsOpen={setModalIsOpen}  data={ingredients} type='bun' />
                     </ul>
                     <h2 className="text text_type_main-medium">Соусы</h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingtrdients data={ingredients} type='sauce' />
+                        <Ingtrdients setModalIsOpen={setModalIsOpen} data={ingredients} type='sauce' />
                     </ul>
                     <h2 className="text text_type_main-medium">Начинки</h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingtrdients data={ingredients} type='main' />
+                        <Ingtrdients setModalIsOpen={setModalIsOpen} data={ingredients} type='main' />
                     </ul>
                 </div>
             </section>
-           { ingredient && (<Modal height={539} >
-             <IngredientDetails dataIngrid={ingredient} />
+           { ingredient && (<Modal height={539} closeModal = {closeModal}   >
+             <IngredientDetails dataIngrid={ingredient}  />
          </Modal>)}
          </>
         )

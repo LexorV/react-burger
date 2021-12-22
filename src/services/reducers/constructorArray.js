@@ -8,6 +8,11 @@ export const constructorArrayReducer = (state = initialState, action) => {
         return {
             ...state, arrayInConstructor: action.ingredient
         }
+        case 'DELETE_INGREDIENT':{
+            return {
+                ...state, arrayInConstructor:[...state.arrayInConstructor.filter(item => item._id !== action.ingredient._id)]
+            }
+        }
         default: {
             return state
         }

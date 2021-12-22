@@ -9,8 +9,12 @@ import { sendOrder } from '../../utils/burgerApi';
 import { useSelector, useDispatch } from 'react-redux';
 import {ADD_INGREDIENT} from '../../services/action/constructorArray'
 import {dataIngredients} from '../../utils/data'
-const ConstructorIngredient = ({ ingredient, setArrayInConstructor, ingredients }) => {
+import {sendOrderAction, OPEN_ORDER_MODAL} from '../../services/action/order'
+import { getIngredientsAction } from '../../services/action/Ingredients'
+const ConstructorIngredient = ({ ingredient}) => {
+   const dispatch = useDispatch()
    const handleClose = () => {
+      dispatch({type:'DELETE_INGREDIENT', ingredient})
      // setArrayInConstructor(ingredients.filter(item => item._id !== ingredient._id))
      console.log('del')
    }
@@ -46,28 +50,54 @@ return arrayInConstructor.filter(e => e.type !== type).map((ingredient) =>
 }
 
 export default function BurgerConstructor() {
-  // const { ingredients } = React.useContext(IngredientsContext);
-  const ingredients = dataIngredients
+   //const { ingredients } = React.useContext(IngredientsContext);
+  //const ingredients = dataIngredients
+  const {  ingredients } = useSelector(state => state.ingredients);
    //const [arrayInConstructor, setArrayInConstructor] = React.useState(null)
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
-   const {order} = useSelector(state => state.ingredients);
+  // const {order} = useSelector(state => state.ingredients);
    const {arrayInConstructor} = useSelector(state => state.arrayInConstructor);
+   const {orederNumber, orderNumberFailed, orederNumberRequest} = useSelector(state => state.order)
    const dispatch = useDispatch();
-console.log(ingredients)
-/*
+   //console.log(order)
+   const closeModal = () => {
+      setModalIsOpen(false)
+      dispatch({type: 'ORDER_CLEANING'})
+   }
+   console.log(orederNumber)
    const openModal = () => {
+      const arrayId = arrayInConstructor.map(e => e._id);
+      console.log(arrayId)
+      dispatch(sendOrderAction(arrayId))
+      if(orderNumberFailed) {
+         return(
+            <p>Произошла ошибка при получении данных</p>
+         )
+      }
+      else if(orederNumberRequest) {
+         return (
+            <p>Загрузка...</p>
+         )
+      }
+      console.log(orederNumber)
+    
+/*
       if (modalIsOpen === false) {
          setModalIsOpen(true)
-         const arrayId = arrayInConstructor.map(e => e._id);
          sendOrder(arrayId).then((result) => {
-            setOreder(result);
+            dispatch(result)
          })
             .catch((error) => {
                console.log(error)
             })
+      }*/
+   }
+   React.useEffect(()=> {
+      if (orederNumber!== null) {
+         dispatch(OPEN_ORDER_MODAL(orederNumber))
       }
-   }*/
+   }, [orederNumber])
 /*
    const closeModal = () => {
       if (modalIsOpen === true) {
@@ -81,7 +111,7 @@ console.log(ingredients)
          dispatch(ADD_INGREDIENT(ingredients))
         // setArrayInConstructor(ingredients)
       }
-   }, []);
+   }, [ingredients]);
    React.useEffect(
       () => {
          if (arrayInConstructor !== null) {
@@ -97,7 +127,9 @@ console.log(ingredients)
    <OrderDetails order={order} />
 </Modal>*/
    if (ingredients !== null) {
+      
       return (
+      <>
          <section className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
             <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} arrayInConstructor={arrayInConstructor} />
             <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
@@ -109,11 +141,15 @@ console.log(ingredients)
                   <p className="text text_type_digits-medium pr-2">{commonPrice}</p>
                   <CurrencyIcon type="primary" />
                </div>
-               <Button onClick={console.log('test')} type="primary" size="large">
+               <Button onClick={openModal} type="primary" size="large">
                   Оформить заказ
                </Button>
             </div>
          </section>
+         {orederNumber && (<Modal height={718} closeModal={closeModal}>
+   <OrderDetails order={orederNumber} />
+</Modal>)}
+         </>
       )
    }
    else {

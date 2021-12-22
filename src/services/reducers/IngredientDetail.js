@@ -3,7 +3,6 @@ from '../action/IngredientDetail';
 const initialState = {
     modalOpen: false,
     ingredient: null,
-    order:null
 }
 export const reducerIngredientDetail = (state = initialState, action) => {
     switch(action.type) {
@@ -11,6 +10,7 @@ export const reducerIngredientDetail = (state = initialState, action) => {
             {
                 return {
                     ...state,
+                    order:null,
                     modalOpen: true,
                     ingredient: action.ingredient
 
@@ -21,7 +21,7 @@ export const reducerIngredientDetail = (state = initialState, action) => {
                     return {
                         ...state,
                         modalOpen: true,
-                        oreder:action.order
+                        order:action.order
                     }
                 }
         case CLOSE_INGREDIENT_DETAILS:
@@ -30,7 +30,6 @@ export const reducerIngredientDetail = (state = initialState, action) => {
                     ...state,
                     modalOpen: false,
                     ingredient: null,
-                    order:null
                 }
             }
         default:
