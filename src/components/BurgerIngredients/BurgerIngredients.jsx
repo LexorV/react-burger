@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { getIngredientsAction } from '../../services/action/Ingredients'
+import { useDrag } from "react-dnd";
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
@@ -12,13 +13,21 @@ import {
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 const Ingtrdient = ({ ingtrdient, setModalIsOpen }) => {
+    const { _id, image, name, price, type} = ingtrdient
+    const uid = () => Date.now().toString(36) + Math.random().toString(36);
+   // const idConstr = uid()
+    const [, dragRef] = useDrag( {
+        type: 'ingredient',
+        item: {_id, image, name, price, type}
+    })
+
     const dispatch = useDispatch()
     const openModal = () => {
         dispatch(OPEN_INGREDIENT_DETAILS(ingtrdient));
         setModalIsOpen(true)
     }
     return (
-        <li onClickCapture={openModal} key={ingtrdient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
+        <li ref={dragRef}  onClickCapture={openModal} key={ingtrdient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
             <Counter count={1} size="default" />
             <img alt={ingtrdient.name} src={ingtrdient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
             <div className={`${burgerIngredientsStyle.card_price_box} pt-1 pb-1`}>

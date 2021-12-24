@@ -5,6 +5,8 @@ import appStyle from './App.module.css'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
 import {getIngredients} from '../../utils/burgerApi.js';
 import {IngredientsContext} from '../../services/Context.js'
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export default function App() {
   const [error, setError] = React.useState(null);
@@ -33,7 +35,7 @@ export default function App() {
   else {
     return (
       <div>
-
+<DndProvider backend={HTML5Backend}>
         <AppHeader />
         <main className={appStyle.main}>
           <BurgerIngredients />
@@ -42,6 +44,7 @@ export default function App() {
           </IngredientsContext.Provider>
 
         </main>
+        </DndProvider>
       </div>
     )
   }
