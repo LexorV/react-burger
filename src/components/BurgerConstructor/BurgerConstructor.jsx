@@ -13,13 +13,10 @@ import { sendOrderAction, OPEN_ORDER_MODAL } from '../../services/action/order'
 import { getIngredientsAction } from '../../services/action/Ingredients'
 import { useDrop } from "react-dnd";
 const ConstructorIngredient = ({ ingredient }) => {
-   const dispatch = useDispatch()
-   console.log(ingredient)
+   const dispatch = useDispatch();
    const handleClose = () => {
-      console.log(ingredient.idConstr)
       dispatch({ type: 'DELETE_INGREDIENT', ingredient })
       // setArrayInConstructor(ingredients.filter(item => item._id !== ingredient._id))
-     
    }
    return (
       <li className={burgerConstructorStyle.open_elements_box}>
@@ -29,9 +26,10 @@ const ConstructorIngredient = ({ ingredient }) => {
       </li>)
 }
 const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position }) => {
-   if (arrayInConstructor.length !== 0) {
-     const checkBun =  arrayInConstructor.some(e => e.type === 'bun')
+   const checkBun = () => { return arrayInConstructor.some(e => e.type === 'bun') }
+   if (arrayInConstructor.length !== 0 && checkBun()) {
       const arrayBun = arrayInConstructor.find(e => e.type === 'bun')
+      console.log(arrayBun)
       return (
          <div key={arrayBun._id} className={burgerConstructorStyle.lock_elements}>
             <ConstructorElement type={positionEn} isLocked={true}
@@ -45,7 +43,6 @@ const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position
 }
 const IngredientsInConstructor = ({ arrayInConstructor, type, setArrayInConstructor }) => {
    const uid = () => Date.now().toString(36) + Math.random().toString(36);
-   console.log(arrayInConstructor)
    if (!arrayInConstructor) {
       return <p>Выберите ингредиент</p>;
    }
@@ -71,7 +68,6 @@ export default function BurgerConstructor() {
    }
    const openModal = () => {
       const arrayId = arrayInConstructor.map(e => e._id);
-      console.log(arrayId)
       dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
          return (
@@ -109,15 +105,14 @@ export default function BurgerConstructor() {
       }*/
    React.useEffect(() => {
       if (ingredients !== null) {
-         console.log(ingredients)
          //dispatch(ADD_INGREDIENT(ingredients))
          // setArrayInConstructor(ingredients)
       }
    }, [ingredients]);
    React.useEffect(
       () => {
-         console.log(arrayInConstructor)
-         if (arrayInConstructor.length !== 0) {
+         const checkBun = () => { return arrayInConstructor.some(e => e.type === 'bun') }
+         if (arrayInConstructor.length !== 0 && checkBun()) {
             let price = 0;
             let bun = arrayInConstructor.find(e => e.type === 'bun');
             price = price + arrayInConstructor.filter(e => e.type !== 'bun').reduce((acc, e) => acc + e.price, 0) + bun.price;
@@ -128,14 +123,26 @@ export default function BurgerConstructor() {
    )
    const [, dropTarget] = useDrop({
       accept: 'ingredient',
-      drop(test) {
-         console.log(test)
-         dispatch(ADD_INGREDIENT(test))
+      drop(ingredient) {
+         if (ingredient.type === 'bun') {
+            const checkBun = () => { return arrayInConstructor.some(e => e.type === 'bun') }
+            if (checkBun()) {
+               const bunInArray = arrayInConstructor.find(e => e.type === 'bun')
+               dispatch({ type: 'DELETE_BUN', bunInArray })
+               dispatch(ADD_INGREDIENT(ingredient))
+            }
+            else {
+               dispatch(ADD_INGREDIENT(ingredient))
+            }
+         }
+         else {
+            dispatch(ADD_INGREDIENT(ingredient))
+         }
+
       }
    })
 
    if (ingredients !== null) {
-
       return (
          <>
             <section ref={dropTarget} className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
@@ -153,7 +160,7 @@ export default function BurgerConstructor() {
                      Оформить заказ
                   </Button>
                </div>
-               
+
             </section>
             {orederNumber && (<Modal height={718} closeModal={closeModal}>
                <OrderDetails order={orederNumber} />
