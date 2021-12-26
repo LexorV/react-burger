@@ -14,7 +14,6 @@ import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails.jsx';
 const Ingtrdient = ({ ingtrdient, setModalIsOpen }) => {
     const { _id, image, name, price, type} = ingtrdient
-    const uid = () => Date.now().toString(36) + Math.random().toString(36);
    // const idConstr = uid()
     const [, dragRef] = useDrag( {
         type: 'ingredient',

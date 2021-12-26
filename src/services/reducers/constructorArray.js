@@ -1,28 +1,46 @@
-import {ADD_INGREDIENT} from '../action/constructorArray'
+import { ADD_INGREDIENT } from '../action/constructorArray'
 const initialState = {
     arrayInConstructor: []
 }
 export const constructorArrayReducer = (state = initialState, action) => {
-    switch (action.type) {
+    switch(action.type) {
         case 'ADD_INGREDIENT':
             const uid = () => Date.now().toString(36) + Math.random().toString(36);
             const idConstr = uid()
-        return {
-            ...state, arrayInConstructor: [...state.arrayInConstructor, {...action.ingredient, idConstr}]
-        }
-        case 'DELETE_INGREDIENT':{
             return {
-                ...state, arrayInConstructor:[...state.arrayInConstructor.filter(item => item.idConstr !== action.ingredient.idConstr)]
+                ...state,
+                arrayInConstructor: [...state.arrayInConstructor, {...action.ingredient, idConstr }]
             }
-        }
-        case 'DELETE_BUN': {
-            console.log(action.bunInArray)
-            return {
-                ...state, arrayInConstructor:[...state.arrayInConstructor.filter(item => item._id !== action.bunInArray._id)]
+        case 'DELETE_INGREDIENT':
+            {
+                return {
+                    ...state,
+                    arrayInConstructor: [...state.arrayInConstructor.filter(item => item.idConstr !== action.ingredient.idConstr)]
+                }
             }
-        }
-        default: {
-            return state
-        }
+        case 'DELETE_BUN':
+            {
+                return {
+                    ...state,
+                    arrayInConstructor: [...state.arrayInConstructor.filter(item => item._id !== action.bunInArray._id)]
+                }
+            }
+        case 'SORT_INGERDIENTS':
+            {
+                console.log(action.dragIndex)
+                console.log(action.dropIndex)
+                const result = state.arrayInConstructor.slice()
+                result[action.dragIndex] = state.arrayInConstructor[action.dropIndex]
+                result[action.dropIndex] = state.arrayInConstructor[action.dragIndex]
+                return {
+                  ...state,
+                  arrayInConstructor: result
+                }
+                
+            }
+        default:
+            {
+                return state
+            }
     }
 }
