@@ -11,15 +11,32 @@ import { ADD_INGREDIENT } from '../../services/action/constructorArray'
 import { dataIngredients } from '../../utils/data'
 import { sendOrderAction, OPEN_ORDER_MODAL } from '../../services/action/order'
 import { getIngredientsAction } from '../../services/action/Ingredients'
-import { useDrop } from "react-dnd";
-const ConstructorIngredient = ({ ingredient }) => {
+import { useDrop, useDrag } from "react-dnd";
+const ConstructorIngredient = ({ ingredient, index }) => {
+   const DropDragRef = React.useRef(null);
    const dispatch = useDispatch();
+   const [{isDrag}, dragRef] = useDrag({
+      type: "ingredientInConstructior",
+      item: {ingredient, index},
+      collect: monitor => ({
+         isDrag: monitor.isDragging()
+     })
+  });
+  const [, dropIngred] = useDrop({
+   accept: 'ingredientInConstructior',
+   drop(data) {
+      dispatch({type:'SORT_INGERDIENTS', dragIndex:data.index, dropIndex:index})
+   }
+})
+dragRef(dropIngred(DropDragRef))
+//console.log(index)
    const handleClose = () => {
       dispatch({ type: 'DELETE_INGREDIENT', ingredient })
       // setArrayInConstructor(ingredients.filter(item => item._id !== ingredient._id))
    }
    return (
-      <li className={burgerConstructorStyle.open_elements_box}>
+      !isDrag &&
+      <li ref={DropDragRef} className={burgerConstructorStyle.open_elements_box}>
          <DragIcon type="primary" />
          <ConstructorElement isLocked={false} handleClose={handleClose}
             thumbnail={ingredient.image} text={ingredient.name} price={ingredient.price} />
@@ -29,7 +46,6 @@ const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position
    const checkBun = () => { return arrayInConstructor.some(e => e.type === 'bun') }
    if (arrayInConstructor.length !== 0 && checkBun()) {
       const arrayBun = arrayInConstructor.find(e => e.type === 'bun')
-      console.log(arrayBun)
       return (
          <div key={arrayBun._id} className={burgerConstructorStyle.lock_elements}>
             <ConstructorElement type={positionEn} isLocked={true}
@@ -38,7 +54,7 @@ const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position
    }
    else {
       return (
-         <p>Выберите ингредиент</p>)
+         <p>Выберите булку</p>)
    }
 }
 const IngredientsInConstructor = ({ arrayInConstructor, type, setArrayInConstructor }) => {
@@ -46,8 +62,8 @@ const IngredientsInConstructor = ({ arrayInConstructor, type, setArrayInConstruc
    if (!arrayInConstructor) {
       return <p>Выберите ингредиент</p>;
    }
-   return arrayInConstructor.filter(e => e.type !== type).map((ingredient) =>
-      <ConstructorIngredient key={uid()} arrayInConstructor={arrayInConstructor} ingredient={ingredient} setArrayInConstructor={setArrayInConstructor} />
+   return arrayInConstructor.filter(e => e.type !== type).map((ingredient, index) =>
+      <ConstructorIngredient key={uid()} index={index} arrayInConstructor={arrayInConstructor} ingredient={ingredient} setArrayInConstructor={setArrayInConstructor} />
    );
 }
 
@@ -141,13 +157,12 @@ export default function BurgerConstructor() {
 
       }
    })
-
    if (ingredients !== null) {
       return (
          <>
             <section ref={dropTarget} className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
                <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} arrayInConstructor={arrayInConstructor} />
-               <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
+               <ul  className={`${burgerConstructorStyle.open_elements} pt-4`}>
                   <IngredientsInConstructor type={'bun'} arrayInConstructor={arrayInConstructor} />
                </ul>
                <IngredientsInConstructorLock positionEn={'bottom'} position={'Низ'} arrayInConstructor={arrayInConstructor} />
