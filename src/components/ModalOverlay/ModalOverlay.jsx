@@ -1,7 +1,7 @@
 import modalOverlayStyle from './modalOverlay.module.css'
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 export default function ModalOverlay(props) {

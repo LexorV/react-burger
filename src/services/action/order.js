@@ -1,7 +1,7 @@
-import {sendOrder} from '../../utils/burgerApi'
-export const  GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
-export const  GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const  GET_ORDER_FAILED = 'GET_ORDER_FAILED';
+import { sendOrder } from '../../utils/burgerApi'
+export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
+export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
+export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const OPEN_ORDER_MODAL = (order) => {
     return {
         type: 'OPEN_INGREDIENT_DETAILS',
@@ -9,27 +9,27 @@ export const OPEN_ORDER_MODAL = (order) => {
     }
 
 }
-export  function sendOrderAction(arryId) {
+export function sendOrderAction(arryId) {
     return function(dispatch) {
         dispatch({
             type: GET_ORDER_REQUEST
         });;
         sendOrder(arryId).then(res => {
-            if(res && res.success) {
-                dispatch({
-                    type: GET_ORDER_SUCCESS,
-                    orederNumber: res
-                })
-            } else {
+                if(res && res.success) {
+                    dispatch({
+                        type: GET_ORDER_SUCCESS,
+                        orederNumber: res
+                    })
+                } else {
+                    dispatch({
+                        type: GET_ORDER_FAILED
+                    })
+                }
+            })
+            .catch(err => {
                 dispatch({
                     type: GET_ORDER_FAILED
                 })
-            }
-        })
-        .catch(err => {
-            dispatch({
-                type: GET_ORDER_FAILED
             })
-        })
     }
 }

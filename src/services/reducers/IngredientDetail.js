@@ -1,4 +1,4 @@
-import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS }
+import { CLOSE_INGREDIENT_DETAILS }
 from '../action/IngredientDetail';
 const initialState = {
     modalOpen: false,
@@ -10,20 +10,20 @@ export const reducerIngredientDetail = (state = initialState, action) => {
             {
                 return {
                     ...state,
-                    order:null,
+                    order: null,
                     modalOpen: true,
                     ingredient: action.ingredient
 
                 }
             }
-            case 'OPEN_ORDER_MODAL':
-                {
-                    return {
-                        ...state,
-                        modalOpen: true,
-                        order:action.order
-                    }
+        case 'OPEN_ORDER_MODAL':
+            {
+                return {
+                    ...state,
+                    modalOpen: true,
+                    order: action.order
                 }
+            }
         case CLOSE_INGREDIENT_DETAILS:
             {
                 return {

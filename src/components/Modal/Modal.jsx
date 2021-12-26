@@ -25,7 +25,7 @@ export default function Modal(props) {
     )
 }
 Modal.propTypes = {
-    elementIsOpen: PropTypes.bool.isRequired,
-    closeModal: PropTypes.func.isRequired,
-    height:PropTypes.number
+    elementIsOpen: PropTypes.bool,
+    closeModal: PropTypes.func,
+    height: PropTypes.number
 }

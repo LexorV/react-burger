@@ -4,35 +4,29 @@ import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
-import { IngredientsContext } from '../../services/Context.js';
-import { sendOrder } from '../../utils/burgerApi';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_INGREDIENT } from '../../services/action/constructorArray'
-import { dataIngredients } from '../../utils/data'
 import { sendOrderAction, OPEN_ORDER_MODAL } from '../../services/action/order'
-import { getIngredientsAction } from '../../services/action/Ingredients'
 import { useDrop, useDrag } from "react-dnd";
 const ConstructorIngredient = ({ ingredient, index }) => {
    const DropDragRef = React.useRef(null);
    const dispatch = useDispatch();
-   const [{isDrag}, dragRef] = useDrag({
+   const [{ isDrag }, dragRef] = useDrag({
       type: "ingredientInConstructior",
-      item: {ingredient, index},
+      item: { ingredient, index },
       collect: monitor => ({
          isDrag: monitor.isDragging()
-     })
-  });
-  const [, dropIngred] = useDrop({
-   accept: 'ingredientInConstructior',
-   drop(data) {
-      dispatch({type:'SORT_INGERDIENTS', dragIndex:data.index, dropIndex:index})
-   }
-})
-dragRef(dropIngred(DropDragRef))
-//console.log(index)
+      })
+   });
+   const [, dropIngred] = useDrop({
+      accept: 'ingredientInConstructior',
+      drop(data) {
+         dispatch({ type: 'SORT_INGERDIENTS', dragIndex: data.index, dropIndex: index })
+      }
+   })
+   dragRef(dropIngred(DropDragRef))
    const handleClose = () => {
       dispatch({ type: 'DELETE_INGREDIENT', ingredient })
-      // setArrayInConstructor(ingredients.filter(item => item._id !== ingredient._id))
    }
    return (
       !isDrag &&
@@ -68,13 +62,9 @@ const IngredientsInConstructor = ({ arrayInConstructor, type, setArrayInConstruc
 }
 
 export default function BurgerConstructor() {
-   //const { ingredients } = React.useContext(IngredientsContext);
-   //const ingredients = dataIngredients
    const { ingredients } = useSelector(state => state.ingredients);
-   //const [arrayInConstructor, setArrayInConstructor] = React.useState(null)
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
-   // const {order} = useSelector(state => state.ingredients);
    const { arrayInConstructor } = useSelector(state => state.arrayInConstructor);
    const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector(state => state.order)
    const dispatch = useDispatch();
@@ -95,34 +85,14 @@ export default function BurgerConstructor() {
             <p>Загрузка...</p>
          )
       }
-
-      /*
-            if (modalIsOpen === false) {
-               setModalIsOpen(true)
-               sendOrder(arrayId).then((result) => {
-                  dispatch(result)
-               })
-                  .catch((error) => {
-                     console.log(error)
-                  })
-            }*/
    }
    React.useEffect(() => {
       if (orederNumber !== null) {
          dispatch(OPEN_ORDER_MODAL(orederNumber))
       }
    }, [orederNumber])
-   /*
-      const closeModal = () => {
-         if (modalIsOpen === true) {
-            setModalIsOpen(false)
-            setOreder(null)
-         }
-      }*/
    React.useEffect(() => {
       if (ingredients !== null) {
-         //dispatch(ADD_INGREDIENT(ingredients))
-         // setArrayInConstructor(ingredients)
       }
    }, [ingredients]);
    React.useEffect(
@@ -162,7 +132,7 @@ export default function BurgerConstructor() {
          <>
             <section ref={dropTarget} className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
                <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} arrayInConstructor={arrayInConstructor} />
-               <ul  className={`${burgerConstructorStyle.open_elements} pt-4`}>
+               <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
                   <IngredientsInConstructor type={'bun'} arrayInConstructor={arrayInConstructor} />
                </ul>
                <IngredientsInConstructorLock positionEn={'bottom'} position={'Низ'} arrayInConstructor={arrayInConstructor} />
@@ -199,7 +169,8 @@ BurgerConstructor.propTypes = {
 ConstructorIngredient.propTypes = {
    ingredient: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
    ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-   setIngredients: PropTypes.func
+   setIngredients: PropTypes.func,
+   index: PropTypes.number
 }
 IngredientsInConstructor.propTypes = {
    type: PropTypes.string,

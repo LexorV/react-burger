@@ -1,4 +1,3 @@
-import { ADD_INGREDIENT } from '../action/constructorArray'
 const initialState = {
     arrayInConstructor: []
 }
@@ -27,16 +26,14 @@ export const constructorArrayReducer = (state = initialState, action) => {
             }
         case 'SORT_INGERDIENTS':
             {
-                console.log(action.dragIndex)
-                console.log(action.dropIndex)
                 const result = state.arrayInConstructor.slice()
                 result[action.dragIndex] = state.arrayInConstructor[action.dropIndex]
                 result[action.dropIndex] = state.arrayInConstructor[action.dragIndex]
                 return {
-                  ...state,
-                  arrayInConstructor: result
+                    ...state,
+                    arrayInConstructor: result
                 }
-                
+
             }
         default:
             {
