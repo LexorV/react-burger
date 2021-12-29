@@ -1,3 +1,10 @@
+import {
+    GET_ORDER_REQUEST,
+    GET_ORDER_SUCCESS,
+    GET_ORDER_FAILED,
+    ORDER_CLEANING
+}
+from '../action/order'
 const initialState = {
     orederNumberRequest: false,
     orderNumberFailed: false,
@@ -5,7 +12,7 @@ const initialState = {
 }
 export const orderReducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'GET_ORDER_REQUEST':
+        case GET_ORDER_REQUEST:
             {
                 return {
                     ...state,
@@ -14,7 +21,7 @@ export const orderReducer = (state = initialState, action) => {
                     orederNumber: null
                 }
             }
-        case 'GET_ORDER_SUCCESS':
+        case GET_ORDER_SUCCESS:
             {
                 return {
                     ...state,
@@ -22,7 +29,7 @@ export const orderReducer = (state = initialState, action) => {
                     orederNumber: action.orederNumber
                 }
             }
-        case 'GET_ORDER_FAILED':
+        case GET_ORDER_FAILED:
             {
                 return {
                     ...state,
@@ -30,7 +37,7 @@ export const orderReducer = (state = initialState, action) => {
                     orederNumberRequest: false,
                 }
             }
-        case 'ORDER_CLEANING':
+        case ORDER_CLEANING:
             {
                 return {
                     ...state,

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 
 export default function ModalOverlay(props) {
-    const element = document.getElementById('modal');
     const { modalOpen } = useSelector(state => state.ingredientDetail)
     const handleCloseOverlay = (e) => {
         if (e.target === e.currentTarget) {
@@ -25,5 +24,5 @@ export default function ModalOverlay(props) {
 }
 
 ModalOverlay.propTypes = {
-    closeModal: PropTypes.func.isRequired,
+    closeModal: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.oneOf([undefined]).isRequired]),
 };

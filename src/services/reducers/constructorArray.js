@@ -1,10 +1,17 @@
+import {
+    ADD_INGREDIENT,
+    DELETE_INGREDIENT,
+    SORT_INGERDIENTS,
+    DELETE_BUN
+}
+from '../action/constructorArray'
 const initialState = {
     arrayInConstructor: [],
     arrayID: []
 }
 export const constructorArrayReducer = (state = initialState, action) => {
     switch(action.type) {
-        case 'ADD_INGREDIENT':
+        case ADD_INGREDIENT:
             const uid = () => Date.now().toString(36) + Math.random().toString(36);
             const idConstr = uid()
             return {
@@ -12,7 +19,7 @@ export const constructorArrayReducer = (state = initialState, action) => {
                 arrayID: [...state.arrayID.concat(action.ingredient._id)],
                 arrayInConstructor: [...state.arrayInConstructor, {...action.ingredient, idConstr }]
             }
-        case 'DELETE_INGREDIENT':
+        case DELETE_INGREDIENT:
             const filterId = () => {
                 return state.arrayID.findIndex(e => e === action.ingredient._id)
             }
@@ -23,7 +30,7 @@ export const constructorArrayReducer = (state = initialState, action) => {
                 arrayID: result,
                 arrayInConstructor: [...state.arrayInConstructor.filter(item => item.idConstr !== action.ingredient.idConstr)]
             }
-        case 'DELETE_BUN':
+        case DELETE_BUN:
             {
                 return {
                     ...state,
@@ -31,7 +38,7 @@ export const constructorArrayReducer = (state = initialState, action) => {
                     arrayID: [...state.arrayID.filter(item => item !== action.bunInArray._id)]
                 }
             }
-        case 'SORT_INGERDIENTS':
+        case SORT_INGERDIENTS:
             {
                 const result = state.arrayInConstructor.slice().filter((item) =>
                     item.type !== 'bun');

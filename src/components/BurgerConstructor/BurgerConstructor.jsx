@@ -5,7 +5,7 @@ import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGERDIENTS,  DELETE_BUN } from '../../services/action/constructorArray'
+import { ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGERDIENTS, DELETE_BUN } from '../../services/action/constructorArray'
 import { sendOrderAction, OPEN_ORDER_MODAL, ORDER_CLEANING } from '../../services/action/order'
 import { useDrop, useDrag } from "react-dnd";
 const ConstructorIngredient = ({ ingredient, index }) => {
@@ -21,12 +21,16 @@ const ConstructorIngredient = ({ ingredient, index }) => {
    const [, dropIngred] = useDrop({
       accept: 'ingredientInConstructior',
       drop(data) {
-         dispatch(SORT_INGERDIENTS(data.index, index))
+         dispatch({
+            type: SORT_INGERDIENTS,
+            dragIndex: data.index,
+            dropIndex: index
+         })
       }
    })
    dragRef(dropIngred(DropDragRef))
    const handleClose = () => {
-      dispatch( DELETE_INGREDIENT(ingredient))
+      dispatch({ type: DELETE_INGREDIENT, ingredient: ingredient })
    }
    return (
       !isDrag &&
@@ -70,7 +74,7 @@ export default function BurgerConstructor() {
    const dispatch = useDispatch();
    const closeModal = () => {
       setModalIsOpen(false)
-      dispatch({type: ORDER_CLEANING})
+      dispatch({ type: ORDER_CLEANING })
    }
    const openModal = () => {
       const arrayId = arrayInConstructor.map(e => e._id);
@@ -88,7 +92,7 @@ export default function BurgerConstructor() {
    }
    React.useEffect(() => {
       if (orederNumber !== null) {
-         dispatch(OPEN_ORDER_MODAL(orederNumber))
+         dispatch({ type: OPEN_ORDER_MODAL, order: orederNumber })
       }
    }, [orederNumber])
    React.useEffect(() => {
@@ -114,15 +118,15 @@ export default function BurgerConstructor() {
             const checkBun = () => { return arrayInConstructor.some(e => e.type === 'bun') }
             if (checkBun()) {
                const bunInArray = arrayInConstructor.find(e => e.type === 'bun')
-               dispatch(DELETE_BUN(bunInArray))
-               dispatch(ADD_INGREDIENT(ingredient))
+               dispatch({ type: DELETE_BUN, bunInArray: bunInArray })
+               dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
             }
             else {
-               dispatch(ADD_INGREDIENT(ingredient))
+               dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
             }
          }
          else {
-            dispatch(ADD_INGREDIENT(ingredient))
+            dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
          }
 
       }
@@ -161,24 +165,21 @@ export default function BurgerConstructor() {
 }
 
 BurgerConstructor.propTypes = {
-   dataIngredients: PropTypes.array,
-   setIngredients: PropTypes.func,
-   elementIsOpen: PropTypes.bool,
-   closeModal: PropTypes.bool,
+   dataIngredients: PropTypes.PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
+   closeModal: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([undefined]).isRequired]),
 };
 ConstructorIngredient.propTypes = {
    ingredient: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
    ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-   setIngredients: PropTypes.func,
-   index: PropTypes.number
+   index: PropTypes.number.isRequired
 }
 IngredientsInConstructor.propTypes = {
-   type: PropTypes.string,
+   type: PropTypes.string.isRequired,
    ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-   etIngredients: PropTypes.func
+   arrayInConstructor: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
 }
 IngredientsInConstructorLock.propTypes = {
-   positionEn: PropTypes.string,
-   position: PropTypes.string,
+   positionEn: PropTypes.string.isRequired,
+   position: PropTypes.string.isRequired,
    ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired])
 }
