@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { getIngredientsAction } from '../../services/action/Ingredients'
 import { useDrag } from "react-dnd";
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import {
@@ -55,7 +54,7 @@ export default function BurgerIngredients() {
     const [current, setCurrent] = React.useState('Булки');
     const dispatch = useDispatch();
     const { ingredient } = useSelector(state => state.ingredientDetail)
-    const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(state => state.ingredients);
+    const { ingredients } = useSelector(state => state.ingredients);
     const closeModal = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
         setModalIsOpen(false)
@@ -83,20 +82,6 @@ export default function BurgerIngredients() {
         }
         //e.target.scrollTop = 239
     }
-    React.useEffect(() => {
-        dispatch(getIngredientsAction())
-    }, [dispatch])
-    if (ingredientsFailed) {
-        return (
-            <p>Произошла ошибка при получении данных</p>
-        )
-    }
-    else if (ingredientsRequest) {
-        return (
-            <p>Загрузка...</p>
-        )
-    }
-    else {
         return (
             <>
                 <section className={burgerIngredientsStyle.ingredients}>
@@ -132,8 +117,6 @@ export default function BurgerIngredients() {
                 </Modal>)}
             </>
         )
-    }
-
 }
 Ingtrdients.propTypes = {
     data: PropTypes.array,
@@ -141,7 +124,4 @@ Ingtrdients.propTypes = {
 }
 Ingtrdient.propTypes = {
     ingtrdientn: PropTypes.object,
-}
-BurgerIngredients.propTypes = {
-    dataIngrid: PropTypes.array
 }
