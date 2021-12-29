@@ -18,7 +18,8 @@ const Ingtrdient = ({ ingtrdient, setModalIsOpen }) => {
         type: 'ingredient',
         item: { _id, image, name, price, type }
     })
-
+    const { arrayID } = useSelector(state => state.arrayInConstructor)
+    const countIngredient = arrayID.filter(e => e === ingtrdient._id).length
     const dispatch = useDispatch()
     const openModal = () => {
         dispatch(OPEN_INGREDIENT_DETAILS(ingtrdient));
@@ -26,7 +27,7 @@ const Ingtrdient = ({ ingtrdient, setModalIsOpen }) => {
     }
     return (
         <li ref={dragRef} onClickCapture={openModal} key={ingtrdient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
-            <Counter count={1} size="default" />
+            {countIngredient > 0 ? <Counter count={countIngredient} size="default" />:null}
             <img alt={ingtrdient.name} src={ingtrdient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
             <div className={`${burgerIngredientsStyle.card_price_box} pt-1 pb-1`}>
                 <p className="text text_type_digits-default pr-2">{ingtrdient.price}</p>
