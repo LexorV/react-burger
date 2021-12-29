@@ -2,7 +2,8 @@ import {
     ADD_INGREDIENT,
     DELETE_INGREDIENT,
     SORT_INGERDIENTS,
-    DELETE_BUN
+    DELETE_BUN,
+    CLEAR_CONSTRUCTOR
 }
 from '../action/constructorArray'
 const initialState = {
@@ -50,8 +51,14 @@ export const constructorArrayReducer = (state = initialState, action) => {
                     ...state,
                     arrayInConstructor: result3
                 }
-
             }
+            case CLEAR_CONSTRUCTOR: {
+                return {
+                    arrayInConstructor:[],
+                    arrayID:[]
+                }
+            }
+
         default:
             {
                 return state

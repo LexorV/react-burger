@@ -5,7 +5,14 @@ import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGERDIENTS, DELETE_BUN } from '../../services/action/constructorArray'
+import {
+   ADD_INGREDIENT,
+   DELETE_INGREDIENT,
+   SORT_INGERDIENTS,
+   DELETE_BUN,
+   CLEAR_CONSTRUCTOR
+}
+   from '../../services/action/constructorArray'
 import { sendOrderAction, OPEN_ORDER_MODAL, ORDER_CLEANING } from '../../services/action/order'
 import { useDrop, useDrag } from "react-dnd";
 const ConstructorIngredient = ({ ingredient, index }) => {
@@ -75,6 +82,8 @@ export default function BurgerConstructor() {
    const closeModal = () => {
       setModalIsOpen(false)
       dispatch({ type: ORDER_CLEANING })
+      dispatch({ type: CLEAR_CONSTRUCTOR})
+      setCommonPrice(0)
    }
    const openModal = () => {
       const arrayId = arrayInConstructor.map(e => e._id);
