@@ -1,3 +1,4 @@
+import React from 'react';
 import modalStyle from './modal.module.css'
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
@@ -12,6 +13,16 @@ export default function Modal(props) {
             return modalStyle.modal_container_height_718
         }
     }
+    React.useEffect(() => {
+        const handleEscClose = (e) => {
+            e.preventDefault()
+            e.key === 'Escape' &&  props.closeModal();
+        }
+        document.addEventListener('keydown', handleEscClose);
+        return () => {
+            document.removeEventListener('keydown', handleEscClose);
+        }
+    }, [props.closeModal]);
     const element = document.getElementById('modal');
     return createPortal(
         <ModalOverlay closeModal={props.closeModal} element={element} elementIsOpen={props.elementIsOpen}>

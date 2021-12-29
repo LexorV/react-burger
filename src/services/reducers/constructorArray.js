@@ -18,9 +18,8 @@ export const constructorArrayReducer = (state = initialState, action) => {
             const filterId = () => {
                 return state.arrayID.findIndex(e => e === action.ingredient._id)
             }
-            const chekId2 = filterId();
             const result = state.arrayID.slice()
-            result.splice(chekId2, 1)
+            result.splice(filterId(), 1)
             return {
                 ...state,
                 arrayID: result,
