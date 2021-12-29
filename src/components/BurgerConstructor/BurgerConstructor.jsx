@@ -5,8 +5,8 @@ import OrderDetails from '../OrderDetails/OrderDetails.jsx';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_INGREDIENT } from '../../services/action/constructorArray'
-import { sendOrderAction, OPEN_ORDER_MODAL } from '../../services/action/order'
+import { ADD_INGREDIENT, DELETE_INGREDIENT, SORT_INGERDIENTS,  DELETE_BUN } from '../../services/action/constructorArray'
+import { sendOrderAction, OPEN_ORDER_MODAL, ORDER_CLEANING } from '../../services/action/order'
 import { useDrop, useDrag } from "react-dnd";
 const ConstructorIngredient = ({ ingredient, index }) => {
    const DropDragRef = React.useRef(null);
@@ -21,12 +21,12 @@ const ConstructorIngredient = ({ ingredient, index }) => {
    const [, dropIngred] = useDrop({
       accept: 'ingredientInConstructior',
       drop(data) {
-         dispatch({ type: 'SORT_INGERDIENTS', dragIndex: data.index, dropIndex: index })
+         dispatch(SORT_INGERDIENTS(data.index, index))
       }
    })
    dragRef(dropIngred(DropDragRef))
    const handleClose = () => {
-      dispatch({ type: 'DELETE_INGREDIENT', ingredient })
+      dispatch( DELETE_INGREDIENT(ingredient))
    }
    return (
       !isDrag &&
@@ -70,7 +70,7 @@ export default function BurgerConstructor() {
    const dispatch = useDispatch();
    const closeModal = () => {
       setModalIsOpen(false)
-      dispatch({ type: 'ORDER_CLEANING' })
+      dispatch({type: ORDER_CLEANING})
    }
    const openModal = () => {
       const arrayId = arrayInConstructor.map(e => e._id);
@@ -114,7 +114,7 @@ export default function BurgerConstructor() {
             const checkBun = () => { return arrayInConstructor.some(e => e.type === 'bun') }
             if (checkBun()) {
                const bunInArray = arrayInConstructor.find(e => e.type === 'bun')
-               dispatch({ type: 'DELETE_BUN', bunInArray })
+               dispatch(DELETE_BUN(bunInArray))
                dispatch(ADD_INGREDIENT(ingredient))
             }
             else {

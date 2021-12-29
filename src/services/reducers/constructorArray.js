@@ -7,14 +7,12 @@ export const constructorArrayReducer = (state = initialState, action) => {
         case 'ADD_INGREDIENT':
             const uid = () => Date.now().toString(36) + Math.random().toString(36);
             const idConstr = uid()
-            console.log(idConstr);
             return {
                 ...state,
                 arrayID: [...state.arrayID.concat(action.ingredient._id)],
                 arrayInConstructor: [...state.arrayInConstructor, {...action.ingredient, idConstr }]
             }
         case 'DELETE_INGREDIENT':
-            //console.log(action.ingredient)
             const filterId = () => {
                 return state.arrayID.findIndex(e => e === action.ingredient._id)
             }

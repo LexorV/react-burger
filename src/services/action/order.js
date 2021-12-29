@@ -2,6 +2,7 @@ import { sendOrder } from '../../utils/burgerApi'
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
+export const ORDER_CLEANING = 'ORDER_CLEANING';
 export const OPEN_ORDER_MODAL = (order) => {
     return {
         type: 'OPEN_INGREDIENT_DETAILS',

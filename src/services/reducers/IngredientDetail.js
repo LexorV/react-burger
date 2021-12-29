@@ -1,5 +1,3 @@
-import { CLOSE_INGREDIENT_DETAILS }
-from '../action/IngredientDetail';
 const initialState = {
     modalOpen: false,
     ingredient: null,
@@ -24,7 +22,7 @@ export const reducerIngredientDetail = (state = initialState, action) => {
                     order: action.order
                 }
             }
-        case CLOSE_INGREDIENT_DETAILS:
+        case 'CLOSE_INGREDIENT_DETAILS':
             {
                 return {
                     ...state,
