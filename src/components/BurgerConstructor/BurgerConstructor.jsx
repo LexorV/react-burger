@@ -140,6 +140,7 @@ export default function BurgerConstructor() {
 
       }
    })
+   console.log(arrayInConstructor.length)
    if (ingredients !== null) {
       return (
          <>
@@ -154,9 +155,9 @@ export default function BurgerConstructor() {
                      <p className="text text_type_digits-medium pr-2">{commonPrice}</p>
                      <CurrencyIcon type="primary" />
                   </div>
-                  <Button onClick={openModal} type="primary" size="large">
+                  { arrayInConstructor.length > 0 ?<Button onClick={openModal} type="primary" size="large">
                      Оформить заказ
-                  </Button>
+                  </Button>: null}
                </div>
 
             </section>
