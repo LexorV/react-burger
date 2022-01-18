@@ -9,13 +9,13 @@ export const getIngredients = () => {
 
 }
 export const sendOrder = (ingredients) => {
-    return fetch(`${urlServ}orders`,{
-        method: 'POST',
-        headers: new Headers([
-            ['Content-Type', 'application/json'],
-          ]),
-        body: JSON.stringify({'ingredients': ingredients})
-    })
-    .then(checkResponse)
-    
+    return fetch(`${urlServ}orders`, {
+            method: 'POST',
+            headers: new Headers([
+                ['Content-Type', 'application/json'],
+            ]),
+            body: JSON.stringify({ 'ingredients': ingredients })
+        })
+        .then(checkResponse)
+
 }

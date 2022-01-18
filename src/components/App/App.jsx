@@ -3,45 +3,32 @@ import AppHeader from '../AppHeader/AppHeader.jsx';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients.jsx';
 import appStyle from './App.module.css'
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor.jsx';
-import {getIngredients} from '../../utils/burgerApi.js';
-import {IngredientsContext} from '../../services/Context.js'
+import { DndProvider } from "react-dnd";
+import { useSelector, useDispatch } from 'react-redux';
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredientsAction } from '../../services/action/Ingredients'
 
 export default function App() {
-  const [error, setError] = React.useState(null);
-  const [ingredients, setIngredients] = React.useState(null);
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
+  const dispatch = useDispatch();
   React.useEffect(() => {
-    getIngredients()
-      .then((result) => {
-        setIsLoaded(true);
-        setIngredients(result.data)
-      },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [])
-  if (error) {
+      dispatch(getIngredientsAction())
+    }, [dispatch])
+  if (ingredientsFailed) {
     return <div>Произошла ошибка</div>;
-  } else if (!isLoaded) {
+  } else if ( ingredientsRequest) {
     return <div>Загрузка...</div>;
   }
   else {
     return (
       <div>
-
+<DndProvider backend={HTML5Backend}>
         <AppHeader />
         <main className={appStyle.main}>
-          <BurgerIngredients dataIngrid={ingredients} />
-          <IngredientsContext.Provider value={{ ingredients, setIngredients}}>
+          <BurgerIngredients />
           <BurgerConstructor />
-          </IngredientsContext.Provider>
-
         </main>
+        </DndProvider>
       </div>
     )
   }
