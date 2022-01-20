@@ -1,9 +1,9 @@
 import React from 'react';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burgerConstructor.module.css';
-import OrderDetails from '../OrderDetails/OrderDetails.jsx';
+import OrderDetails from '../OrderDetails/OrderDetails';
 import PropTypes from 'prop-types';
-import Modal from '../Modal/Modal.jsx';
+import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import {
    ADD_INGREDIENT,

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {TingredientDetails} from '../../services/types/IngredientDetailType'
 import ingredientDetailsStyles from './ingredientDetails.module.css';
-const IngredientDetails = React.memo(({ dataIngrid }) => {
+const IngredientDetails = React.memo(({ dataIngrid }:TingredientDetails) => {
 
     return (
         <div className={ingredientDetailsStyles.main}>
@@ -31,9 +32,10 @@ const IngredientDetails = React.memo(({ dataIngrid }) => {
 
 
 })
+/*
 IngredientDetails.propTypes = {
     dataIngrid: PropTypes.object.isRequired,
-}
+}*/
 
 
 export default IngredientDetails

@@ -1,11 +1,13 @@
 import modalOverlayStyle from './modalOverlay.module.css'
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
+import {TmodalOverlayComponent} from '../../services/types/ModalType';
+import {FC} from 'react';
 
 
-export default function ModalOverlay(props) {
-    const { modalOpen } = useSelector(state => state.ingredientDetail)
-    const handleCloseOverlay = (e) => {
+export const ModalOverlay:FC<TmodalOverlayComponent> = (props) => {
+    const { modalOpen } = useSelector((state:any) => state.ingredientDetail)
+    const handleCloseOverlay = (e:any) => {
         if (e.target === e.currentTarget) {
             props.closeModal()
         }
@@ -26,3 +28,4 @@ export default function ModalOverlay(props) {
 ModalOverlay.propTypes = {
     closeModal: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.oneOf([undefined]).isRequired]),
 };
+export default ModalOverlay
