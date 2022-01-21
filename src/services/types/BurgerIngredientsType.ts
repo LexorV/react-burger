@@ -1,23 +1,23 @@
 export type ingredient = {
-    calories: number;
-    carbohydrates: number;
-    fat: number;
-    image:string;
-    image_large:string;
-    image_mobile: string;
-    name: string;
-    price: number;
-    proteins: number;
-    type: string;
-    __v: number;
-    _id: string;
+    readonly calories: number;
+    readonly carbohydrates: number;
+    readonly fat: number;
+    readonly image:string;
+    readonly image_large:string;
+    readonly image_mobile: string;
+    readonly name: string;
+    readonly price: number;
+    readonly proteins: number;
+    readonly type: string;
+    readonly __v: number;
+    readonly _id: string;
 }
 export type TingredientTypeComponent = {
 ingredient:ingredient;
 setModalIsOpen: Function;
 }
 export type TingredientsTypeComponent = {
-    data:any,
-    type:string,
+    data:any;
+    type:string;
     setModalIsOpen:Function;
 }

@@ -1,8 +1,7 @@
 export type TmodalComponent = {
 height: number;
-closeModal:any;
+closeModal: Function;
 }
 export type TmodalOverlayComponent = {
-    closeModal:any;
-    element:any;
+    closeModal:Function;
 }

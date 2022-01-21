@@ -1,4 +1,5 @@
 import React from 'react';
+import {FC} from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks';
@@ -19,7 +20,7 @@ const Ingtrdient = ({ ingredient, setModalIsOpen }:TingredientTypeComponent) => 
         item: { _id, image, name, price, type }
     })
     const { arrayID } = useSelector(state => state.arrayInConstructor)
-    const countIngredient = arrayID.filter((e:any) => e === ingredient._id).length
+    const countIngredient = arrayID.filter((e:string) => e === ingredient._id).length
     const dispatch = useDispatch()
     const openModal = () => {
         dispatch({ type: OPEN_INGREDIENT_DETAILS, ingredient: ingredient })
@@ -36,10 +37,11 @@ const Ingtrdient = ({ ingredient, setModalIsOpen }:TingredientTypeComponent) => 
             <p className="text text_type_main-small">{ingredient.name}</p>
         </li>)
 }
-const Ingtrdients = ({ data, type, setModalIsOpen }:TingredientsTypeComponent) => {
-    if (data !== null) {
+const Ingtrdients:FC<TingredientsTypeComponent> = ({ data, type, setModalIsOpen }) => {
+
+    if (data !== null  ) {
         const listItems = data
-            .filter((e:any) => e.type === type)
+            .filter((e:ingredient) => e.type === type)
             .map((ingtrdient:ingredient) =>
                 <Ingtrdient key={ingtrdient._id} ingredient={ingtrdient} setModalIsOpen={setModalIsOpen} />
             )
@@ -51,15 +53,16 @@ const Ingtrdients = ({ data, type, setModalIsOpen }:TingredientsTypeComponent) =
     }
 }
 export default function BurgerIngredients() {
-    const [modalIsOpen, setModalIsOpen] = React.useState(false)
+    const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false)
     const [current, setCurrent] = React.useState<string>('Булки');
     const dispatch = useDispatch();
     const { ingredient } = useSelector(state => state.ingredientDetail)
     const { ingredients } = useSelector(state => state.ingredients);
-    const closeModal = () => {
+    const closeModal:Function = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
         setModalIsOpen(false)
     }
+    console.log(typeof closeModal)
     const tabClick = (current:string) => {
         if (current === 'Булки') {
             setCurrent('Булки')

@@ -15,6 +15,7 @@ export const Modal:FC<TmodalComponent> = (props) => {
             return modalStyle.modal_container_height_718
         }
     }
+    console.log( typeof props.closeModal)
     React.useEffect(() => {
         const handleEscClose = (e:any) => {
             e.preventDefault()
@@ -27,9 +28,9 @@ export const Modal:FC<TmodalComponent> = (props) => {
     }, [props.closeModal]);
     const element:any = document.getElementById('modal');
     return createPortal(
-        <ModalOverlay closeModal={props.closeModal} element={element}>
+        <ModalOverlay closeModal={props.closeModal}>
             <div className={`${modalStyle.modal_container} ${checkHeight()}`}>
-                <button onClick={props.closeModal} type="button" className={modalStyle.modal_btn_close}>
+                <button onClick={() => props.closeModal()} type="button" className={modalStyle.modal_btn_close}>
                     <CloseIcon type="primary" />
                 </button>
                 {props.children}
@@ -38,7 +39,8 @@ export const Modal:FC<TmodalComponent> = (props) => {
     )
 }
 export default Modal
+/*
 Modal.propTypes = {
     closeModal: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.oneOf([undefined]).isRequired]),
     height: PropTypes.number.isRequired
-}
+}*/

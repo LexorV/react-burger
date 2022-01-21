@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {TingredientDetails} from '../../services/types/IngredientDetailType'
+import { ingredient } from '../../services/types/BurgerIngredientsType';
 import ingredientDetailsStyles from './ingredientDetails.module.css';
+export type TingredientDetails = {
+    dataIngrid:ingredient
+}
 const IngredientDetails = React.memo(({ dataIngrid }:TingredientDetails) => {
-
     return (
         <div className={ingredientDetailsStyles.main}>
             <h2 className="mt-10 mr-10 ml-10 text text_type_main-large">Детали ингредиента</h2>
