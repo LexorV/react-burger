@@ -1,5 +1,5 @@
 import React from 'react';
-import { ingredient } from '../../services/types/BurgerIngredientsType';
+import { ingredient } from '../../services/types/ingredientsType';
 import ingredientDetailsStyles from './ingredientDetails.module.css';
 export type TingredientDetails = {
     dataIngrid:ingredient

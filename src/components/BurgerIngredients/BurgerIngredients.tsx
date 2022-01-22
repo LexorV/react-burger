@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
-import {TingredientTypeComponent, TingredientsTypeComponent, ingredient} from '../../services/types/BurgerIngredientsType'
+import {TingredientTypeComponent, TingredientsTypeComponent, ingredient} from '../../services/types/ingredientsType'
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
@@ -39,7 +39,7 @@ const Ingtrdient = ({ ingredient, setModalIsOpen }:TingredientTypeComponent) => 
 }
 const Ingtrdients:FC<TingredientsTypeComponent> = ({ data, type, setModalIsOpen }) => {
 
-    if (data !== null  ) {
+    if (data !== null) {
         const listItems = data
             .filter((e:ingredient) => e.type === type)
             .map((ingtrdient:ingredient) =>

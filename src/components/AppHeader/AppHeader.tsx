@@ -10,7 +10,7 @@ export default function AppHeader() {
                     <p className="text text_type_main-default pl-2">Конструктор</p>
                 </li>
                 <li className={`${headerStyle.menu_link} pl-2 p-5`}>
-                    <ListIcon className="pr-2" type="secondary" />
+                    <ListIcon type="secondary" />
                     <p className="text text_type_main-default pl-2 text_color_inactive">Лента заказов</p>
                 </li>
             </nav>
