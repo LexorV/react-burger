@@ -1,10 +1,10 @@
 import React from 'react';
-import {FC} from 'react';
+import { FC } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
-import {TingredientTypeComponent, TingredientsTypeComponent, ingredient} from '../../services/types/ingredientsType'
+import { TingredientTypeComponent, TingredientsTypeComponent, ingredient } from '../../services/types/ingredientsType'
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
@@ -13,14 +13,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-const Ingtrdient = ({ ingredient, setModalIsOpen }:TingredientTypeComponent) => {
+const Ingtrdient = ({ ingredient, setModalIsOpen }: TingredientTypeComponent) => {
     const { _id, image, name, price, type } = ingredient
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: { _id, image, name, price, type }
     })
     const { arrayID } = useSelector(state => state.arrayInConstructor)
-    const countIngredient = arrayID.filter((e:string) => e === ingredient._id).length
+    const countIngredient = arrayID.filter((e: string) => e === ingredient._id).length
     const dispatch = useDispatch()
     const openModal = () => {
         dispatch({ type: OPEN_INGREDIENT_DETAILS, ingredient: ingredient })
@@ -37,12 +37,12 @@ const Ingtrdient = ({ ingredient, setModalIsOpen }:TingredientTypeComponent) => 
             <p className="text text_type_main-small">{ingredient.name}</p>
         </li>)
 }
-const Ingtrdients:FC<TingredientsTypeComponent> = ({ data, type, setModalIsOpen }) => {
+const Ingtrdients: FC<TingredientsTypeComponent> = ({ data, type, setModalIsOpen }) => {
 
     if (data !== null) {
         const listItems = data
-            .filter((e:ingredient) => e.type === type)
-            .map((ingtrdient:ingredient) =>
+            .filter((e: ingredient) => e.type === type)
+            .map((ingtrdient: ingredient) =>
                 <Ingtrdient key={ingtrdient._id} ingredient={ingtrdient} setModalIsOpen={setModalIsOpen} />
             )
         return listItems
@@ -58,12 +58,11 @@ export default function BurgerIngredients() {
     const dispatch = useDispatch();
     const { ingredient } = useSelector(state => state.ingredientDetail)
     const { ingredients } = useSelector(state => state.ingredients);
-    const closeModal:Function = () => {
+    const closeModal: Function = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
         setModalIsOpen(false)
     }
-    console.log(typeof closeModal)
-    const tabClick = (current:string) => {
+    const tabClick = (current: string) => {
         if (current === 'Булки') {
             setCurrent('Булки')
         }
@@ -74,7 +73,7 @@ export default function BurgerIngredients() {
             setCurrent('Начинки')
         }
     }
-    const handleScroll = (e:any) => {
+    const handleScroll = (e: any) => {
         if (e.target.scrollTop < 239) {
             setCurrent('Булки')
         }

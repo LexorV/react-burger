@@ -8,7 +8,7 @@ import {
 from '../action/constructorArray'
 export type TarrayID = {
     arrayInConstructor:any,
-    arrayID:any
+    arrayID:string[]
 }
 const initialState:TarrayID = {
     arrayInConstructor: [],

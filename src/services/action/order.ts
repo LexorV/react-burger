@@ -4,8 +4,8 @@ export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 export const ORDER_CLEANING = 'ORDER_CLEANING';
 export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL';
-export function sendOrderAction(arryId) {
-    return function(dispatch) {
+export function sendOrderAction(arryId:string[]) {
+    return function(dispatch:Function) {
         dispatch({
             type: GET_ORDER_REQUEST
         })

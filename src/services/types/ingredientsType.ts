@@ -1,11 +1,9 @@
-import { type } from "os"
-
 export type ingredient = {
     readonly calories: number;
     readonly carbohydrates: number;
     readonly fat: number;
-    readonly image:string;
-    readonly image_large:string;
+    readonly image: string;
+    readonly image_large: string;
     readonly image_mobile: string;
     readonly name: string;
     readonly price: number;
@@ -15,35 +13,35 @@ export type ingredient = {
     readonly _id: string;
 }
 type TconstructorIngredientTemp = Omit<ingredient,
-'fat'
-|'image_large'
-| 'image_mobile'
-| 'proteins'
-| '__v'
-|'calories'
-|'carbohydrates'
+    'fat'
+    | 'image_large'
+    | 'image_mobile'
+    | 'proteins'
+    | '__v'
+    | 'calories'
+    | 'carbohydrates'
 >;
 export type TconstructorIngredient = TconstructorIngredientTemp & {
-    idConstr:string
+    idConstr: string
 }
 export type TconstructorDropType = {
-    index:number;
-    ingredient:TconstructorIngredient;
+    index: number;
+    ingredient: TconstructorIngredient;
 }
 
 
 export type TingredientTypeComponent = {
-ingredient:ingredient;
-setModalIsOpen: Function;
+    ingredient: ingredient;
+    setModalIsOpen: Function;
 }
 export type TingredientsTypeComponent = {
-    data:any;
-    type:string;
-    setModalIsOpen:Function;
+    data: any;
+    type: string;
+    setModalIsOpen: Function;
 }
 export type TconstructorIngredientComponent = {
-    ingredient:TconstructorIngredient;
-    index:number;
+    ingredient: TconstructorIngredient;
+    index: number;
 }
 export type TingredientsInConstructorLock = {
     arrayInConstructor: [];
@@ -51,6 +49,6 @@ export type TingredientsInConstructorLock = {
     position: string;
 }
 export type TingredientsInConstructor = {
-    arrayInConstructor:any;
+    arrayInConstructor: any;
     type: string;
 }

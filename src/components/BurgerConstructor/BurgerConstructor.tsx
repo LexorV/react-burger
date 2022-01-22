@@ -2,7 +2,6 @@ import React from 'react';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
-import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -62,7 +61,6 @@ const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position
    const checkBun = () => { return arrayInConstructor.some((e:TconstructorIngredient) => e.type === 'bun') }
    if (arrayInConstructor.length !== 0 && checkBun()) {
       const arrayBun:any = arrayInConstructor.find((e:ingredient) => e.type === 'bun')
-      console.log(arrayBun)
       return (
          <div key={arrayBun._id} className={burgerConstructorStyle.lock_elements}>
             <ConstructorElement type={positionEn} isLocked={true}

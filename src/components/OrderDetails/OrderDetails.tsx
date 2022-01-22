@@ -1,8 +1,7 @@
-import React from 'react';
 import orderDetailsStyles from './orderDetails.module.css';
 import done from '../../images/done.png';
 import PropTypes from 'prop-types';
-export default function OrderDetails({ order }) {
+export default function OrderDetails({ order }:any) {
     if (order !== null) {
         return (
             <div className={orderDetailsStyles.main}>
