@@ -2,7 +2,6 @@ import React from 'react';
 import {FC} from 'react';
 import modalStyle from './modal.module.css'
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import {TmodalComponent} from '../../services/types/ModalType';
@@ -39,8 +38,3 @@ export const Modal:FC<TmodalComponent> = (props) => {
     )
 }
 export default Modal
-/*
-Modal.propTypes = {
-    closeModal: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.oneOf([undefined]).isRequired]),
-    height: PropTypes.number.isRequired
-}*/

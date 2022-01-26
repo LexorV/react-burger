@@ -1,8 +1,8 @@
 import React from 'react';
-import { ingredient } from '../../services/types/ingredientsType';
+import { Tingredient } from '../../services/types/ingredientsType';
 import ingredientDetailsStyles from './ingredientDetails.module.css';
 export type TingredientDetails = {
-    dataIngrid:ingredient
+    dataIngrid:Tingredient
 }
 const IngredientDetails = React.memo(({ dataIngrid }:TingredientDetails) => {
     return (

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
-import { TingredientTypeComponent, TingredientsTypeComponent, ingredient } from '../../services/types/ingredientsType'
+import { Tingredient } from '../../services/types/ingredientsType'
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
@@ -13,7 +13,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-const Ingtrdient = ({ ingredient, setModalIsOpen }: TingredientTypeComponent) => {
+const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({ ingredient, setModalIsOpen }) => {
     const { _id, image, name, price, type } = ingredient
     const [, dragRef] = useDrag({
         type: 'ingredient',
@@ -37,13 +37,13 @@ const Ingtrdient = ({ ingredient, setModalIsOpen }: TingredientTypeComponent) =>
             <p className="text text_type_main-small">{ingredient.name}</p>
         </li>)
 }
-const Ingtrdients: FC<TingredientsTypeComponent> = ({ data, type, setModalIsOpen }) => {
+const Ingredients: FC<{ data: any, type: string, setModalIsOpen: Function }> = ({ data, type, setModalIsOpen }) => {
 
     if (data !== null) {
         const listItems = data
-            .filter((e: ingredient) => e.type === type)
-            .map((ingtrdient: ingredient) =>
-                <Ingtrdient key={ingtrdient._id} ingredient={ingtrdient} setModalIsOpen={setModalIsOpen} />
+            .filter((e: Tingredient) => e.type === type)
+            .map((ingtrdient: Tingredient) =>
+                <Ingredient key={ingtrdient._id} ingredient={ingtrdient} setModalIsOpen={setModalIsOpen} />
             )
         return listItems
     }
@@ -102,15 +102,15 @@ export default function BurgerIngredients() {
                         Булки
                     </h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingtrdients setModalIsOpen={setModalIsOpen} data={ingredients} type='bun' />
+                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type='bun' />
                     </ul>
                     <h2 className="text text_type_main-medium">Соусы</h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingtrdients setModalIsOpen={setModalIsOpen} data={ingredients} type='sauce' />
+                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type='sauce' />
                     </ul>
                     <h2 className="text text_type_main-medium">Начинки</h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingtrdients setModalIsOpen={setModalIsOpen} data={ingredients} type='main' />
+                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type='main' />
                     </ul>
                 </div>
             </section>
@@ -119,12 +119,4 @@ export default function BurgerIngredients() {
             </Modal>)}
         </>
     )
-}
-/*
-Ingtrdients.propTypes = {
-    data: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-    type: PropTypes.string.isRequired
-}*/
-Ingtrdient.propTypes = {
-    ingredient: PropTypes.object.isRequired,
 }

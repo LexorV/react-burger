@@ -1,16 +1,13 @@
 import React from 'react';
+import { FC } from 'react';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-   TconstructorIngredientComponent,
-   TingredientsInConstructorLock,
-   TingredientsInConstructor,
-   ingredient,
-   TconstructorIngredient,
-   TconstructorDropType
+   Tingredient,
+   TconstructorDrop
 } from '../../services/types/ingredientsType'
 import {
    ADD_INGREDIENT,
@@ -22,7 +19,7 @@ import {
    from '../../services/action/constructorArray'
 import { sendOrderAction, OPEN_ORDER_MODAL, ORDER_CLEANING } from '../../services/action/order'
 import { useDrop, useDrag } from "react-dnd";
-const ConstructorIngredient = ({ ingredient, index }:TconstructorIngredientComponent) => {
+const ConstructorIngredient:FC<{ingredient:Tingredient, index:number}> = ({ ingredient, index }) => {
    const DropDragRef = React.useRef(null);
    const dispatch = useDispatch();
    const [{ isDrag }, dragRef] = useDrag({
@@ -34,7 +31,7 @@ const ConstructorIngredient = ({ ingredient, index }:TconstructorIngredientCompo
    });
    const [, dropIngred] = useDrop({
       accept: 'ingredientInConstructior',
-      drop(data:TconstructorDropType) {
+      drop(data:TconstructorDrop) {
          dispatch({
             type: SORT_INGERDIENTS,
             dragIndex: data.index,
@@ -57,14 +54,15 @@ const ConstructorIngredient = ({ ingredient, index }:TconstructorIngredientCompo
       </>
       )
 }
-const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position }:TingredientsInConstructorLock) => {
-   const checkBun = () => { return arrayInConstructor.some((e:TconstructorIngredient) => e.type === 'bun') }
-   if (arrayInConstructor.length !== 0 && checkBun()) {
-      const arrayBun:any = arrayInConstructor.find((e:ingredient) => e.type === 'bun')
+const IngredientsInConstructorLock: FC<{arrayInConstructor:[], positionEn:'top' | 'bottom', position:string}> =
+({ arrayInConstructor, positionEn, position }) => {
+  // const checkBun =  arrayInConstructor.some((e:TconstructorIngredient) => e.type === 'bun');
+   const arrayBun:Tingredient = arrayInConstructor.find((e:Tingredient) => e.type === 'bun')
+   if (arrayInConstructor.length !== 0 && arrayBun ) {
       return (
-         <div key={arrayBun._id} className={burgerConstructorStyle.lock_elements}>
+         <div key={arrayBun?._id} className={burgerConstructorStyle.lock_elements}>
             <ConstructorElement type={positionEn} isLocked={true}
-               thumbnail={arrayBun.image} text={`${arrayBun.name} ${position}`} price={arrayBun.price} />
+               thumbnail={arrayBun?.image} text={`${arrayBun.name} ${position}`} price={arrayBun.price} />
          </div>)
    }
    else {
@@ -72,12 +70,13 @@ const IngredientsInConstructorLock = ({ arrayInConstructor, positionEn, position
          <p>Выберите булку</p>)
    }
 }
-const IngredientsInConstructor = ({ arrayInConstructor, type}:TingredientsInConstructor) => {
+const IngredientsInConstructor: FC<{arrayInConstructor:any, type:string }> = ({ arrayInConstructor, type}) => {
    const uid = () => Date.now().toString(36) + Math.random().toString(36);
+   console.log(arrayInConstructor);
    if (!arrayInConstructor) {
       return <p>Выберите ингредиент</p>;
    }
-   return arrayInConstructor.filter((e:TconstructorIngredient) => e.type !== type).map((ingredient:TconstructorIngredient, index:number) =>
+   return arrayInConstructor.filter((e:any) => e.type !== type).map((ingredient:any, index:number) =>
       <ConstructorIngredient key={uid()} index={index} ingredient={ingredient} />
    );
 }
@@ -96,7 +95,7 @@ export default function BurgerConstructor() {
       setCommonPrice(0)
    }
    const openModal = () => {
-      const arrayId = arrayInConstructor.map((e:TconstructorIngredient) => e._id);
+      const arrayId = arrayInConstructor.map((e:Tingredient) => e._id);
       dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
          return (
@@ -120,11 +119,11 @@ export default function BurgerConstructor() {
    }, [ingredients]);
    React.useEffect(
       () => {
-         const checkBun = () => { return arrayInConstructor.some((e:TconstructorIngredient) => e.type === 'bun') }
+         const checkBun = () => { return arrayInConstructor.some((e:Tingredient) => e.type === 'bun') }
          if (arrayInConstructor.length !== 0 && checkBun()) {
             let price: number= 0;
-            let bun = arrayInConstructor.find((e:TconstructorIngredient) => e.type === 'bun');
-            price = price + arrayInConstructor.filter((e:TconstructorIngredient) => e.type !== 'bun').reduce((acc:number, e:TconstructorIngredient) => acc + e.price, 0) + bun.price;
+            let bun = arrayInConstructor.find((e:Tingredient) => e.type === 'bun');
+            price = price + arrayInConstructor.filter((e:Tingredient) => e.type !== 'bun').reduce((acc:number, e:TconstructorIngredient) => acc + e.price, 0) + bun.price;
             setCommonPrice(price);
          }
       },
@@ -132,11 +131,11 @@ export default function BurgerConstructor() {
    )
    const [, dropTarget] = useDrop({
       accept: 'ingredient',
-      drop(ingredient:TconstructorIngredient) {
+      drop(ingredient:Tingredient) {
          if (ingredient.type === 'bun') {
-            const checkBun = () => { return arrayInConstructor.some((e:TconstructorIngredient) => e.type === 'bun') }
+            const checkBun = () => { return arrayInConstructor.some((e:Tingredient) => e.type === 'bun') }
             if (checkBun()) {
-               const bunInArray = arrayInConstructor.find((e:TconstructorIngredient) => e.type === 'bun')
+               const bunInArray = arrayInConstructor.find((e:Tingredient) => e.type === 'bun')
                dispatch({ type: DELETE_BUN, bunInArray: bunInArray })
                dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
             }

@@ -1,17 +1,25 @@
-export type ingredient = {
-    readonly calories: number;
-    readonly carbohydrates: number;
-    readonly fat: number;
-    readonly image: string;
-    readonly image_large: string;
-    readonly image_mobile: string;
-    readonly name: string;
-    readonly price: number;
-    readonly proteins: number;
-    readonly type: string;
-    readonly __v: number;
-    readonly _id: string;
+export type Tingredient = {
+    readonly calories?: number;
+    readonly carbohydrates?: number;
+    readonly fat?: number;
+    readonly image?: string;
+    readonly image_large?: string;
+    readonly image_mobile?: string;
+    readonly name?: string;
+    readonly price?: number;
+    readonly proteins?: number;
+    readonly type?: string;
+    readonly __v?: number;
+    readonly _id?: string;
+    idConstr?: string
 }
+export type TconstructorDrop = {
+    index: number;
+    ingredient: Tingredient;
+}
+
+
+/*
 type TconstructorIngredientTemp = Omit<ingredient,
     'fat'
     | 'image_large'
@@ -24,19 +32,8 @@ type TconstructorIngredientTemp = Omit<ingredient,
 export type TconstructorIngredient = TconstructorIngredientTemp & {
     idConstr: string
 }
-export type TconstructorDropType = {
-    index: number;
-    ingredient: TconstructorIngredient;
-}
-
-
 export type TingredientTypeComponent = {
     ingredient: ingredient;
-    setModalIsOpen: Function;
-}
-export type TingredientsTypeComponent = {
-    data: any;
-    type: string;
     setModalIsOpen: Function;
 }
 export type TconstructorIngredientComponent = {
@@ -52,3 +49,4 @@ export type TingredientsInConstructor = {
     arrayInConstructor: any;
     type: string;
 }
+*/
