@@ -4,7 +4,7 @@ import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktiku
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../services/hooks'
 import {
    Tingredient,
    TconstructorDrop
@@ -19,7 +19,7 @@ import {
    from '../../services/action/constructorArray'
 import { sendOrderAction, OPEN_ORDER_MODAL, ORDER_CLEANING } from '../../services/action/order'
 import { useDrop, useDrag } from "react-dnd";
-const ConstructorIngredient:FC<{ingredient:Tingredient, index:number}> = ({ ingredient, index }) => {
+const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({ ingredient, index }) => {
    const DropDragRef = React.useRef(null);
    const dispatch = useDispatch();
    const [{ isDrag }, dragRef] = useDrag({
@@ -31,7 +31,7 @@ const ConstructorIngredient:FC<{ingredient:Tingredient, index:number}> = ({ ingr
    });
    const [, dropIngred] = useDrop({
       accept: 'ingredientInConstructior',
-      drop(data:TconstructorDrop) {
+      drop(data: TconstructorDrop) {
          dispatch({
             type: SORT_INGERDIENTS,
             dragIndex: data.index,
@@ -45,57 +45,56 @@ const ConstructorIngredient:FC<{ingredient:Tingredient, index:number}> = ({ ingr
    }
    return (
       <>
-      {!isDrag &&
-      (<li ref={DropDragRef} className={burgerConstructorStyle.open_elements_box}>
-         <DragIcon type="primary" />
-         <ConstructorElement isLocked={false} handleClose={handleClose}
-            thumbnail={ingredient.image} text={ingredient.name} price={ingredient.price} />
-      </li>)}
+         {!isDrag &&
+            (<li ref={DropDragRef} className={burgerConstructorStyle.open_elements_box}>
+               <DragIcon type="primary" />
+               <ConstructorElement isLocked={false} handleClose={handleClose}
+                  thumbnail={ingredient.image || ''} text={ingredient.name || ''} price={ingredient.price || 0} />
+            </li>)}
       </>
-      )
+   )
 }
-const IngredientsInConstructorLock: FC<{arrayInConstructor:[], positionEn:'top' | 'bottom', position:string}> =
-({ arrayInConstructor, positionEn, position }) => {
-  // const checkBun =  arrayInConstructor.some((e:TconstructorIngredient) => e.type === 'bun');
-   const arrayBun:Tingredient = arrayInConstructor.find((e:Tingredient) => e.type === 'bun')
-   if (arrayInConstructor.length !== 0 && arrayBun ) {
-      return (
-         <div key={arrayBun?._id} className={burgerConstructorStyle.lock_elements}>
-            <ConstructorElement type={positionEn} isLocked={true}
-               thumbnail={arrayBun?.image} text={`${arrayBun.name} ${position}`} price={arrayBun.price} />
-         </div>)
+const IngredientsInConstructorLock: FC<{ arrayInConstructor: Tingredient[], positionEn: 'top' | 'bottom', position: string }> =
+   ({ arrayInConstructor, positionEn, position }) => {
+      const arrayBun: Tingredient | undefined = arrayInConstructor.find((e: Tingredient) => e.type === 'bun')
+      if (arrayInConstructor.length !== 0 && arrayBun) {
+         return (
+            <div key={arrayBun?._id} className={burgerConstructorStyle.lock_elements}>
+               <ConstructorElement type={positionEn} isLocked={true}
+                  thumbnail={arrayBun.image || ''} text={`${arrayBun.name} ${position}`} price={arrayBun.price || 0} />
+            </div>)
+      }
+      else {
+         return (
+            <p>Выберите булку</p>)
+      }
    }
-   else {
-      return (
-         <p>Выберите булку</p>)
-   }
-}
-const IngredientsInConstructor: FC<{arrayInConstructor:any, type:string }> = ({ arrayInConstructor, type}) => {
+const IngredientsInConstructor: FC<{ arrayInConstructor: any, type: string }> = ({ arrayInConstructor, type }) => {
    const uid = () => Date.now().toString(36) + Math.random().toString(36);
-   console.log(arrayInConstructor);
    if (!arrayInConstructor) {
       return <p>Выберите ингредиент</p>;
    }
-   return arrayInConstructor.filter((e:any) => e.type !== type).map((ingredient:any, index:number) =>
+   return arrayInConstructor.filter((e: Tingredient) => e.type !== type).map((ingredient: Tingredient, index: number) =>
       <ConstructorIngredient key={uid()} index={index} ingredient={ingredient} />
    );
 }
 
 export default function BurgerConstructor() {
-   const { ingredients } = useSelector((state:any) => state.ingredients);
+   const { ingredients } = useSelector((state) => state.ingredients);
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
-   const { arrayInConstructor } = useSelector((state:any) => state.arrayInConstructor);
-   const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector((state:any) => state.order)
+   const { arrayInConstructor } = useSelector((state) => state.arrayInConstructor);
+   const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector((state) => state.order)
    const dispatch = useDispatch();
+   const bunInArray = arrayInConstructor.find((e: Tingredient) => e.type === 'bun');
    const closeModal = () => {
       setModalIsOpen(false)
       dispatch({ type: ORDER_CLEANING })
-      dispatch({ type: CLEAR_CONSTRUCTOR})
+      dispatch({ type: CLEAR_CONSTRUCTOR })
       setCommonPrice(0)
    }
+   const arrayId: any = arrayInConstructor.map((e: Tingredient) => e._id);
    const openModal = () => {
-      const arrayId = arrayInConstructor.map((e:Tingredient) => e._id);
       dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
          return (
@@ -119,11 +118,8 @@ export default function BurgerConstructor() {
    }, [ingredients]);
    React.useEffect(
       () => {
-         const checkBun = () => { return arrayInConstructor.some((e:Tingredient) => e.type === 'bun') }
-         if (arrayInConstructor.length !== 0 && checkBun()) {
-            let price: number= 0;
-            let bun = arrayInConstructor.find((e:Tingredient) => e.type === 'bun');
-            price = price + arrayInConstructor.filter((e:Tingredient) => e.type !== 'bun').reduce((acc:number, e:TconstructorIngredient) => acc + e.price, 0) + bun.price;
+         if (arrayInConstructor.length !== 0 && bunInArray) {
+            const price = arrayInConstructor.filter((e: Tingredient) => e.type !== 'bun').reduce((acc: number, e: any) => acc + e.price, 0) + bunInArray.price;
             setCommonPrice(price);
          }
       },
@@ -131,11 +127,9 @@ export default function BurgerConstructor() {
    )
    const [, dropTarget] = useDrop({
       accept: 'ingredient',
-      drop(ingredient:Tingredient) {
+      drop(ingredient: Tingredient) {
          if (ingredient.type === 'bun') {
-            const checkBun = () => { return arrayInConstructor.some((e:Tingredient) => e.type === 'bun') }
-            if (checkBun()) {
-               const bunInArray = arrayInConstructor.find((e:Tingredient) => e.type === 'bun')
+            if (bunInArray) {
                dispatch({ type: DELETE_BUN, bunInArray: bunInArray })
                dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
             }
@@ -163,9 +157,9 @@ export default function BurgerConstructor() {
                      <p className="text text_type_digits-medium pr-2">{commonPrice}</p>
                      <CurrencyIcon type="primary" />
                   </div>
-                  { arrayInConstructor.length > 0 ?<Button onClick={openModal} type="primary" size="large">
+                  {arrayInConstructor.length > 0 ? <Button onClick={openModal} type="primary" size="large">
                      Оформить заказ
-                  </Button>: null}
+                  </Button> : null}
                </div>
 
             </section>
@@ -181,23 +175,3 @@ export default function BurgerConstructor() {
       )
    }
 }
-/*
-BurgerConstructor.propTypes = {
-   dataIngredients: PropTypes.PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-   closeModal: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([undefined]).isRequired]),
-};
-ConstructorIngredient.propTypes = {
-   ingredient: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
-   ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-   index: PropTypes.number.isRequired
-}
-IngredientsInConstructor.propTypes = {
-   type: PropTypes.string.isRequired,
-   ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-   arrayInConstructor: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired]),
-}
-IngredientsInConstructorLock.propTypes = {
-   positionEn: PropTypes.string.isRequired,
-   position: PropTypes.string.isRequired,
-   ingredients: PropTypes.oneOfType([PropTypes.array.isRequired, PropTypes.oneOf([null]).isRequired])
-}*/

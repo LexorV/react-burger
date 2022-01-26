@@ -1,7 +1,6 @@
 import orderDetailsStyles from './orderDetails.module.css';
 import done from '../../images/done.png';
-import PropTypes from 'prop-types';
-export default function OrderDetails({ order }:any) {
+export default function OrderDetails({ order }: any) {
     if (order !== null) {
         return (
             <div className={orderDetailsStyles.main}>
@@ -14,7 +13,4 @@ export default function OrderDetails({ order }:any) {
         )
     }
     else { return (<h2> Загрузка...</h2>) }
-}
-OrderDetails.propTypes = {
-    order: PropTypes.oneOfType([PropTypes.object.isRequired, PropTypes.oneOf([null]).isRequired]),
 }

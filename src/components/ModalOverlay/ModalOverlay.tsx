@@ -1,12 +1,12 @@
 import modalOverlayStyle from './modalOverlay.module.css'
 import { useSelector } from 'react-redux';
-import {TmodalOverlayComponent} from '../../services/types/ModalType';
-import {FC} from 'react';
+import { TmodalOverlayComponent } from '../../services/types/ModalType';
+import { FC } from 'react';
 
 
-export const ModalOverlay:FC<TmodalOverlayComponent> = (props) => {
-    const { modalOpen } = useSelector((state:any) => state.ingredientDetail)
-    const handleCloseOverlay = (e:any) => {
+export const ModalOverlay: FC<TmodalOverlayComponent> = (props) => {
+    const { modalOpen } = useSelector((state: any) => state.ingredientDetail)
+    const handleCloseOverlay = (e: any) => {
         if (e.target === e.currentTarget) {
             props.closeModal()
         }

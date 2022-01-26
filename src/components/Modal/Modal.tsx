@@ -4,8 +4,7 @@ import modalStyle from './modal.module.css'
 import { createPortal } from 'react-dom';
 import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import {TmodalComponent} from '../../services/types/ModalType';
-export const Modal:FC<TmodalComponent> = (props) => {
+export const Modal:FC<{height: number, closeModal: () => void}> = (props) => {
     const checkHeight = () => {
         if (props.height === 539) {
             return modalStyle.modal_container_height_539
@@ -14,7 +13,6 @@ export const Modal:FC<TmodalComponent> = (props) => {
             return modalStyle.modal_container_height_718
         }
     }
-    console.log( typeof props.closeModal)
     React.useEffect(() => {
         const handleEscClose = (e:any) => {
             e.preventDefault()
@@ -29,8 +27,8 @@ export const Modal:FC<TmodalComponent> = (props) => {
     return createPortal(
         <ModalOverlay closeModal={props.closeModal}>
             <div className={`${modalStyle.modal_container} ${checkHeight()}`}>
-                <button onClick={() => props.closeModal()} type="button" className={modalStyle.modal_btn_close}>
-                    <CloseIcon type="primary" />
+                <button onClick={props.closeModal} type="button" className={modalStyle.modal_btn_close}>
+                    <CloseIcon  type="primary" />
                 </button>
                 {props.children}
             </div>

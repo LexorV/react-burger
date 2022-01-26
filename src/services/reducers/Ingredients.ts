@@ -4,10 +4,11 @@ import {
     GET_INGREDIENTS_FAILED
 }
     from '../action/Ingredients';
+import { Tingredient } from '../types/ingredientsType'
 type TingredientsState = {
     ingredientsRequest: boolean;
     ingredientsFailed: boolean;
-    ingredients: null | [];
+    ingredients: null | Tingredient[];
 }
 
 const initialState: TingredientsState = {
