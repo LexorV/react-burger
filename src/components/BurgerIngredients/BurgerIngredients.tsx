@@ -12,6 +12,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import {ingredientsType} from '../../services/constants'
 const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({ ingredient, setModalIsOpen }) => {
     const { _id, image, name, price, type } = ingredient
     const [, dragRef] = useDrag({
@@ -101,15 +102,15 @@ export default function BurgerIngredients() {
                         Булки
                     </h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type='bun' />
+                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type={ingredientsType.bun} />
                     </ul>
                     <h2 className="text text_type_main-medium">Соусы</h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type='sauce' />
+                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type={ingredientsType.sauce} />
                     </ul>
                     <h2 className="text text_type_main-medium">Начинки</h2>
                     <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
-                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type='main' />
+                        <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type={ingredientsType.main} />
                     </ul>
                 </div>
             </section>

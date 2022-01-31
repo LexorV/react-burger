@@ -1,10 +1,12 @@
 import React from 'react';
 import { FC } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks'
+import {ingredientsType} from '../../services/constants'
 import {
    Tingredient,
    TconstructorDrop
@@ -49,19 +51,19 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
             (<li ref={DropDragRef} className={burgerConstructorStyle.open_elements_box}>
                <DragIcon type="primary" />
                <ConstructorElement isLocked={false} handleClose={handleClose}
-                  thumbnail={ingredient.image || ''} text={ingredient.name || ''} price={ingredient.price || 0} />
+                  thumbnail={ingredient.image ?? ''} text={ingredient.name ?? ''} price={ingredient.price ?? 0} />
             </li>)}
       </>
    )
 }
-const IngredientsInConstructorLock: FC<{ arrayInConstructor: Tingredient[], positionEn: 'top' | 'bottom', position: string }> =
-   ({ arrayInConstructor, positionEn, position }) => {
-      const arrayBun: Tingredient | undefined = arrayInConstructor.find((e: Tingredient) => e.type === 'bun')
-      if (arrayInConstructor.length !== 0 && arrayBun) {
+const IngredientsInConstructorLock: FC<{ ingredientsInConstructor: Tingredient[], positionEn: 'top' | 'bottom', position: string }> =
+   ({ ingredientsInConstructor, positionEn, position }) => {
+      const arrayBun: Tingredient | undefined = ingredientsInConstructor.find((e: Tingredient) => e.type === ingredientsType.bun)
+      if (ingredientsInConstructor.length !== 0 && arrayBun) {
          return (
-            <div key={arrayBun?._id} className={burgerConstructorStyle.lock_elements}>
+            <div key={arrayBun._id} className={burgerConstructorStyle.lock_elements}>
                <ConstructorElement type={positionEn} isLocked={true}
-                  thumbnail={arrayBun.image || ''} text={`${arrayBun.name} ${position}`} price={arrayBun.price || 0} />
+                  thumbnail={arrayBun?.image ?? ''} text={`${arrayBun.name} ${position}`} price={arrayBun.price ?? 0} />
             </div>)
       }
       else {
@@ -69,13 +71,12 @@ const IngredientsInConstructorLock: FC<{ arrayInConstructor: Tingredient[], posi
             <p>Выберите булку</p>)
       }
    }
-const IngredientsInConstructor: FC<{ arrayInConstructor: any, type: string }> = ({ arrayInConstructor, type }) => {
-   const uid = () => Date.now().toString(36) + Math.random().toString(36);
-   if (!arrayInConstructor) {
+const IngredientsInConstructor: FC<{ ingredientsInConstructor: any, type: string }> = ({ ingredientsInConstructor, type }) => {
+   if (!ingredientsInConstructor) {
       return <p>Выберите ингредиент</p>;
    }
-   return arrayInConstructor.filter((e: Tingredient) => e.type !== type).map((ingredient: Tingredient, index: number) =>
-      <ConstructorIngredient key={uid()} index={index} ingredient={ingredient} />
+   return ingredientsInConstructor.filter((e: Tingredient) => e.type !== type).map((ingredient: Tingredient, index: number) =>
+      <ConstructorIngredient key={uuidv4()} index={index} ingredient={ingredient} />
    );
 }
 
@@ -83,17 +84,17 @@ export default function BurgerConstructor() {
    const { ingredients } = useSelector((state) => state.ingredients);
    const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
-   const { arrayInConstructor } = useSelector((state) => state.arrayInConstructor);
+   const { ingredientsInConstructor } = useSelector((state) => state.arrayInConstructor);
    const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector((state) => state.order)
    const dispatch = useDispatch();
-   const bunInArray = arrayInConstructor.find((e: Tingredient) => e.type === 'bun');
+   const bunInArray = ingredientsInConstructor.find((e: Tingredient) => e.type === ingredientsType.bun);
    const closeModal = () => {
       setModalIsOpen(false)
       dispatch({ type: ORDER_CLEANING })
       dispatch({ type: CLEAR_CONSTRUCTOR })
       setCommonPrice(0)
    }
-   const arrayId: any = arrayInConstructor.map((e: Tingredient) => e._id);
+   const arrayId:any= ingredientsInConstructor.map((e: Tingredient) => e._id);
    const openModal = () => {
       dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
@@ -118,17 +119,17 @@ export default function BurgerConstructor() {
    }, [ingredients]);
    React.useEffect(
       () => {
-         if (arrayInConstructor.length !== 0 && bunInArray) {
-            const price = arrayInConstructor.filter((e: Tingredient) => e.type !== 'bun').reduce((acc: number, e: any) => acc + e.price, 0) + bunInArray.price;
+         if (ingredientsInConstructor.length !== 0 && bunInArray) {
+            const price = ingredientsInConstructor.filter((e: Tingredient) => e.type !== ingredientsType.bun).reduce((acc: number, e: any) => acc + e.price, 0) + bunInArray.price;
             setCommonPrice(price);
          }
       },
-      [arrayInConstructor]
+      [ingredientsInConstructor]
    )
    const [, dropTarget] = useDrop({
       accept: 'ingredient',
       drop(ingredient: Tingredient) {
-         if (ingredient.type === 'bun') {
+         if (ingredient.type === ingredientsType.bun) {
             if (bunInArray) {
                dispatch({ type: DELETE_BUN, bunInArray: bunInArray })
                dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
@@ -147,17 +148,17 @@ export default function BurgerConstructor() {
       return (
          <>
             <section ref={dropTarget} className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
-               <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} arrayInConstructor={arrayInConstructor} />
+               <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} ingredientsInConstructor={ingredientsInConstructor} />
                <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
-                  <IngredientsInConstructor type={'bun'} arrayInConstructor={arrayInConstructor} />
+                  <IngredientsInConstructor type={ingredientsType.bun} ingredientsInConstructor={ingredientsInConstructor} />
                </ul>
-               <IngredientsInConstructorLock positionEn={'bottom'} position={'Низ'} arrayInConstructor={arrayInConstructor} />
+               <IngredientsInConstructorLock positionEn={'bottom'} position={'Низ'} ingredientsInConstructor={ingredientsInConstructor} />
                <div className={`${burgerConstructorStyle.price_container} mt-10 mr-4`}>
                   <div className={`${burgerConstructorStyle.price_text} mr-10`}>
                      <p className="text text_type_digits-medium pr-2">{commonPrice}</p>
                      <CurrencyIcon type="primary" />
                   </div>
-                  {arrayInConstructor.length > 0 ? <Button onClick={openModal} type="primary" size="large">
+                  {ingredientsInConstructor.length > 0 ? <Button onClick={openModal} type="primary" size="large">
                      Оформить заказ
                   </Button> : null}
                </div>
