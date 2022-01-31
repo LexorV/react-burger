@@ -1,11 +1,16 @@
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../action/IngredientDetail'
 import { OPEN_ORDER_MODAL } from '../action/order'
-const initialState = {
+import { Tingredient } from '../types/ingredientsType'
+type IingredientDetailRedce = {
+    modalOpen: boolean;
+    ingredient: Tingredient | null;
+}
+const initialState: IingredientDetailRedce = {
     modalOpen: false,
     ingredient: null,
 }
-export const reducerIngredientDetail = (state = initialState, action) => {
-    switch(action.type) {
+export const reducerIngredientDetail = (state = initialState, action: any) => {
+    switch (action.type) {
         case OPEN_INGREDIENT_DETAILS:
             {
                 return {

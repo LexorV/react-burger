@@ -4,14 +4,19 @@ import {
     GET_ORDER_FAILED,
     ORDER_CLEANING
 }
-from '../action/order'
-const initialState = {
+    from '../action/order'
+type TorderState = {
+    orederNumberRequest: boolean;
+    orderNumberFailed: boolean;
+    orederNumber: null | number;
+}
+const initialState: TorderState = {
     orederNumberRequest: false,
     orderNumberFailed: false,
     orederNumber: null
 }
-export const orderReducer = (state = initialState, action) => {
-    switch(action.type) {
+export const orderReducer = (state = initialState, action: any) => {
+    switch (action.type) {
         case GET_ORDER_REQUEST:
             {
                 return {

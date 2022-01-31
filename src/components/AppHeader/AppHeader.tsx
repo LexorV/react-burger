@@ -1,7 +1,6 @@
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './appHeader.module.css'
 export default function AppHeader() {
-
     return (
         <header className={`${headerStyle.header} pt-4 pb-4`}>
             <nav className={headerStyle.menu}>
@@ -10,7 +9,7 @@ export default function AppHeader() {
                     <p className="text text_type_main-default pl-2">Конструктор</p>
                 </li>
                 <li className={`${headerStyle.menu_link} pl-2 p-5`}>
-                    <ListIcon className="pr-2" type="secondary" />
+                    <ListIcon type="secondary" />
                     <p className="text text_type_main-default pl-2 text_color_inactive">Лента заказов</p>
                 </li>
             </nav>

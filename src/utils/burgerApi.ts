@@ -1,6 +1,6 @@
 const urlServ = "https://norma.nomoreparties.space/api/";
-const checkResponse = (res) => {
-    return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+const checkResponse = (res:any) => {
+    return res.ok ? res.json() : res.json().then((err:any) => Promise.reject(err));
 }
 export const getIngredients = () => {
 
@@ -8,7 +8,7 @@ export const getIngredients = () => {
         .then(checkResponse)
 
 }
-export const sendOrder = (ingredients) => {
+export const sendOrder = (ingredients:string[]) => {
     return fetch(`${urlServ}orders`, {
             method: 'POST',
             headers: new Headers([

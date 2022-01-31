@@ -3,14 +3,21 @@ import {
     GET_INGREDIENTS_SUCCESS,
     GET_INGREDIENTS_FAILED
 }
-from '../action/Ingredients';
-const initialState = {
+    from '../action/Ingredients';
+import { Tingredient } from '../types/ingredientsType'
+type TingredientsState = {
+    ingredientsRequest: boolean;
+    ingredientsFailed: boolean;
+    ingredients: null | Tingredient[];
+}
+
+const initialState: TingredientsState = {
     ingredientsRequest: false,
     ingredientsFailed: false,
     ingredients: null
 }
-export const reducerIngredients = (state = initialState, action) => {
-    switch(action.type) {
+export const reducerIngredients = (state = initialState, action: any) => {
+    switch (action.type) {
         case GET_INGREDIENTS_REQUEST:
             {
                 return {

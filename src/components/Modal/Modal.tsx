@@ -1,10 +1,10 @@
 import React from 'react';
+import {FC} from 'react';
 import modalStyle from './modal.module.css'
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
-import ModalOverlay from '../ModalOverlay/ModalOverlay.jsx';
+import ModalOverlay from '../ModalOverlay/ModalOverlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-export default function Modal(props) {
+export const Modal:FC<{height: number, closeModal: () => void}> = (props) => {
     const checkHeight = () => {
         if (props.height === 539) {
             return modalStyle.modal_container_height_539
@@ -14,7 +14,7 @@ export default function Modal(props) {
         }
     }
     React.useEffect(() => {
-        const handleEscClose = (e) => {
+        const handleEscClose = (e:any) => {
             e.preventDefault()
             e.key === 'Escape' &&  props.closeModal();
         }
@@ -23,19 +23,16 @@ export default function Modal(props) {
             document.removeEventListener('keydown', handleEscClose);
         }
     }, [props.closeModal]);
-    const element = document.getElementById('modal');
+    const element:any = document.getElementById('modal');
     return createPortal(
-        <ModalOverlay closeModal={props.closeModal} element={element} elementIsOpen={props.elementIsOpen}>
+        <ModalOverlay closeModal={props.closeModal}>
             <div className={`${modalStyle.modal_container} ${checkHeight()}`}>
                 <button onClick={props.closeModal} type="button" className={modalStyle.modal_btn_close}>
-                    <CloseIcon />
+                    <CloseIcon  type="primary" />
                 </button>
                 {props.children}
             </div>
         </ModalOverlay>, element
     )
 }
-Modal.propTypes = {
-    closeModal: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.oneOf([undefined]).isRequired]),
-    height: PropTypes.number.isRequired
-}
+export default Modal
