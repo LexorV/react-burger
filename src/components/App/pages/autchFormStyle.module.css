@@ -12,6 +12,7 @@
     display:flex;
     align-items:center;
     flex-direction: column;
+    min-width: 480px;
 }
 .box_register {
     display:flex;
@@ -20,4 +21,8 @@
 }
 .link {
     color: #4C4CFF;
+    cursor: pointer;
+}
+.link:hover {
+    opacity: 0.8;
 }

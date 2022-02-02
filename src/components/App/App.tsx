@@ -8,7 +8,11 @@ import { DndProvider } from "react-dnd";
 import { useSelector, useDispatch } from '../../services/hooks'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsAction } from '../../services/action/Ingredients'
-import {LoginForm} from './pages/LoginForm/LoginForm'
+import {LoginForm} from './pages/loginForm/LoginForm';
+import { RegisterForm } from './pages/registerForm/RegisterForm';
+import {ForgotPasswordForm} from './pages/forgot-passwordForm/ForgotPassword';
+import {ResetPasswordForm} from './pages/reset-passwordForm/ResetPasswordForm';
+import {Profile} from './pages/profile/Profile'
 
 export default function App() {
   const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
@@ -25,13 +29,25 @@ export default function App() {
     return (
       <Router>
         <Switch>
-          <div>
+          <>
             <DndProvider backend={HTML5Backend}>
               <Route path="/">
                 <AppHeader />
               </Route>
               <Route path="/login">
                 <LoginForm />
+              </Route>
+              <Route path="/register">
+              <RegisterForm />
+              </Route>
+              <Route path="/forgot-password">
+              <ForgotPasswordForm />
+              </Route>
+              <Route path="/reset-password">
+              <ResetPasswordForm />
+              </Route>
+              <Route path="/profile">
+              <Profile />
               </Route>
               <Route path="/">
               <main className={appStyle.main}>
@@ -40,7 +56,7 @@ export default function App() {
               </main>
               </Route>
             </DndProvider>
-          </div>
+          </>
         </Switch>
       </Router>
     )
