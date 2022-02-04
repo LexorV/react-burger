@@ -19,3 +19,14 @@ export const sendOrder = (ingredients:string[]) => {
         .then(checkResponse)
 
 }
+export const sendRegisterUser = ( userDataRegister:any) => {
+    console.log(userDataRegister);
+    return fetch(`${urlServ}auth/register`, {
+        method: 'POST',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+        ]),
+        body:JSON.stringify( userDataRegister)
+    })
+    .then(checkResponse)
+}
