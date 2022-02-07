@@ -12,12 +12,14 @@ const initialState = {
     },
     registrationRequest: false,
     registrationFailed: false,
-    testData: null
+    registrationSuccess: false,
+    registerReceivedData: null
 }
 export const RegistrationReduser = (state = initialState, action: any) => {
     switch (action.type) {
         case CHANGE_REGISTER_FORM_VALUE: {
             return {
+                ...state,
                 form: {
                     ...state.form,
                     [action.field]: action.value
@@ -28,25 +30,27 @@ export const RegistrationReduser = (state = initialState, action: any) => {
             return {
                 ...state,
                 registrationRequest: true,
-                registrationFailed: false
+                registrationFailed: false,
+                registrationSuccess: false,
             }
         }
         case REGISTER_FORM_SUBMIT_SUCCESS: {
-            console.log(state.form)
             return {
                 ...state,
                 form: {
                     ...initialState.form
                 },
                 registrationRequest: false,
-                testData: action.test
+                registerReceivedData: action.tokenData,
+                registrationSuccess: true,
             }
         }
         case REGISTER_FORM_SUBMIT_FAILED: {
             return {
                 ...state,
                 registrationRequest: false,
-                registrationFailed: true
+                registrationFailed: true,
+                registrationSuccess: false,
             }
         }
         default: {

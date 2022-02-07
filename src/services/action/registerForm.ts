@@ -18,7 +18,7 @@ export const register = (userDataRegister:any) => {
                 if(res && res.success) {
                     dispatch({
                         type: REGISTER_FORM_SUBMIT_SUCCESS,
-                        test: res
+                        tokenData: res
                     })
                 } else {
                     dispatch({
