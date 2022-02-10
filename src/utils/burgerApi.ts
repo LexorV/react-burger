@@ -52,3 +52,14 @@ export const forgotPasswordApi =  ( userDataRegister:any) => {
     })
     .then(checkResponse)
 }
+export const resetPasswordApi =  ( userDataRegister:any) => {
+    console.log(userDataRegister);
+    return  fetch(`${urlServ}password-reset/reset`, {
+        method: 'POST',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+        ]),
+        body:JSON.stringify( userDataRegister)
+    })
+    .then(checkResponse)
+}
