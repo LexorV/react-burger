@@ -30,3 +30,25 @@ export const sendRegisterUser = ( userDataRegister:any) => {
     })
     .then(checkResponse)
 }
+export const autchUser =  ( userDataRegister:any) => {
+    console.log(userDataRegister);
+    return  fetch(`${urlServ}auth/login`, {
+        method: 'POST',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+        ]),
+        body:JSON.stringify( userDataRegister)
+    })
+    .then(checkResponse)
+}
+export const forgotPasswordApi =  ( userDataRegister:any) => {
+    console.log(userDataRegister);
+    return  fetch(`${urlServ}password-reset`, {
+        method: 'POST',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+        ]),
+        body:JSON.stringify( userDataRegister)
+    })
+    .then(checkResponse)
+}

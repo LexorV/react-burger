@@ -1,5 +1,6 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
+import { Link} from 'react-router-dom';
 export const ResetPasswordForm = () => {
     const test = () => {
         console.log('test')
@@ -17,7 +18,7 @@ export const ResetPasswordForm = () => {
             <Button type="primary" size="medium">Сохранить</Button>
             <div className= {`${autchFormStyle.box_register} mt-20`}>
                 <p className="text text_type_main-default text_color_inactive">Вспомнили пароль?</p>
-                <p className={`text text_type_main-default ${autchFormStyle.link}`} >Войти</p>
+                <Link to = '/login' className={`text text_type_main-default ${autchFormStyle.link}`} >Войти</Link>
             </div>
         </form>
         </div>

@@ -1,5 +1,5 @@
 import {useSelector} from '../hooks'
-import {sendRegisterUser} from '../../utils/burgerApi'
+//import {sendRegisterUser, autchUser} from '../../utils/burgerApi'
 export const CHANGE_REGISTER_FORM_VALUE = 'CHANGE_REGISTER_FORM_VALUE';
 export const REGISTER_FORM_SUBMIT = 'REGISTER_FORM_SUBMIT';
 export const REGISTER_FORM_SUBMIT_SUCCESS = 'REGISTER_FORM_SUBMIT_SUCCESS';
@@ -9,12 +9,12 @@ export const setRegisterFormValue = (field:any, value:string) => ({
     field,
     value
 })
-export const register = (userDataRegister:any) => {
+export const register =  (userDataRegister:any, sendApi:any) => {
     return function(dispatch:Function) {
         dispatch({
             type: REGISTER_FORM_SUBMIT
         })
-        sendRegisterUser(userDataRegister).then(res => {
+        sendApi(userDataRegister).then((res:any) => {
                 if(res && res.success) {
                     dispatch({
                         type: REGISTER_FORM_SUBMIT_SUCCESS,
@@ -26,11 +26,10 @@ export const register = (userDataRegister:any) => {
                     })
                 }
             })
-            .catch(err => {
+            .catch((err:any) => {
                 dispatch({
                     type: REGISTER_FORM_SUBMIT_FAILED
                 })
             })
     }
-
 }
