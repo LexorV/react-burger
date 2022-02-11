@@ -35,3 +35,7 @@ cursor: pointer;
 .menu__list_active {
     opacity: 1;
 }
+.button__box {
+    display: flex;
+    justify-content: space-between;
+}

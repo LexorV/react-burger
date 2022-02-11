@@ -8,7 +8,7 @@ import { DndProvider } from "react-dnd";
 import { useSelector, useDispatch } from '../../services/hooks'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsAction } from '../../services/action/Ingredients'
-import {LoginForm} from './pages/loginForm/LoginForm';
+import {LoginForm} from './pages/LoginForm/LoginForm'
 import { RegisterForm } from './pages/registerForm/RegisterForm';
 import {ForgotPasswordForm} from './pages/forgot-passwordForm/ForgotPassword';
 import {ResetPasswordForm} from './pages/reset-passwordForm/ResetPasswordForm';

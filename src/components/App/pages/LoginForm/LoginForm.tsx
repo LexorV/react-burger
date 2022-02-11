@@ -18,7 +18,8 @@ export const LoginForm = () => {
     const registerSend = () => {
         if (registrationSuccess) {
             history.replace({ pathname: '/' });
-            setCookie('token', registerReceivedData.accessToken, {});
+            setCookie('accessToken', registerReceivedData.accessToken, {});
+            localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
             console.log(registerReceivedData.accessToken);
         }
     }

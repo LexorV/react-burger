@@ -63,3 +63,36 @@ export const resetPasswordApi =  ( userDataRegister:any) => {
     })
     .then(checkResponse)
 }
+export const getProfileData = (tokenUser:any) => {
+return fetch(`${urlServ}auth/user`, {
+    method: 'GET',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+            ['Authorization', `${tokenUser}`]
+        ]),
+})
+.then(checkResponse)
+}
+export const sendProfileData = (tokenUser:any, changeDataProfile:any) =>
+ {
+    return fetch(`${urlServ}auth/user`, {
+        method: 'PATCH',
+            headers: new Headers([
+                ['Content-Type', 'application/json'],
+                ['Authorization', `${tokenUser}`]
+            ]),
+            body:JSON.stringify( changeDataProfile)
+    })
+    .then(checkResponse)
+
+ }
+ export const logoutUserApi = (refreshToken:any) => {
+     return fetch(`${urlServ}auth/logout`, {
+        method: 'POST',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+        ]),
+        body:JSON.stringify(refreshToken)
+     } )
+     .then(checkResponse)
+ }
