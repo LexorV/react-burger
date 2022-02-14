@@ -13,9 +13,12 @@ import { RegisterForm } from './pages/registerForm/RegisterForm';
 import {ForgotPasswordForm} from './pages/forgot-passwordForm/ForgotPassword';
 import {ResetPasswordForm} from './pages/reset-passwordForm/ResetPasswordForm';
 import {Profile} from './pages/profile/Profile'
+import {ProtectedRoute} from './pages/ProtectedRoute'
+import { useState} from 'react';
 
 export default function App() {
   const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
+  const [isLogin, setIsLogin] = useState<boolean>(true);
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getIngredientsAction())
@@ -35,7 +38,7 @@ export default function App() {
                 <AppHeader />
               </Route>
               <Route path="/login">
-                <LoginForm />
+                <LoginForm setIsLogin={setIsLogin} />
               </Route>
               <Route path="/register">
               <RegisterForm />
@@ -46,9 +49,9 @@ export default function App() {
               <Route path="/reset-password">
               <ResetPasswordForm />
               </Route>
-              <Route path="/profile">
+              <ProtectedRoute path="/profile">
               <Profile />
-              </Route>
+              </ProtectedRoute>
               <Route path="/">
               <main className={appStyle.main}>
                 <BurgerIngredients />

@@ -7,7 +7,7 @@ import { autchUser } from '../../../../utils/burgerApi';
 import { setCookie, } from '../../../../utils/utils'
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { setRegisterFormValue } from '../../../../services/action/registerForm';
-export const LoginForm = () => {
+export const LoginForm = ({setIsLogin}:any) => {
     const [passwordState,
         setPasswordState] = useState<'password' | 'text'>('password');
     const { email, password, registerReceivedData,
@@ -17,6 +17,7 @@ export const LoginForm = () => {
     const dispatch = useDispatch();
     const registerSend = () => {
         if (registrationSuccess) {
+            setIsLogin(true)
             history.replace({ pathname: '/' });
             setCookie('accessToken', registerReceivedData.accessToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);

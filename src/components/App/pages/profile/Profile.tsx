@@ -1,12 +1,14 @@
-import { ConstructorElement, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import {  Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './profile.module.css';
+import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getProfileData, sendProfileData, logoutUserApi} from '../../../../utils/burgerApi';
-import { getCookie } from '../../../../utils/utils'
+import { getProfileData, sendProfileData, logoutUserApi } from '../../../../utils/burgerApi';
+import { getCookie, setCookie } from '../../../../utils/utils'
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
     const [nameUser, setNameUser] = useState('');
     const [passwordUser, setPaswordUser] = useState('');
+    const history = useHistory();
     const test = () => {
         console.log('test')
     }
@@ -20,7 +22,7 @@ export const Profile = () => {
         setPaswordUser(e.target.value)
     }
     const postUserData = () => {
-        let token = getCookie('accessToken')
+        const token = getCookie('accessToken')
         getProfileData(token)
             .then((res) => {
                 if (res && res.success) {
@@ -32,26 +34,34 @@ export const Profile = () => {
                     console.log('что-то пошло не так')
                 }
             })
+            .catch((err) => {
+                //console.log('что-то пошло не так')
+                history.replace({ pathname: '/login' });
+            })
     }
     const changeProfileData = () => {
-        let token = getCookie('accessToken')
-        sendProfileData(token, { 'email':emailUser, 
-        'password':passwordUser,
-         'name':nameUser})
-         .then((res) => {
-            if (res && res.success) {
-                setEmailUser(res.user.email);
-                setNameUser(res.user.name);
-                console.log(res.user.email);
-            }
-            else {
-                console.log('что-то пошло не так')
-            }
+        const token = getCookie('accessToken')
+        sendProfileData(token, {
+            'email': emailUser,
+            'password': passwordUser,
+            'name': nameUser
         })
+            .then((res) => {
+                if (res && res.success) {
+                    setEmailUser(res.user.email);
+                    setNameUser(res.user.name);
+                    console.log(res.user.email);
+                }
+                else {
+                    console.log('что-то пошло не так')
+                }
+            })
     }
     const logoutUser = () => {
         let token = localStorage.getItem('refreshToken');
-        logoutUserApi({'token': token})
+        logoutUserApi({ 'token': token });
+        setCookie('accessToken', null, {});
+
     }
 
     useEffect(() => {
