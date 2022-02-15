@@ -12,17 +12,19 @@ export const ProtectedRoute = ({ children, ...rest }: any) => {
             setIslogin(true)
         }
     }, [isLogin])
+    console.log(isLogin)
 
     return (
+
         <Route
             {...rest}
             render={() => {
-                if (isLogin === true) {
+                if (registerReceivedData) {
                     return children
                 }
-                else {
-                    <Redirect
-                        to='/login' />
+                else  {
+                    console.log('test')
+                    return <Redirect to= "/login" />
                 }
             }
             }

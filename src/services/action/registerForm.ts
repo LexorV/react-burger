@@ -4,6 +4,7 @@ export const CHANGE_REGISTER_FORM_VALUE = 'CHANGE_REGISTER_FORM_VALUE';
 export const REGISTER_FORM_SUBMIT = 'REGISTER_FORM_SUBMIT';
 export const REGISTER_FORM_SUBMIT_SUCCESS = 'REGISTER_FORM_SUBMIT_SUCCESS';
 export const REGISTER_FORM_SUBMIT_FAILED = 'REGISTER_FORM_SUBMIT_FAILED';
+export const LOGOUT_USER = 'LOGOUT_USER';
 export const setRegisterFormValue = (field:any, value:string) => ({
     type:CHANGE_REGISTER_FORM_VALUE,
     field,

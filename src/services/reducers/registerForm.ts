@@ -2,7 +2,8 @@ import {
     CHANGE_REGISTER_FORM_VALUE,
     REGISTER_FORM_SUBMIT,
     REGISTER_FORM_SUBMIT_SUCCESS,
-    REGISTER_FORM_SUBMIT_FAILED
+    REGISTER_FORM_SUBMIT_FAILED,
+    LOGOUT_USER
 } from '../action/registerForm'
 const initialState = {
         email: '',
@@ -48,6 +49,14 @@ export const RegistrationReduser = (state = initialState, action: any) => {
                 registrationRequest: false,
                 registrationFailed: true,
                 registrationSuccess: false,
+            }
+        }
+        case LOGOUT_USER: {
+            return {
+                ...state,
+                registrationRequest: false,
+                registrationFailed: false,
+                registerReceivedData: null
             }
         }
         default: {

@@ -1,13 +1,16 @@
 import {  Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './profile.module.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import {  useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi } from '../../../../utils/burgerApi';
-import { getCookie, setCookie } from '../../../../utils/utils'
+import { getCookie, setCookie } from '../../../../utils/utils';
+import {LOGOUT_USER} from '../../../../services/action/registerForm'
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
     const [nameUser, setNameUser] = useState('');
     const [passwordUser, setPaswordUser] = useState('');
+    const dispatch = useDispatch();
     const history = useHistory();
     const test = () => {
         console.log('test')
@@ -32,11 +35,12 @@ export const Profile = () => {
                 }
                 else {
                     console.log('что-то пошло не так')
+                    return <Redirect to= "/login" />
                 }
             })
             .catch((err) => {
-                //console.log('что-то пошло не так')
-                history.replace({ pathname: '/login' });
+                console.log('что-то пошло не так1')
+                return <Redirect to= "/login" />
             })
     }
     const changeProfileData = () => {
@@ -54,14 +58,16 @@ export const Profile = () => {
                 }
                 else {
                     console.log('что-то пошло не так')
+                    history.replace({ pathname: '/login' });
                 }
             })
     }
     const logoutUser = () => {
         let token = localStorage.getItem('refreshToken');
         logoutUserApi({ 'token': token });
-        setCookie('accessToken', null, {});
-
+        dispatch({
+            type:LOGOUT_USER
+        })
     }
 
     useEffect(() => {

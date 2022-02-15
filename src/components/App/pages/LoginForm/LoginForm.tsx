@@ -16,7 +16,7 @@ export const LoginForm = ({setIsLogin}:any) => {
     const history = useHistory();
     const dispatch = useDispatch();
     const registerSend = () => {
-        if (registrationSuccess) {
+        if (registerReceivedData) {
             setIsLogin(true)
             history.replace({ pathname: '/' });
             setCookie('accessToken', registerReceivedData.accessToken, {});

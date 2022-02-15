@@ -15,7 +15,7 @@ export const RegisterForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const registerSend = () => {
-        if (registrationSuccess) {
+        if (registerReceivedData) {
             history.replace({pathname: '/'});
             console.log(registerReceivedData);
         }
