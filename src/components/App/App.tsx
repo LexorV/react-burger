@@ -18,6 +18,7 @@ import { useState} from 'react';
 
 export default function App() {
   const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
+ const {registrationSuccess, resetSuccess} = useSelector(state => state.registrationForm)
   const [isLogin, setIsLogin] = useState<boolean>(true);
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -46,10 +47,10 @@ export default function App() {
               <Route path="/forgot-password">
               <ForgotPasswordForm />
               </Route>
-              <Route path="/reset-password">
+              <ProtectedRoute  dataSuccess={resetSuccess} path="/reset-password">
               <ResetPasswordForm />
-              </Route>
-              <ProtectedRoute path="/profile">
+              </ProtectedRoute>
+              <ProtectedRoute dataSuccess={registrationSuccess} path="/profile">
               <Profile />
               </ProtectedRoute>
               <Route path="/">

@@ -1,10 +1,7 @@
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from '../../../services/hooks';
 import { useState, useEffect } from 'react';
-export const ProtectedRoute = ({ children, ...rest }: any) => {
-    const { registerReceivedData } =
-        useSelector((state) => state.registrationForm);
-    console.log(registerReceivedData)
+export const ProtectedRoute = ({ children, dataSuccess, ...rest }: any) => {
     const [isLogin, setIslogin] = useState(false);
     useEffect(() => {
         const refreshToken = localStorage.getItem('refreshToken');
@@ -19,11 +16,10 @@ export const ProtectedRoute = ({ children, ...rest }: any) => {
         <Route
             {...rest}
             render={() => {
-                if (registerReceivedData) {
+                if (dataSuccess === true) {
                     return children
                 }
                 else  {
-                    console.log('test')
                     return <Redirect to= "/login" />
                 }
             }

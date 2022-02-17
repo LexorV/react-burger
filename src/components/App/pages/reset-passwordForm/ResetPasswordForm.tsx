@@ -8,13 +8,13 @@ import { setRegisterFormValue } from '../../../../services/action/registerForm';
 import { useState, useEffect } from 'react';
 import { getCookie } from '../../../../utils/utils'
 export const ResetPasswordForm = () => {
-    const { password, emailCode, registerReceivedData, registrationFailed, registrationSuccess } = useSelector((state) => state.registrationForm);
+    const { password, emailCode, registerReceivedData} = useSelector((state) => state.registrationForm);
         const [passwordState,
             setPasswordState] = useState < 'password' | 'text' > ('password');
     const history = useHistory();
     const dispatch = useDispatch();
     const registerSend = () => {
-        if (registrationSuccess) {
+        if (registerReceivedData) {
             history.replace({ pathname: '/' });
             console.log(registerReceivedData);
         }

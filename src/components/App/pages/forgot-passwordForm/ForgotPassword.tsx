@@ -2,29 +2,27 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import autchFormStyle from '../autchFormStyle.module.css';
 import { forgotPasswordApi } from '../../../../utils/burgerApi'
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { useHistory, Link } from 'react-router-dom';
+import { useHistory, Link, Redirect } from 'react-router-dom';
 import { useEffect } from 'react';
-import { register } from '../../../../services/action/registerForm';
+import { forgotPassword } from '../../../../services/action/registerForm';
 import { setRegisterFormValue } from '../../../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
-    const { email, registerReceivedData,
-        registrationFailed, registrationSuccess }
-        = useSelector((state) => state.registrationForm);
+    const { emailForgot, resetSuccess } = useSelector((state) => state.registrationForm);
     const registerSend = () => {
-        if (registrationSuccess) {
+        if (resetSuccess) {
             history.replace({ pathname: '/reset-password' });
-            console.log(registerReceivedData);
         }
     }
     const history = useHistory();
     const dispatch = useDispatch();
+    
     useEffect(() => {
         registerSend();
-    }, [registerReceivedData])
+    }, [resetSuccess])
     const onChangeForm = (e: any) => {
         e.preventDefault();
-        dispatch(register({
-            email,
+        dispatch(forgotPassword({
+            emailForgot,
         }, forgotPasswordApi));
     }
     const onFormChange = (e: any) => {
@@ -36,8 +34,9 @@ export const ForgotPasswordForm = () => {
                 <h2 className="text text_type_main-medium pb-6">Востановление пароля</h2>
                 <div className="pb-6">
                     <Input type="email"
+                        name={'emailForgot'}
                         placeholder="Укажите e-mail"
-                        value={email}
+                        value={emailForgot}
                         onChange={onFormChange}></Input>
                 </div>
                 <Button onClick={onChangeForm} type="primary" size="medium">Востановить</Button>
