@@ -1,13 +1,16 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import { forgotPasswordApi } from '../../../../utils/burgerApi'
+import { forgotPasswordApi } from '../../../../utils/burgerApi';
+import {validateField} from '../../../../utils/utils';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useHistory, Link, Redirect } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { forgotPassword } from '../../../../services/action/registerForm';
 import { setRegisterFormValue } from '../../../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
     const { emailForgot, resetSuccess } = useSelector((state) => state.registrationForm);
+   const [validErrosText, setValidErrosText] = useState('');
+   const [isValid, setIsvalid] = useState(null)
     const registerSend = () => {
         if (resetSuccess) {
             history.replace({ pathname: '/reset-password' });
@@ -15,15 +18,21 @@ export const ForgotPasswordForm = () => {
     }
     const history = useHistory();
     const dispatch = useDispatch();
-    
+    useEffect(() => {
+        if(emailForgot) {
+            validateField('email', emailForgot, setValidErrosText, isValid, setIsvalid)
+        }
+    }, [emailForgot])
     useEffect(() => {
         registerSend();
     }, [resetSuccess])
     const onChangeForm = (e: any) => {
         e.preventDefault();
+        if(isValid !== null) {
         dispatch(forgotPassword({
             emailForgot,
         }, forgotPasswordApi));
+    }
     }
     const onFormChange = (e: any) => {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));
@@ -38,6 +47,7 @@ export const ForgotPasswordForm = () => {
                         placeholder="Укажите e-mail"
                         value={emailForgot}
                         onChange={onFormChange}></Input>
+                        <p>{validErrosText}</p>
                 </div>
                 <Button onClick={onChangeForm} type="primary" size="medium">Востановить</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>

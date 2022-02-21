@@ -25,4 +25,26 @@ export function getCookie(name: any) {
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
-} 
+}
+export function validateField(fieldName:any, value:any, setErrosText:any, stateValid:any, setStateValid:any ) {
+    let checkValid = stateValid
+  switch(fieldName) {
+      case 'email':
+        checkValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        setErrosText(checkValid ? '' : 'Неправильный Email');
+        setStateValid(checkValid);
+        break;
+      case 'password':
+        checkValid = value.length >= 6;
+        setErrosText(checkValid ? '' : 'Слишком короткий пароль не менее, чем 6 символов');
+        setStateValid(checkValid);
+        break;
+      default:
+        break;
+    }
+  }
+  /*
+  validateForm() {
+    this.setState({formValid: this.state.emailValid &&
+                              this.state.passwordValid});
+  }*/
