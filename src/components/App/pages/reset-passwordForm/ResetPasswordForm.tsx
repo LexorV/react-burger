@@ -1,7 +1,7 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { resetPasswordApi } from '../../../../utils/burgerApi';
 import { register } from '../../../../services/action/registerForm';
 import { setRegisterFormValue } from '../../../../services/action/registerForm';
@@ -11,11 +11,11 @@ export const ResetPasswordForm = () => {
     const { password, emailCode, registerReceivedData} = useSelector((state) => state.registrationForm);
         const [passwordState,
             setPasswordState] = useState < 'password' | 'text' > ('password');
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
         if (registerReceivedData) {
-            history.replace({ pathname: '/' });
+            navigate('/');
             console.log(registerReceivedData);
         }
     }

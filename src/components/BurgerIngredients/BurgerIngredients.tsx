@@ -1,5 +1,5 @@
 import React from 'react';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
@@ -10,11 +10,14 @@ import {
     Tab,
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import {Link} from "react-router-dom";
+import { BrowserRouter as useLocation } from "react-router-dom";
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import {ingredientsType} from '../../services/constants'
 const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({ ingredient, setModalIsOpen }) => {
-    const { _id, image, name, price, type } = ingredient
+    const { _id, image, name, price, type } = ingredient;
+    let location = useLocation({basename:'/'});
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: { _id, image, name, price, type }
@@ -27,6 +30,9 @@ const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({
         setModalIsOpen(true)
     }
     return (
+        <Link to = {{
+            pathname: `/ingredients/${_id}`
+        }}>
         <li ref={dragRef} onClickCapture={openModal} key={ingredient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
             {countIngredient > 0 ? <Counter count={countIngredient} size="default" /> : null}
             <img alt={ingredient.name} src={ingredient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
@@ -35,7 +41,7 @@ const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({
                 <CurrencyIcon type="primary" />
             </div>
             <p className="text text_type_main-small">{ingredient.name}</p>
-        </li>)
+        </li></Link>)
 }
 const Ingredients: FC<{ data: any, type: string, setModalIsOpen: Function }> = ({ data, type, setModalIsOpen }) => {
 
@@ -56,7 +62,11 @@ export default function BurgerIngredients() {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false)
     const [current, setCurrent] = React.useState<string>('Булки');
     const dispatch = useDispatch();
-    const { ingredient } = useSelector(state => state.ingredientDetail)
+    const { ingredient } = useSelector(state => state.ingredientDetail);
+    useEffect(() => {
+        console.log(ingredient);
+    }, [ingredient])
+    
     const { ingredients } = useSelector(state => state.ingredients);
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
@@ -114,9 +124,9 @@ export default function BurgerIngredients() {
                     </ul>
                 </div>
             </section>
-            {ingredient && (<Modal height={539} closeModal={closeModal}   >
-                <IngredientDetails dataIngrid={ingredient} />
-            </Modal>)}
         </>
     )
 }
+/*{ingredient && (<Modal height={539} closeModal={closeModal}   >
+    <IngredientDetails dataIngrid={ingredient} />
+</Modal>)}*/

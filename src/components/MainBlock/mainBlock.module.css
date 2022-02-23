@@ -1,0 +1,9 @@
+.main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-left: 320px;
+    margin-right: 320px;
+    position: relative;
+    justify-content: center;
+  }

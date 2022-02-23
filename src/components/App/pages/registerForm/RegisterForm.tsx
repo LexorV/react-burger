@@ -2,7 +2,7 @@ import {Input, Button} from '@ya.praktikum/react-developer-burger-ui-components'
 import autchFormStyle from '../autchFormStyle.module.css';
 import {sendRegisterUser} from '../../../../utils/burgerApi'
 import {useSelector, useDispatch} from '../../../../services/hooks';
-import {useHistory, Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {register} from '../../../../services/action/registerForm'
 import { setRegisterFormValue} from '../../../../services/action/registerForm';
@@ -12,11 +12,11 @@ export const RegisterForm = () => {
     const [passwordState,
         setPasswordState] = useState < 'password' | 'text' > ('password');
     //const {registerReceivedData, registrationFailed} = useSelector(state => state.registrationForm);
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
         if (registerReceivedData) {
-            history.replace({pathname: '/'});
+            navigate('/');
             console.log(registerReceivedData);
         }
     }

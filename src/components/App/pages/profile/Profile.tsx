@@ -1,6 +1,6 @@
 import {  Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './profile.module.css';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {  useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi } from '../../../../utils/burgerApi';
@@ -11,7 +11,7 @@ export const Profile = () => {
     const [nameUser, setNameUser] = useState('');
     const [passwordUser, setPaswordUser] = useState('');
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const test = () => {
         console.log('test')
     }
@@ -35,12 +35,12 @@ export const Profile = () => {
                 }
                 else {
                     console.log('что-то пошло не так')
-                    return <Redirect to= "/login" />
+                    return <Navigate replace to= "/login" />
                 }
             })
             .catch((err) => {
                 console.log('что-то пошло не так1')
-                return <Redirect to= "/login" />
+                return <Navigate replace to= "/login" />
             })
     }
     const changeProfileData = () => {
@@ -58,7 +58,7 @@ export const Profile = () => {
                 }
                 else {
                     console.log('что-то пошло не так')
-                    history.replace({ pathname: '/login' });
+                    navigate('/login');
                 }
             })
     }

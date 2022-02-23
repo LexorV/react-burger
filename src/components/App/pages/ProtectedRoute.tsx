@@ -1,4 +1,4 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Navigate  } from 'react-router-dom';
 import { useSelector } from '../../../services/hooks';
 import { useState, useEffect } from 'react';
 export const ProtectedRoute = ({ children, dataSuccess, ...rest }: any) => {
@@ -9,22 +9,6 @@ export const ProtectedRoute = ({ children, dataSuccess, ...rest }: any) => {
             setIslogin(true)
         }
     }, [isLogin])
-    console.log(isLogin)
-
-    return (
-
-        <Route
-            {...rest}
-            render={() => {
-                if (dataSuccess === true) {
-                    return children
-                }
-                else  {
-                    return <Redirect to= "/login" />
-                }
-            }
-            }
-        />
-    );
-}
+    return ( ( dataSuccess === true) ? children : <Navigate replace to= "/login" />
+    )};
 export default ProtectedRoute

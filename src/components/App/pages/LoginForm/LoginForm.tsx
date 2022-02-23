@@ -1,7 +1,7 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
 import { register } from '../../../../services/action/registerForm'
-import { useHistory, Link } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { autchUser } from '../../../../utils/burgerApi';
 import { setCookie, } from '../../../../utils/utils'
@@ -13,12 +13,12 @@ export const LoginForm = ({setIsLogin}:any) => {
     const { email, password, registerReceivedData,
         registrationFailed, registrationSuccess } =
         useSelector((state) => state.registrationForm);
-    const history = useHistory();
+    const navigate  = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
         if (registerReceivedData) {
             setIsLogin(true)
-            history.replace({ pathname: '/' });
+            navigate('/');
             setCookie('accessToken', registerReceivedData.accessToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
             console.log(registerReceivedData.accessToken);

@@ -4,7 +4,7 @@ import ingredientDetailsStyles from './ingredientDetails.module.css';
 export type TingredientDetails = {
     dataIngrid: Tingredient
 }
-const IngredientDetails = React.memo(({ dataIngrid }: TingredientDetails) => {
+export const IngredientDetails = React.memo(({ dataIngrid }: TingredientDetails) => {
     return (
         <div className={ingredientDetailsStyles.main}>
             <h2 className="mt-10 mr-10 ml-10 text text_type_main-large">Детали ингредиента</h2>

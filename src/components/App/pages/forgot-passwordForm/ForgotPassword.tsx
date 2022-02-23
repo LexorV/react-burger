@@ -3,7 +3,7 @@ import autchFormStyle from '../autchFormStyle.module.css';
 import { forgotPasswordApi } from '../../../../utils/burgerApi';
 import {validateField} from '../../../../utils/utils';
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { useHistory, Link, Redirect } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { forgotPassword } from '../../../../services/action/registerForm';
 import { setRegisterFormValue } from '../../../../services/action/registerForm';
@@ -13,10 +13,10 @@ export const ForgotPasswordForm = () => {
    const [isValid, setIsvalid] = useState(null)
     const registerSend = () => {
         if (resetSuccess) {
-            history.replace({ pathname: '/reset-password' });
+            navigate('/reset-password');
         }
     }
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
         if(emailForgot) {

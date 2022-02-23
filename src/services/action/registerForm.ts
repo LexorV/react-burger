@@ -1,4 +1,3 @@
-import {useSelector} from '../hooks'
 //import {sendRegisterUser, autchUser} from '../../utils/burgerApi'
 export const CHANGE_REGISTER_FORM_VALUE = 'CHANGE_REGISTER_FORM_VALUE';
 export const REGISTER_FORM_SUBMIT = 'REGISTER_FORM_SUBMIT';
