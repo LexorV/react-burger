@@ -1,9 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useParams, useLocation } from 'react-router-dom';
+import { useNavigate, Routes, Route, useLocation, } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import appStyle from './App.module.css'
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { DndProvider } from "react-dnd";
 import { useSelector, useDispatch } from '../../services/hooks'
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -15,7 +12,7 @@ import { ResetPasswordForm } from './pages/reset-passwordForm/ResetPasswordForm'
 import { Profile } from './pages/profile/Profile';
 import { MainBlock } from '../MainBlock/MainBlock';
 import { ProtectedRoute } from './pages/ProtectedRoute';
-import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
+import { CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
@@ -25,17 +22,17 @@ export default function App() {
     const [isLogin,
         setIsLogin] = useState<boolean>(true);
     const dispatch = useDispatch();
-    const { ingredient } = useSelector(state => state.ingredientDetail);
+    const { ingredient} = useSelector(state => state.ingredientDetail);
+    let location: any = useLocation()
+    const navigate = useNavigate();
+    let positionPopap  = ingredient && location.state && location.state.positionPopap
     React.useEffect(() => {
         console.log(ingredient);
     }, [ingredient])
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
+        navigate('/')
     }
-    const location: any = useLocation();
-    // console.log(location);
-    console.log(MainBlock)
-    let background = location.state && location.state.background;
     React.useEffect(() => {
         dispatch(getIngredientsAction())
     }, [dispatch])
@@ -47,12 +44,20 @@ export default function App() {
         return (
             <DndProvider backend={HTML5Backend}>
                 <>
-                 <AppHeader />
-                    <Routes>
+                    <AppHeader />
+                    {positionPopap &&
+                        <Routes>
+                            <Route path={'/ingredients/:id'} element={
+                                <Modal height={539} closeModal={() => closeModal()}>
+                                    <IngredientDetails />
+                                </Modal>
+                            } />)
+                        </Routes>}
+                    <Routes location={positionPopap || location}>
+                        <Route path="/" element={<MainBlock />} />
                         <Route path="/login" element={<LoginForm setIsLogin={setIsLogin} />} />
                         <Route path="/register" element={<RegisterForm />} />
                         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-                        <Route path="/" element={<MainBlock />} />
                         <Route path="/reset-password" element={
                             <ProtectedRoute dataSuccess={resetSuccess}>
                                 <ResetPasswordForm />
@@ -61,13 +66,10 @@ export default function App() {
                             dataSuccess={registrationSuccess} path="/profile">
                             <Profile />
                         </ProtectedRoute>} />
-                        {background && (
-                            <Route path="/ingredients/:id">
-                                <Modal height={539} closeModal={() => closeModal()}>
-                                    <IngredientDetails dataIngrid={ingredient} />
-                                </Modal>
-                            </Route>
-                        )}
+
+                        <Route path={'/ingredients/:id'} element={
+                            <IngredientDetails />
+                        } />)
                     </Routes>
                 </>
             </DndProvider>

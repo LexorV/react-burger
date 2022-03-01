@@ -1,6 +1,5 @@
 import React from 'react';
 import { FC, useEffect } from 'react';
-import Modal from '../Modal/Modal';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
 import { Tingredient } from '../../services/types/ingredientsType'
@@ -10,38 +9,37 @@ import {
     Tab,
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {Link} from "react-router-dom";
-import { BrowserRouter as useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import burgerIngredientsStyle from './burgerIngredients.module.css'
-import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import {ingredientsType} from '../../services/constants'
+import { ingredientsType } from '../../services/constants'
 const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({ ingredient, setModalIsOpen }) => {
     const { _id, image, name, price, type } = ingredient;
-    let location = useLocation({basename:'/'});
+    let location = useLocation();
+
     const [, dragRef] = useDrag({
         type: 'ingredient',
         item: { _id, image, name, price, type }
     })
     const { arrayID } = useSelector(state => state.arrayInConstructor)
     const countIngredient = arrayID.filter((e: string) => e === ingredient._id).length
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const openModal = () => {
         dispatch({ type: OPEN_INGREDIENT_DETAILS, ingredient: ingredient })
         setModalIsOpen(true)
     }
+
     return (
-        <Link to = {{
-            pathname: `/ingredients/${_id}`
-        }}>
-        <li ref={dragRef} onClickCapture={openModal} key={ingredient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
-            {countIngredient > 0 ? <Counter count={countIngredient} size="default" /> : null}
-            <img alt={ingredient.name} src={ingredient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
-            <div className={`${burgerIngredientsStyle.card_price_box} pt-1 pb-1`}>
-                <p className="text text_type_digits-default pr-2">{ingredient.price}</p>
-                <CurrencyIcon type="primary" />
-            </div>
-            <p className="text text_type_main-small">{ingredient.name}</p>
-        </li></Link>)
+        <Link to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap: location }}>
+            <li ref={dragRef} onClickCapture={openModal} key={ingredient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
+                {countIngredient > 0 ? <Counter count={countIngredient} size="default" /> : null}
+                <img alt={ingredient.name} src={ingredient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
+                <div className={`${burgerIngredientsStyle.card_price_box} pt-1 pb-1`}>
+                    <p className="text text_type_digits-default pr-2">{ingredient.price}</p>
+                    <CurrencyIcon type="primary" />
+                </div>
+                <p className="text text_type_main-small">{ingredient.name}</p>
+            </li></Link>)
 }
 const Ingredients: FC<{ data: any, type: string, setModalIsOpen: Function }> = ({ data, type, setModalIsOpen }) => {
 
@@ -66,7 +64,7 @@ export default function BurgerIngredients() {
     useEffect(() => {
         console.log(ingredient);
     }, [ingredient])
-    
+
     const { ingredients } = useSelector(state => state.ingredients);
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
