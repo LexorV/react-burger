@@ -5,6 +5,7 @@ import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktiku
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
+import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/hooks'
 import {ingredientsType} from '../../services/constants'
 import {
@@ -87,6 +88,7 @@ export default function BurgerConstructor() {
    const { ingredientsInConstructor } = useSelector((state) => state.arrayInConstructor);
    const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector((state) => state.order)
    const dispatch = useDispatch();
+   const { registrationFailed, registrationSuccess } = useSelector((state) => state.registrationForm)
    const bunInArray = ingredientsInConstructor.find((e: Tingredient) => e.type === ingredientsType.bun);
    const closeModal = () => {
       setModalIsOpen(false)
@@ -94,9 +96,10 @@ export default function BurgerConstructor() {
       dispatch({ type: CLEAR_CONSTRUCTOR })
       setCommonPrice(0)
    }
+   const navigate = useNavigate()
    const arrayId:any= ingredientsInConstructor.map((e: Tingredient) => e._id);
    const openModal = () => {
-      dispatch(sendOrderAction(arrayId))
+      registrationSuccess=== true? dispatch(sendOrderAction(arrayId)):navigate('/login')
       if (orderNumberFailed) {
          return (
             <p>Произошла ошибка при получении данных</p>
