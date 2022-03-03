@@ -6,14 +6,14 @@ import { useSelector, useDispatch } from '../../../../services/hooks';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { forgotPassword } from '../../../../services/action/registerForm';
-import { setRegisterFormValue } from '../../../../services/action/registerForm';
+import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
-    const { emailForgot, resetSuccess } = useSelector((state) => state.registrationForm);
+    const { emailForgot, registerReceivedData, forgotSuccess} = useSelector((state) => state.registrationForm);
    const [validErrosText, setValidErrosText] = useState('');
    const [isValid, setIsvalid] = useState(null)
     const registerSend = () => {
-        if (resetSuccess) {
-            navigate('/reset-password');
+        if (registerReceivedData) {
+            navigate('/login');
         }
     }
     const navigate = useNavigate();
@@ -24,14 +24,17 @@ export const ForgotPasswordForm = () => {
         }
     }, [emailForgot])
     useEffect(() => {
+        dispatch({type:fORGOT_FORM_CLEANING})
         registerSend();
-    }, [resetSuccess])
-    const onChangeForm = (e: any) => {
+    }, [forgotSuccess])
+   
+ const onChangeForm = (e: any) => {
         e.preventDefault();
-        if(isValid !== null) {
+        if(isValid !== null || forgotSuccess) {
         dispatch(forgotPassword({
-            emailForgot,
+            email: emailForgot,
         }, forgotPasswordApi));
+            navigate('/reset-password', {replace: true, state:'forgotPage'});
     }
     }
     const onFormChange = (e: any) => {

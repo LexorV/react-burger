@@ -7,6 +7,12 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const fORGOT_FORM_SUBMIT = 'fORGOT_FORM_SUBMIT';
 export const  fORGOT_FORM_SUCCESS ="fORGOT_FORM_SUCCESS";
 export const fORGOT_FORM_FAILED = 'fORGOT_FORM_FAILED';
+export const fORGOT_FORM_CLEANING = 'fORGOT_FORM_CLEANING';
+export const RESET_FORM_SUBMIT = 'RESET_FORM_SUBMIT';
+export const RESET_fORM_SUCCESS = "RESET_fORM_SUCCESS";
+export const RESET_fORM_FAILED = "RESET_fORM_SUCCESS";
+export const RESET_fORM_CLEANING = 'RESET_fORM_FAILED';
+
 export const setRegisterFormValue = (field:any, value:string) => ({
     type:CHANGE_REGISTER_FORM_VALUE,
     field,
@@ -59,5 +65,30 @@ export const forgotPassword = (data:any, sendApi:any) => {
         })
     })
 }
+}
+export const resetPassword = (data:any, sendApi:any) => {
+    console.log(data)
+    return function(dispatch:Function) {
+        dispatch({
+            type:RESET_FORM_SUBMIT
+        })
+        sendApi(data).then((res:any) => {
+            if(res && res.success) {
+                dispatch({
+                    type: RESET_fORM_SUCCESS,
+                    tokenData: res
+                })
+            } else {
+                dispatch({
+                    type: RESET_fORM_FAILED
+                })
+            }
+        })
+        .catch((err:any) => {
+            dispatch({
+                type: RESET_fORM_FAILED
+            })
+        })
 
+    }
 }

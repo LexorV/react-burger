@@ -1,22 +1,27 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { resetPasswordApi } from '../../../../utils/burgerApi';
-import { register } from '../../../../services/action/registerForm';
-import { setRegisterFormValue } from '../../../../services/action/registerForm';
+import { resetPassword, RESET_fORM_CLEANING } from '../../../../services/action/registerForm';
+import { setRegisterFormValue} from '../../../../services/action/registerForm';
 import { useState, useEffect } from 'react';
 import { getCookie } from '../../../../utils/utils'
 export const ResetPasswordForm = () => {
-    const { password, emailCode, registerReceivedData} = useSelector((state) => state.registrationForm);
+    const { password, emailCode, registerReceivedData, resetSuccess} = useSelector((state) => state.registrationForm);
         const [passwordState,
             setPasswordState] = useState < 'password' | 'text' > ('password');
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const location = useLocation();
+    console.log(location.state)
     const registerSend = () => {
-        if (registerReceivedData) {
-            navigate('/');
+        if (registerReceivedData || resetSuccess===true ) {
+            navigate('/login');
             console.log(registerReceivedData);
+        }
+        if(location.state=== null) {
+            navigate('/');
         }
     }
     const openPassword = () => {
@@ -28,13 +33,18 @@ export const ResetPasswordForm = () => {
         console.log(getCookie('token'));
         const token = getCookie('token')
         e.preventDefault();
-        dispatch(register({
-            password, token
+        dispatch(resetPassword({
+            'password':password, 'token':emailCode
         }, resetPasswordApi));
+        if(resetSuccess) {
+            dispatch({ type:RESET_fORM_CLEANING})
+            navigate('/login');
+        }
     }
     useEffect(() => {
+        console.log(resetSuccess)
         registerSend();
-    }, [registerReceivedData])
+    }, [registerReceivedData, resetSuccess])
     const onFormChange = (e: any) => {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));
     }

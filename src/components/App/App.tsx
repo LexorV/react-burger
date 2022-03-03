@@ -18,7 +18,7 @@ import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
-    const { registrationSuccess, resetSuccess } = useSelector(state => state.registrationForm)
+    const { registrationSuccess} = useSelector(state => state.registrationForm)
     const [isLogin,
         setIsLogin] = useState<boolean>(true);
     const dispatch = useDispatch();
@@ -59,9 +59,7 @@ export default function App() {
                         <Route path="/register" element={<RegisterForm />} />
                         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                         <Route path="/reset-password" element={
-                            <ProtectedRoute dataSuccess={resetSuccess}>
-                                <ResetPasswordForm />
-                            </ProtectedRoute>} />
+                            <ResetPasswordForm />} />
                         <Route path="/profile" element={<ProtectedRoute
                             dataSuccess={registrationSuccess} path="/profile">
                             <Profile />
