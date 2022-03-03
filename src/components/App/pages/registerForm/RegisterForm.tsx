@@ -5,7 +5,7 @@ import {useSelector, useDispatch} from '../../../../services/hooks';
 import {useNavigate, Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {register} from '../../../../services/action/registerForm'
-import { setRegisterFormValue} from '../../../../services/action/registerForm';
+import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../../../services/action/registerForm';
 
 export const RegisterForm = () => {
     const {name, email, password, registerReceivedData, registrationFailed, registrationSuccess } = useSelector((state) => state.registrationForm);
@@ -22,6 +22,7 @@ export const RegisterForm = () => {
     }
     useEffect(() => {
         registerSend();
+        dispatch({type:GLOBAL_CLEANING_FORM});
     },[registerReceivedData] )
 
     const onChangeForm = (e : any) => {
@@ -71,7 +72,7 @@ export const RegisterForm = () => {
                         value={password}
                         onChange={onFormChange}></Input>
                 </div>
-                {registrationFailed && <p>Проверьте правильность заполнения формы</p>}
+                {registrationFailed === true && <p>Проверьте правильность заполнения формы</p>}
                 <Button onClick={onChangeForm} type="primary" size="medium">Зарегистрироваться</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?</p>

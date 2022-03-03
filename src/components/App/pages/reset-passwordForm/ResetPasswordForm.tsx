@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { resetPasswordApi } from '../../../../utils/burgerApi';
 import { resetPassword, RESET_fORM_CLEANING } from '../../../../services/action/registerForm';
-import { setRegisterFormValue} from '../../../../services/action/registerForm';
+import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../../../services/action/registerForm';
 import { useState, useEffect } from 'react';
 import { getCookie } from '../../../../utils/utils'
 export const ResetPasswordForm = () => {
@@ -44,6 +44,7 @@ export const ResetPasswordForm = () => {
     useEffect(() => {
         console.log(resetSuccess)
         registerSend();
+        dispatch({type:GLOBAL_CLEANING_FORM});
     }, [registerReceivedData, resetSuccess])
     const onFormChange = (e: any) => {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));

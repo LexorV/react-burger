@@ -11,7 +11,8 @@ import {
     RESET_FORM_SUBMIT,
     RESET_fORM_SUCCESS,
     RESET_fORM_FAILED,
-    RESET_fORM_CLEANING
+    RESET_fORM_CLEANING,
+    GLOBAL_CLEANING_FORM
 } from '../action/registerForm'
 const initialState = {
     email: '',
@@ -106,7 +107,7 @@ export const RegistrationReduser = (state = initialState, action: any) => {
                 emailCode: '',
             }
         }
-        case RESET_FORM_SUBMIT:{
+        case RESET_FORM_SUBMIT: {
             return {
                 ...state,
                 registrationRequest: true,
@@ -114,32 +115,43 @@ export const RegistrationReduser = (state = initialState, action: any) => {
                 resetFailed: false
             }
         }
-            case RESET_fORM_SUCCESS: {
-                return {
-                    ...state,
-                    registrationRequest: false,
-                    resetSuccess: true,
-                    resetFailed: false
-                }
+        case RESET_fORM_SUCCESS: {
+            return {
+                ...state,
+                registrationRequest: false,
+                resetSuccess: true,
+                resetFailed: false
             }
-            case RESET_fORM_FAILED: {
-                return {
-                    ...state,
-                    registrationRequest: false,
-                    resetSuccess: false,
-                    resetFailed: true
-                }
+        }
+        case RESET_fORM_FAILED: {
+            return {
+                ...state,
+                registrationRequest: false,
+                resetSuccess: false,
+                resetFailed: true
             }
-            case RESET_fORM_CLEANING: {
-                return {
-                    ...state,
-                    registrationRequest: false,
-                    resetSuccess: false,
-                    resetFailed: false,
-                    password: '',
-                    emailCode:''
-                }
+        }
+        case RESET_fORM_CLEANING: {
+            return {
+                ...state,
+                registrationRequest: false,
+                resetSuccess: false,
+                resetFailed: false,
+                password: '',
+                emailCode: ''
             }
+        }
+        case GLOBAL_CLEANING_FORM: {
+            return {
+                ...state,
+                email: '',
+                password: '',
+                emailForgot: '',
+                emailCode: '',
+                name:'',
+                registrationFailed: false
+            }
+        }
         default: {
             return state;
         }

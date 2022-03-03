@@ -12,6 +12,7 @@ export const RESET_FORM_SUBMIT = 'RESET_FORM_SUBMIT';
 export const RESET_fORM_SUCCESS = "RESET_fORM_SUCCESS";
 export const RESET_fORM_FAILED = "RESET_fORM_SUCCESS";
 export const RESET_fORM_CLEANING = 'RESET_fORM_FAILED';
+export const GLOBAL_CLEANING_FORM = 'GLOBAL_CLEANING_FORM'
 
 export const setRegisterFormValue = (field:any, value:string) => ({
     type:CHANGE_REGISTER_FORM_VALUE,

@@ -6,10 +6,11 @@ import { useEffect, useState } from 'react';
 import { autchUser } from '../../../../utils/burgerApi';
 import { setCookie, } from '../../../../utils/utils'
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { setRegisterFormValue } from '../../../../services/action/registerForm';
+import { setRegisterFormValue, GLOBAL_CLEANING_FORM } from '../../../../services/action/registerForm';
 export const LoginForm = ({setIsLogin}:any) => {
     const [passwordState,
         setPasswordState] = useState<'password' | 'text'>('password');
+        const [errorValid, setErrorValid] = useState(null)
     const { email, password, registerReceivedData,
         registrationFailed, registrationSuccess } =
         useSelector((state) => state.registrationForm);
@@ -22,6 +23,8 @@ export const LoginForm = ({setIsLogin}:any) => {
             setCookie('accessToken', registerReceivedData.accessToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
             console.log(registerReceivedData.accessToken);
+          //  dispatch({type:GLOBAL_CLEANING_FORM});
+
         }
     }
     const openPassword = () => {
@@ -31,6 +34,7 @@ export const LoginForm = ({setIsLogin}:any) => {
     }
     useEffect(() => {
         registerSend();
+        dispatch({type:GLOBAL_CLEANING_FORM});
     }, [registerReceivedData])
     const onChangeForm = (e: any) => {
         e.preventDefault();
@@ -52,6 +56,7 @@ export const LoginForm = ({setIsLogin}:any) => {
                         type="email"
                         placeholder="E-mail"
                         value={email}
+                        errorText={'test'}
                         onChange={onFormChange}></Input>
                 </div>
                 <div className="pb-6">
@@ -67,10 +72,10 @@ export const LoginForm = ({setIsLogin}:any) => {
                     type="primary"
                     size="medium" >
                     Войти</Button>
+                    {registrationFailed === true && <p>Проверьте правильность заполнения формы</p>}
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Вы — новый пользователь?</p>
                     <Link to='/register' className={`text text_type_main-default ${autchFormStyle.link}`} > Зарегистрироваться</Link>
-                    {registrationFailed && <p>Проверьте правильность заполнения формы</p>}
                 </div>
                 <div className={autchFormStyle.box_register}>
                     <p className="text text_type_main-default text_color_inactive">Забыли пароль?</p>
