@@ -20,7 +20,7 @@ export const IngredientDetails = () => {
         <>
      {ingredients && (
         <div className={ingredientDetailsStyles.main}>
-        <h2 className="mt-10 mr-10 ml-10 text text_type_main-large">Детали ингредиента</h2>
+        <h2 className={`${ingredientDetailsStyles.title} mt-10 mr-10 ml-10 text text_type_main-large`}>Детали ингредиента</h2>
         <img className={ingredientDetailsStyles.picture} src={dataIngrid.image} alt={dataIngrid.name} />
         <p className={`${ingredientDetailsStyles.name} mt-4 mb-8 text text_type_main-medium`}>{dataIngrid.name}</p>
         <ul className={ingredientDetailsStyles.сomposition}>

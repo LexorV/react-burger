@@ -27,3 +27,11 @@
     margin-right: 10%;
   }
 }
+.link_style {
+  text-decoration:none;
+  color:#8585AD
+}
+.link_style_active {
+  color: white;
+  text-decoration:none;
+}
