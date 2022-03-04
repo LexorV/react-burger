@@ -15,20 +15,21 @@ import { ProtectedRoute } from './pages/ProtectedRoute';
 import { CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal';
+import { NotFound } from './pages/NotFound/NotFound'
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();
-    const { ingredient} = useSelector(state => state.ingredientDetail);
+    const { ingredient } = useSelector(state => state.ingredientDetail);
     type Tlocation = {
         pathname?: string;
-        state?:any
+        state?: any
         search?: string;
         hash?: string;
         key?: string;
     }
-    let location:Tlocation = useLocation()
+    let location: Tlocation = useLocation()
     const navigate = useNavigate();
-    let positionPopap  = ingredient && location.state && location.state.positionPopap
+    let positionPopap = ingredient && location.state && location.state.positionPopap
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
         navigate('/')
@@ -55,7 +56,7 @@ export default function App() {
                         </Routes>}
                     <Routes location={positionPopap || location}>
                         <Route path="/" element={<MainBlock />} />
-                        <Route path="/login" element={<LoginForm  />} />
+                        <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegisterForm />} />
                         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                         <Route path="/reset-password" element={
@@ -67,6 +68,7 @@ export default function App() {
                         <Route path={'/ingredients/:id'} element={
                             <IngredientDetails />
                         } />)
+                        <Route path='*' element={<NotFound />} />
                     </Routes>
                 </>
             </DndProvider>

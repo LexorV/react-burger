@@ -4,10 +4,10 @@ import { register } from '../../../../services/action/registerForm'
 import { useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState, SyntheticEvent, ChangeEvent } from 'react';
 import { autchUser } from '../../../../utils/burgerApi';
-import { setCookie, getCookie} from '../../../../utils/utils'
+import { setCookie, getCookie } from '../../../../utils/utils'
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { setRegisterFormValue, GLOBAL_CLEANING_FORM } from '../../../../services/action/registerForm';
-import  {refreshTokenApi} from '../../../../utils/burgerApi';
+import { refreshTokenApi } from '../../../../utils/burgerApi';
 
 export const LoginForm = () => {
     const [passwordState,
@@ -30,22 +30,21 @@ export const LoginForm = () => {
             ? 'text'
             : 'password')
     }
-   const checkLogin = () => {
+    const checkLogin = () => {
         let token = getCookie('accessToken')
-        if(token) {
+        if (token) {
             refreshTokenApi()
-            .then((res) => {
-                if(res && res.success) {
-                    let authToken = res.accessToken.split('Bearer ')[1];
-                    setCookie('accessToken', authToken, {});
-                    localStorage.setItem('refreshToken', res.refreshToken);
-                    navigate('/');
-                }
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-           // navigate('/');
+                .then((res) => {
+                    if (res && res.success) {
+                        let authToken = res.accessToken.split('Bearer ')[1];
+                        setCookie('accessToken', authToken, {});
+                        localStorage.setItem('refreshToken', res.refreshToken);
+                        navigate('/');
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
         }
     }
     useEffect(() => {

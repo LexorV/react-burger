@@ -5,9 +5,9 @@ import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktiku
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/hooks'
-import {ingredientsType} from '../../services/constants'
+import { ingredientsType } from '../../services/constants'
 import {
    Tingredient,
    TconstructorDrop
@@ -94,7 +94,7 @@ export default function BurgerConstructor() {
       setCommonPrice(0)
    }
    const navigate = useNavigate()
-   const arrayId:any= ingredientsInConstructor.map((e: Tingredient) => e._id);
+   const arrayId: any = ingredientsInConstructor.map((e: Tingredient) => e._id);
    const openModal = () => {
       dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
@@ -110,7 +110,7 @@ export default function BurgerConstructor() {
       }
    }
    React.useEffect(() => {
-      if(orderNumberFailed) {
+      if (orderNumberFailed) {
          navigate('/login')
          dispatch({ type: ORDER_CLEANING })
       }

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FC, useEffect,  } from 'react';
+import { FC, useEffect, } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
 import { Tingredient } from '../../services/types/ingredientsType'
-import { OPEN_INGREDIENT_DETAILS} from '../../services/action/IngredientDetail'
+import { OPEN_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
     Tab,
@@ -30,7 +30,7 @@ const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({
     }
 
     return (
-        <Link className={burgerIngredientsStyle.liks_style}  to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap: location }}>
+        <Link className={burgerIngredientsStyle.liks_style} to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap: location }}>
             <li ref={dragRef} onClickCapture={openModal} key={ingredient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
                 {countIngredient > 0 ? <Counter count={countIngredient} size="default" /> : null}
                 <img alt={ingredient.name} src={ingredient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
