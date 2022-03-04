@@ -1,9 +1,9 @@
 import React from 'react';
-import { FC, useEffect } from 'react';
+import { FC, useEffect,  } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
 import { Tingredient } from '../../services/types/ingredientsType'
-import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
+import { OPEN_INGREDIENT_DETAILS} from '../../services/action/IngredientDetail'
 import {
     CurrencyIcon,
     Tab,
@@ -59,17 +59,7 @@ const Ingredients: FC<{ data: any, type: string, setModalIsOpen: Function }> = (
 export default function BurgerIngredients() {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false)
     const [current, setCurrent] = React.useState<string>('Булки');
-    const dispatch = useDispatch();
-    const { ingredient } = useSelector(state => state.ingredientDetail);
-    useEffect(() => {
-        console.log(ingredient);
-    }, [ingredient])
-
     const { ingredients } = useSelector(state => state.ingredients);
-    const closeModal: () => void = () => {
-        dispatch({ type: CLOSE_INGREDIENT_DETAILS })
-        setModalIsOpen(false)
-    }
     const tabClick = (current: string) => {
         if (current === 'Булки') {
             setCurrent('Булки')

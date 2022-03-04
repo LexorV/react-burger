@@ -3,8 +3,8 @@ import autchFormStyle from '../autchFormStyle.module.css';
 import { forgotPasswordApi } from '../../../../utils/burgerApi';
 import {validateField} from '../../../../utils/utils';
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Link, useNavigate} from 'react-router-dom';
+import { useEffect, useState, ChangeEvent, SyntheticEvent } from 'react';
 import { forgotPassword } from '../../../../services/action/registerForm';
 import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
@@ -28,7 +28,7 @@ export const ForgotPasswordForm = () => {
         registerSend();
     }, [forgotSuccess])
    
- const onChangeForm = (e: any) => {
+ const onChangeForm = (e: SyntheticEvent) => {
         e.preventDefault();
         if(isValid !== null || forgotSuccess) {
         dispatch(forgotPassword({
@@ -37,7 +37,7 @@ export const ForgotPasswordForm = () => {
             navigate('/reset-password', {replace: true, state:'forgotPage'});
     }
     }
-    const onFormChange = (e: any) => {
+    const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));
     }
     return (

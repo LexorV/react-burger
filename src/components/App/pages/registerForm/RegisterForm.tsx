@@ -3,7 +3,7 @@ import autchFormStyle from '../autchFormStyle.module.css';
 import {sendRegisterUser} from '../../../../utils/burgerApi'
 import {useSelector, useDispatch} from '../../../../services/hooks';
 import {useNavigate, Link} from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, ChangeEvent, SyntheticEvent} from 'react';
 import {register} from '../../../../services/action/registerForm'
 import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../../../services/action/registerForm';
 
@@ -11,13 +11,11 @@ export const RegisterForm = () => {
     const {name, email, password, registerReceivedData, registrationFailed, registrationSuccess } = useSelector((state) => state.registrationForm);
     const [passwordState,
         setPasswordState] = useState < 'password' | 'text' > ('password');
-    //const {registerReceivedData, registrationFailed} = useSelector(state => state.registrationForm);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
         if (registerReceivedData) {
             navigate('/');
-            console.log(registerReceivedData);
         }
     }
     useEffect(() => {
@@ -25,7 +23,7 @@ export const RegisterForm = () => {
         dispatch({type:GLOBAL_CLEANING_FORM});
     },[registerReceivedData] )
 
-    const onChangeForm = (e : any) => {
+    const onChangeForm = (e : SyntheticEvent) => {
         e.preventDefault();
         dispatch(register({
             name,
@@ -33,13 +31,12 @@ export const RegisterForm = () => {
             password
         }, sendRegisterUser));
     }
-    console.log(registerReceivedData);
     const openPassword = () => {
         setPasswordState(passwordState === 'password'
             ? 'text'
             : 'password')
     }
-    const onFormChange = (e : any) => {
+    const onFormChange = (e : ChangeEvent<HTMLInputElement>) => {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));
     }
     return (

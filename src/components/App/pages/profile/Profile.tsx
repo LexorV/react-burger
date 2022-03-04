@@ -1,10 +1,10 @@
 import {  Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './profile.module.css';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, ChangeEvent } from 'react';
 import {  useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi } from '../../../../utils/burgerApi';
-import { getCookie, deleteCookie } from '../../../../utils/utils';
+import { deleteCookie } from '../../../../utils/utils';
 import {LOGOUT_USER} from '../../../../services/action/registerForm'
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
@@ -12,40 +12,33 @@ export const Profile = () => {
     const [passwordUser, setPaswordUser] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const test = () => {
-        console.log('test')
-    }
-    const onFormChangeEmail = (e: any) => {
+    const onFormChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmailUser(e.target.value);
     }
-    const onFormChangeName = (e: any) => {
+    const onFormChangeName = (e: ChangeEvent<HTMLInputElement>) => {
         setNameUser(e.target.value);
     }
-    const onFormChangePassword = (e: any) => {
+    const onFormChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
         setPaswordUser(e.target.value)
     }
     const postUserData = () => {
-        const token = getCookie('accessToken')
-        getProfileData(token)
+        getProfileData()
             .then((res) => {
                 if (res && res.success) {
                     setEmailUser(res.user.email);
                     setNameUser(res.user.name);
-                    console.log(res.user.email);
                 }
                 else {
-                    console.log('что-то пошло не так')
                     navigate('/login');
                 }
             })
             .catch((err) => {
-                console.log('что-то пошло не так1')
+                console.log(err)
                 navigate('/login');
             })
     }
     const changeProfileData = () => {
-        const token = getCookie('accessToken')
-        sendProfileData(token, {
+        sendProfileData({
             'email': emailUser,
             'password': passwordUser,
             'name': nameUser
@@ -54,7 +47,6 @@ export const Profile = () => {
                 if (res && res.success) {
                     setEmailUser(res.user.email);
                     setNameUser(res.user.name);
-                    console.log(res.user.email);
                 }
                 else {
                     console.log('что-то пошло не так')

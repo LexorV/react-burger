@@ -1,6 +1,6 @@
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './appHeader.module.css'
-import {Link, NavLink } from 'react-router-dom';
+import {NavLink } from 'react-router-dom';
 export default function AppHeader() {
     const setActive = ({isActive}:any) => isActive ? `${headerStyle.link_style_active} text text_type_main-default pl-2`: `${headerStyle.link_style} text text_type_main-default pl-2`;
     return (

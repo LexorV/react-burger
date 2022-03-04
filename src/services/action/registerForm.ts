@@ -1,4 +1,7 @@
-//import {sendRegisterUser, autchUser} from '../../utils/burgerApi'
+import {
+    TforgotPasswordApi,
+    TresetPasswordApi,
+} from '../types/autchType';
 export const CHANGE_REGISTER_FORM_VALUE = 'CHANGE_REGISTER_FORM_VALUE';
 export const REGISTER_FORM_SUBMIT = 'REGISTER_FORM_SUBMIT';
 export const REGISTER_FORM_SUBMIT_SUCCESS = 'REGISTER_FORM_SUBMIT_SUCCESS';
@@ -14,12 +17,13 @@ export const RESET_fORM_FAILED = "RESET_fORM_SUCCESS";
 export const RESET_fORM_CLEANING = 'RESET_fORM_FAILED';
 export const GLOBAL_CLEANING_FORM = 'GLOBAL_CLEANING_FORM'
 
-export const setRegisterFormValue = (field:any, value:string) => ({
+
+export const setRegisterFormValue = (field:string, value:string) => ({
     type:CHANGE_REGISTER_FORM_VALUE,
     field,
     value
 })
-export const register =  (userDataRegister:any, sendApi:any) => {
+export const register =  (userDataRegister:any, sendApi:Function) => {
     return function(dispatch:Function) {
         dispatch({
             type: REGISTER_FORM_SUBMIT
@@ -43,7 +47,7 @@ export const register =  (userDataRegister:any, sendApi:any) => {
             })
     }
 }
-export const forgotPassword = (data:any, sendApi:any) => {
+export const forgotPassword = (data:TforgotPasswordApi, sendApi:Function) => {
     return function(dispatch:Function) {
         dispatch({
             type: fORGOT_FORM_SUBMIT
@@ -67,7 +71,7 @@ export const forgotPassword = (data:any, sendApi:any) => {
     })
 }
 }
-export const resetPassword = (data:any, sendApi:any) => {
+export const resetPassword = (data:TresetPasswordApi, sendApi:Function) => {
     console.log(data)
     return function(dispatch:Function) {
         dispatch({

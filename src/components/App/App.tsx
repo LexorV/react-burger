@@ -14,21 +14,21 @@ import { MainBlock } from '../MainBlock/MainBlock';
 import { ProtectedRoute } from './pages/ProtectedRoute';
 import { CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
-import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
-    const { registrationSuccess} = useSelector(state => state.registrationForm)
-    const [isLogin,
-        setIsLogin] = useState<boolean>(true);
     const dispatch = useDispatch();
     const { ingredient} = useSelector(state => state.ingredientDetail);
-    let location: any = useLocation()
+    type Tlocation = {
+        pathname?: string;
+        state?:any
+        search?: string;
+        hash?: string;
+        key?: string;
+    }
+    let location:Tlocation = useLocation()
     const navigate = useNavigate();
     let positionPopap  = ingredient && location.state && location.state.positionPopap
-    React.useEffect(() => {
-        console.log(ingredient);
-    }, [ingredient])
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
         navigate('/')
@@ -55,13 +55,12 @@ export default function App() {
                         </Routes>}
                     <Routes location={positionPopap || location}>
                         <Route path="/" element={<MainBlock />} />
-                        <Route path="/login" element={<LoginForm setIsLogin={setIsLogin} />} />
+                        <Route path="/login" element={<LoginForm  />} />
                         <Route path="/register" element={<RegisterForm />} />
                         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
                         <Route path="/reset-password" element={
                             <ResetPasswordForm />} />
-                        <Route path="/profile" element={<ProtectedRoute
-                            dataSuccess={registrationSuccess} path="/profile">
+                        <Route path="/profile" element={<ProtectedRoute path="/profile">
                             <Profile />
                         </ProtectedRoute>} />
 

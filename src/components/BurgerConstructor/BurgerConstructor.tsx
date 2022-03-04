@@ -83,15 +83,12 @@ const IngredientsInConstructor: FC<{ ingredientsInConstructor: any, type: string
 
 export default function BurgerConstructor() {
    const { ingredients } = useSelector((state) => state.ingredients);
-   const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
    const { ingredientsInConstructor } = useSelector((state) => state.arrayInConstructor);
    const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector((state) => state.order)
    const dispatch = useDispatch();
-   const { registrationFailed, registrationSuccess } = useSelector((state) => state.registrationForm)
    const bunInArray = ingredientsInConstructor.find((e: Tingredient) => e.type === ingredientsType.bun);
    const closeModal = () => {
-      setModalIsOpen(false)
       dispatch({ type: ORDER_CLEANING })
       dispatch({ type: CLEAR_CONSTRUCTOR })
       setCommonPrice(0)
@@ -113,7 +110,6 @@ export default function BurgerConstructor() {
       }
    }
    React.useEffect(() => {
-      console.log(orderNumberFailed);
       if(orderNumberFailed) {
          navigate('/login')
          dispatch({ type: ORDER_CLEANING })
