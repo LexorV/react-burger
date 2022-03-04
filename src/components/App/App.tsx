@@ -34,7 +34,7 @@ export default function App() {
         navigate('/')
     }
     React.useEffect(() => {
-        dispatch(getIngredientsAction())
+        dispatch(getIngredientsAction());
     }, [dispatch])
     if (ingredientsFailed) {
         return <div>Произошла ошибка</div>;

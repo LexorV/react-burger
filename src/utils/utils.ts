@@ -26,6 +26,9 @@ export function getCookie(name: any) {
     );
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
+export function deleteCookie(name:string) {
+    setCookie(name, false, { expires: -1 });
+  }
 export function validateField(fieldName: any, value: any, setErrosText: any, stateValid: any, setStateValid: any) {
     let checkValid = stateValid
     switch (fieldName) {

@@ -21,6 +21,7 @@ export function sendOrderAction(arryId:string[]) {
                     })
                 }
             })
+
             .catch(err => {
                 dispatch({
                     type: GET_ORDER_FAILED

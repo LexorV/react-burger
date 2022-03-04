@@ -99,8 +99,9 @@ export default function BurgerConstructor() {
    const navigate = useNavigate()
    const arrayId:any= ingredientsInConstructor.map((e: Tingredient) => e._id);
    const openModal = () => {
-      registrationSuccess=== true? dispatch(sendOrderAction(arrayId)):navigate('/login')
+      dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
+         navigate('/login')
          return (
             <p>Произошла ошибка при получении данных</p>
          )
@@ -111,6 +112,15 @@ export default function BurgerConstructor() {
          )
       }
    }
+   React.useEffect(() => {
+      console.log(orderNumberFailed);
+      if(orderNumberFailed) {
+         navigate('/login')
+         dispatch({ type: ORDER_CLEANING })
+      }
+
+   }, [orderNumberFailed])
+
    React.useEffect(() => {
       if (orederNumber !== null) {
          dispatch({ type: OPEN_ORDER_MODAL, order: orederNumber })
@@ -165,7 +175,7 @@ export default function BurgerConstructor() {
                      Оформить заказ
                   </Button> : null}
                </div>
-
+               {orederNumberRequest && (<p>Загрузка...</p>)}
             </section>
             {orederNumber && (<Modal height={718} closeModal={closeModal}>
                <OrderDetails order={orederNumber} />

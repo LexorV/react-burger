@@ -4,7 +4,7 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import {  useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi } from '../../../../utils/burgerApi';
-import { getCookie, setCookie } from '../../../../utils/utils';
+import { getCookie, setCookie, deleteCookie } from '../../../../utils/utils';
 import {LOGOUT_USER} from '../../../../services/action/registerForm'
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
@@ -35,12 +35,12 @@ export const Profile = () => {
                 }
                 else {
                     console.log('что-то пошло не так')
-                    return <Navigate replace to= "/login" />
+                    navigate('/login');
                 }
             })
             .catch((err) => {
                 console.log('что-то пошло не так1')
-                return <Navigate replace to= "/login" />
+                navigate('/login');
             })
     }
     const changeProfileData = () => {
@@ -64,10 +64,12 @@ export const Profile = () => {
     }
     const logoutUser = () => {
         let token = localStorage.getItem('refreshToken');
+        deleteCookie('accessToken')
         logoutUserApi({ 'token': token });
         dispatch({
             type:LOGOUT_USER
         })
+        navigate('/login');
     }
 
     useEffect(() => {

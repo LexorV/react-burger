@@ -9,6 +9,8 @@ export const ProtectedRoute = ({ children, dataSuccess, ...rest }: any) => {
             setIslogin(true)
         }
     }, [isLogin])
-    return ( ( dataSuccess === true) ? children : <Navigate replace to= "/login" />
+    let refreshToken = localStorage.getItem('refreshToken');
+
+    return ((refreshToken) ? children : <Navigate replace to= "/login" />
     )};
 export default ProtectedRoute

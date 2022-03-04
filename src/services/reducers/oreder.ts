@@ -46,7 +46,9 @@ export const orderReducer = (state = initialState, action: any) => {
             {
                 return {
                     ...state,
-                    orederNumber: null
+                    orederNumber: null,
+                    orederNumberRequest: false,
+                    orderNumberFailed: false,
                 }
             }
         default:

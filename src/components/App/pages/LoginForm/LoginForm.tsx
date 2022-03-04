@@ -17,10 +17,13 @@ export const LoginForm = ({setIsLogin}:any) => {
     const navigate  = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
+        console.log(registerReceivedData);
         if (registerReceivedData) {
+            let authToken = registerReceivedData.accessToken.split('Bearer ')[1];
+            console.log(authToken);
             setIsLogin(true)
             navigate('/');
-            setCookie('accessToken', registerReceivedData.accessToken, {});
+            setCookie('accessToken', authToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
             console.log(registerReceivedData.accessToken);
           //  dispatch({type:GLOBAL_CLEANING_FORM});
