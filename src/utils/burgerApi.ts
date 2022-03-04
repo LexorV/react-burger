@@ -111,6 +111,17 @@ export const sendProfileData = (changeDataProfile: TsendProfileData) => {
         .then(checkResponse)
 
 }
+export const refreshTokenApi = () => {
+    return fetch(`${urlServ}auth/token`, {
+        method: 'POST',
+        headers: new Headers([
+            ['Content-Type', 'application/json'],
+        ]),
+        body: JSON.stringify({token:localStorage.getItem("refreshToken")})
+    })
+        .then(checkResponse)
+
+}
 
 
 export const logoutUserApi = (refreshToken: TlogoutUserApi) => {
