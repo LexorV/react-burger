@@ -3,13 +3,15 @@ import profile from './profile.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
 import {  useDispatch } from '../../../../services/hooks';
-import { getProfileData, sendProfileData, logoutUserApi } from '../../../../utils/burgerApi';
+import { getProfileData, sendProfileData, logoutUserApi, refreshTokenApi } from '../../../../utils/burgerApi';
 import { deleteCookie } from '../../../../utils/utils';
-import {LOGOUT_USER} from '../../../../services/action/registerForm'
+import {LOGOUT_USER} from '../../../../services/action/registerForm';
+
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
     const [nameUser, setNameUser] = useState('');
     const [passwordUser, setPaswordUser] = useState('');
+    const [isLogin, setIslogin] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onFormChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -28,13 +30,16 @@ export const Profile = () => {
                     setEmailUser(res.user.email);
                     setNameUser(res.user.name);
                 }
-                else {
-                    navigate('/login');
-                }
             })
             .catch((err) => {
                 console.log(err)
-                navigate('/login');
+                console.log(err.message === 'jwt expired')
+                if(err.message === 'jwt expired') {
+                    refreshTokenApi(setIslogin)
+                }
+                else {
+                    navigate('/login');
+                }
             })
     }
     const changeProfileData = () => {
@@ -48,16 +53,22 @@ export const Profile = () => {
                     setEmailUser(res.user.email);
                     setNameUser(res.user.name);
                 }
+            })
+            .catch((err) => {
+                console.log(err.message === 'jwt expired')
+                if(err.message === 'jwt expired') {
+                    refreshTokenApi(setIslogin)
+                }
                 else {
-                    console.log('что-то пошло не так')
                     navigate('/login');
                 }
             })
     }
     const logoutUser = () => {
         let token = localStorage.getItem('refreshToken');
-        deleteCookie('accessToken')
+        deleteCookie('accessToken');
         logoutUserApi({ 'token': token });
+        localStorage.removeItem("refreshToken");
         dispatch({
             type:LOGOUT_USER
         })
@@ -66,7 +77,8 @@ export const Profile = () => {
 
     useEffect(() => {
         postUserData()
-    }, [])
+        setIslogin(false)
+    }, [isLogin])
     const cleanerForm = () => {
         postUserData()
     }
