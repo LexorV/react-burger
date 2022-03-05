@@ -1,7 +1,7 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
 import { register } from '../../../../services/action/registerForm'
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useEffect, useState, SyntheticEvent, ChangeEvent } from 'react';
 import { autchUser } from '../../../../utils/burgerApi';
 import { setCookie, getCookie } from '../../../../utils/utils'
@@ -17,12 +17,19 @@ export const LoginForm = () => {
         useSelector((state) => state.registrationForm);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    let location = useLocation();
     const registerSend = () => {
         if (registerReceivedData) {
             let authToken = registerReceivedData.accessToken.split('Bearer ')[1];
-            navigate('/');
             setCookie('accessToken', authToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
+            let from:any = location.state;
+            if(from !== null) {
+                navigate(from)
+            }
+            else {
+                navigate('/')
+            }
         }
     }
     const openPassword = () => {
@@ -30,27 +37,9 @@ export const LoginForm = () => {
             ? 'text'
             : 'password')
     }
-    const checkLogin = () => {
-        let token = getCookie('accessToken')
-        if (token) {
-            refreshTokenApi()
-                .then((res) => {
-                    if (res && res.success) {
-                        let authToken = res.accessToken.split('Bearer ')[1];
-                        setCookie('accessToken', authToken, {});
-                        localStorage.setItem('refreshToken', res.refreshToken);
-                        navigate('/');
-                    }
-                })
-                .catch((err) => {
-                    console.log(err)
-                })
-        }
-    }
     useEffect(() => {
         registerSend();
         dispatch({ type: GLOBAL_CLEANING_FORM });
-        checkLogin()
     }, [registerReceivedData])
     const onChangeForm = (e: SyntheticEvent) => {
         e.preventDefault();
