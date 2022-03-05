@@ -1,6 +1,7 @@
 import {Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import {sendRegisterUser} from '../../../../utils/burgerApi'
+import {sendRegisterUser} from '../../../../utils/burgerApi';
+import {getCookie} from '../../../../utils/utils'
 import {useSelector, useDispatch} from '../../../../services/hooks';
 import {useNavigate, Link} from 'react-router-dom';
 import {useState, useEffect, ChangeEvent, SyntheticEvent} from 'react';
@@ -8,16 +9,21 @@ import {register} from '../../../../services/action/registerForm'
 import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../../../services/action/registerForm';
 
 export const RegisterForm = () => {
-    const {name, email, password, registerReceivedData, registrationFailed, registrationSuccess } = useSelector((state) => state.registrationForm);
+    const {name, email, password, registerReceivedData, registrationFailed} = useSelector((state) => state.registrationForm);
     const [passwordState,
         setPasswordState] = useState < 'password' | 'text' > ('password');
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
+        let token = getCookie('accessToken')
         if (registerReceivedData) {
             navigate('/');
         }
+        else if(token) {
+            navigate('/')
+        }
     }
+
     useEffect(() => {
         registerSend();
         dispatch({type:GLOBAL_CLEANING_FORM});

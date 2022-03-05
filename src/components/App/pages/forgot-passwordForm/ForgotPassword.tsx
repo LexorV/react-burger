@@ -4,6 +4,7 @@ import { forgotPasswordApi } from '../../../../utils/burgerApi';
 import {validateField} from '../../../../utils/utils';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { Link, useNavigate} from 'react-router-dom';
+import {getCookie} from '../../../../utils/utils'
 import { useEffect, useState, ChangeEvent, SyntheticEvent } from 'react';
 import { forgotPassword } from '../../../../services/action/registerForm';
 import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../../../services/action/registerForm';
@@ -27,6 +28,13 @@ export const ForgotPasswordForm = () => {
         dispatch({type:fORGOT_FORM_CLEANING})
         registerSend();
     }, [forgotSuccess])
+    useEffect(()=> {
+        let token = getCookie('accessToken');
+        if(token) {
+            navigate('/')
+        }
+
+    }, [])
    
  const onChangeForm = (e: SyntheticEvent) => {
         e.preventDefault();

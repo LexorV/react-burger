@@ -1,16 +1,7 @@
-import { Route, Navigate  } from 'react-router-dom';
-import { useSelector } from '../../../services/hooks';
-import { useState, useEffect } from 'react';
+import { Navigate  } from 'react-router-dom';
+import { getCookie } from '../../../utils/utils'
 export const ProtectedRoute = ({ children,  ...rest }:any) => {
-    const [isLogin, setIslogin] = useState(false);
-    useEffect(() => {
-        const refreshToken = localStorage.getItem('refreshToken');
-        if (refreshToken) {
-            setIslogin(true)
-        }
-    }, [isLogin])
-    let refreshToken = localStorage.getItem('refreshToken');
-
-    return ((refreshToken) ? children : <Navigate replace to= "/login" />
+        let token = getCookie('accessToken')
+    return ((token) ? children : <Navigate replace to= "/login" />
     )};
 export default ProtectedRoute
