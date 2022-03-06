@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
 import {  useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi, refreshTokenApi } from '../../../../utils/burgerApi';
-import { deleteCookie } from '../../../../utils/utils';
+import { deleteCookie, setCookie } from '../../../../utils/utils';
 import {LOGOUT_USER} from '../../../../services/action/registerForm';
 
 export const Profile = () => {
@@ -35,7 +35,19 @@ export const Profile = () => {
                 console.log(err)
                 console.log(err.message === 'jwt expired')
                 if(err.message === 'jwt expired') {
-                    refreshTokenApi(setIslogin)
+                    refreshTokenApi()
+                    .then((res) => {
+                        if(res & res.success) {
+                            let authToken = res.accessToken.split('Bearer ')[1];
+                                    setCookie('accessToken', authToken, {});
+                                    localStorage.setItem('refreshToken', res.refreshToken);
+                                    setIslogin(true)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        navigate('/login')
+                    })
                 }
                 else {
                     navigate('/login');
@@ -57,7 +69,18 @@ export const Profile = () => {
             .catch((err) => {
                 console.log(err.message === 'jwt expired')
                 if(err.message === 'jwt expired') {
-                    refreshTokenApi(setIslogin)
+                    refreshTokenApi()
+                    .then((res) => {
+                        if(res & res.success) {
+                            let authToken = res.accessToken.split('Bearer ')[1];
+                                    setCookie('accessToken', authToken, {});
+                                    localStorage.setItem('refreshToken', res.refreshToken);
+                                    setIslogin(true)
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
                 }
                 else {
                     navigate('/login');

@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from './utils'
+import { getCookie} from './utils'
 import {
     TsendRegisterUser,
     TautchUser,
@@ -111,27 +111,16 @@ export const sendProfileData = (changeDataProfile: TsendProfileData) => {
         .then(checkResponse)
 
 }
-export const refreshTokenApi = (setIslogin:any) => {
+export const refreshTokenApi = () => {
+    console.log({ token: localStorage.getItem("refreshToken") })
     return fetch(`${urlServ}auth/token`, {
         method: 'POST',
         headers: new Headers([
             ['Content-Type', 'application/json'],
         ]),
-        body: JSON.stringify({token:localStorage.getItem("refreshToken")})
+        body: JSON.stringify({ 'token': localStorage.getItem("refreshToken")}),
     })
         .then(checkResponse)
-        .then((res) => {
-            if(res & res.success) {
-                let authToken = res.accessToken.split('Bearer ')[1];
-                        setCookie('accessToken', authToken, {});
-                        localStorage.setItem('refreshToken', res.refreshToken);
-                        setIslogin(true)
-            }
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-
 }
 
 
