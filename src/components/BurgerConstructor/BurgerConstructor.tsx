@@ -106,6 +106,7 @@ export default function BurgerConstructor() {
       else if (orederNumberRequest) {
          return (
             <p>Загрузка...</p>
+
          )
       }
    }

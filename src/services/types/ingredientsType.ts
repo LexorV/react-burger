@@ -17,3 +17,20 @@ export type TconstructorDrop = {
     index: number;
     ingredient: Tingredient;
 }
+type TorderOwner = {
+    createdAt: string,
+    email: string,
+    name: string,
+    updatedAt:string
+}
+export type TorderNumber = {
+    createdAt:string,
+    ingredients:any,
+    name:string,
+    number:number,
+    owner:TorderOwner,
+    price:number,
+    status:string,
+    updatedAt:string,
+    _id:string
+}

@@ -1,7 +1,25 @@
-import { getIngredients } from '../../utils/burgerApi'
-export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_FAILED = ' GET_INGREDIENTS_FAILED';
+import { getIngredients } from '../../utils/burgerApi';
+import {Tingredient} from '../types/ingredientsType'
+export const GET_INGREDIENTS_REQUEST:'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
+export const GET_INGREDIENTS_SUCCESS:'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
+export const GET_INGREDIENTS_FAILED:'GET_INGREDIENTS_FAILED' = 'GET_INGREDIENTS_FAILED';
+
+interface IgetIngredientActionSuccess {
+    readonly type: typeof GET_INGREDIENTS_SUCCESS;
+    readonly ingredients:Tingredient[]
+}
+interface IgetIngredsFailed {
+    readonly type: typeof GET_INGREDIENTS_FAILED;
+}
+const getIngredientActionSuccess = (ingredients:any):IgetIngredientActionSuccess => ({
+    type: GET_INGREDIENTS_SUCCESS,
+    ingredients
+})
+
+const getIngredsFailed = ():IgetIngredsFailed => ({
+        type: GET_INGREDIENTS_FAILED
+})
+
 
 export function getIngredientsAction() {
     return function(dispatch:Function) {
@@ -10,20 +28,13 @@ export function getIngredientsAction() {
         });
         getIngredients().then(res => {
                 if(res && res.success) {
-                    dispatch({
-                        type: GET_INGREDIENTS_SUCCESS,
-                        ingredients: res.data
-                    })
+                    dispatch(getIngredientActionSuccess(res.data))
                 } else {
-                    dispatch({
-                        type: GET_INGREDIENTS_FAILED
-                    })
+                    dispatch(getIngredsFailed)
                 }
             })
             .catch(err => {
-                dispatch({
-                    type: GET_INGREDIENTS_FAILED
-                })
+                dispatch(getIngredsFailed)
             })
     }
 }

@@ -80,10 +80,11 @@ export const Profile = () => {
                     })
                     .catch((err) => {
                         console.log(err)
+                        navigate('/login');
                     })
                 }
                 else {
-                    navigate('/login');
+                    console.log(err)
                 }
             })
     }
