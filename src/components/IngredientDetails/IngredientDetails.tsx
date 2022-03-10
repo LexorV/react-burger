@@ -9,7 +9,7 @@ export type TingredientDetails = {
 
 export const IngredientDetails = () => {
     const { ingredients } = useSelector(state => state.ingredients);
-    const [dataIngrid, setDataingrid] = useState(ingredients);
+    const [dataIngrid, setDataingrid] = useState<any>(ingredients);
     useEffect(() => {
         if (ingredients) {
             setDataingrid(ingredients.find((e: any) => e._id === urlIdData.id))

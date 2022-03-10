@@ -16,17 +16,26 @@ const getOrderSuccess = (orederNumber:TorderNumber):TgetOrderActionSuccess => ({
     type:GET_ORDER_SUCCESS,
     orederNumber
 })
+type TgetOrderRequest = {
+    readonly type: typeof GET_ORDER_REQUEST
+}
+const getOrderRequest = ():TgetOrderRequest =>  ({
+    type: GET_ORDER_REQUEST,
+})
 const getOrderFailed = ():TgetOrderFailed => ({
     type:GET_ORDER_FAILED
 })
+type TorderCleaning = {
+    readonly type: typeof ORDER_CLEANING
+}
+export const orderCleaning = ():TorderCleaning => ({
+    type:ORDER_CLEANING
+})
 export function sendOrderAction(arryId:string[]) {
     return function(dispatch:Function) {
-        dispatch({
-            type: GET_ORDER_REQUEST
-        })
+        dispatch(getOrderRequest())
         sendOrder(arryId).then(res => {
                 if(res && res.success) {
-                    console.log(res.order)
                     dispatch(getOrderSuccess(res.order))
                 } else {
                     dispatch(getOrderFailed())

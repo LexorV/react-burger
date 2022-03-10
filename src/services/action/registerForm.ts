@@ -16,23 +16,34 @@ export const RESET_FORM_SUBMIT: 'RESET_FORM_SUBMIT' = 'RESET_FORM_SUBMIT';
 export const RESET_fORM_SUCCESS: "RESET_fORM_SUCCESS" = "RESET_fORM_SUCCESS";
 export const RESET_fORM_FAILED: "RESET_fORM_FAILED" = "RESET_fORM_FAILED";
 export const RESET_fORM_CLEANING: 'RESET_fORM_FAILED' = 'RESET_fORM_FAILED';
-export const GLOBAL_CLEANING_FORM: 'GLOBAL_CLEANING_FORM' = 'GLOBAL_CLEANING_FORM'
+export const GLOBAL_CLEANING_FORM: 'GLOBAL_CLEANING_FORM' = 'GLOBAL_CLEANING_FORM';
+
+type TlogoutUser = {
+    readonly type: typeof LOGOUT_USER
+}
+type TforgotFormCleaning = {
+    readonly type: typeof fORGOT_FORM_CLEANING
+}
+type TglobalCleaningForm = {
+    readonly type: typeof GLOBAL_CLEANING_FORM
+}
 
 
-export const setRegisterFormValue = (field: string, value: string) => ({
+type TsetRegisterFormValue = {
+    readonly type: typeof CHANGE_REGISTER_FORM_VALUE
+    field: string,
+    value: string
+}
+export const setRegisterFormValue = (field: string, value: string): TsetRegisterFormValue => ({
     type: CHANGE_REGISTER_FORM_VALUE,
     field,
     value
 })
-type TreplyAutchData = {
-    success?: boolean;
-    accessToken?: string;
-    refreshToken?: string;
-    user?: {
-        email: string;
-        name: string
-    }
-}
+
+
+
+
+
 type TloginFormSuccess = {
     readonly type: typeof REGISTER_FORM_SUBMIT_SUCCESS,
     tokenData: Response
@@ -144,3 +155,18 @@ export const resetPassword = (data: TresetPasswordApi, sendApi: Function) => {
 
     }
 }
+export type TregisterFormAction =
+    TloginFormSuccess
+    | TloginFormFailed
+    | TloginFormRequest
+    | TforgotFormSuccess
+    | TforgotFormFailed
+    | TforgotFormRequest
+    | TresetFormSuccess
+    | TresetFormFailed
+    | TresetFormRequest
+    | TsetRegisterFormValue
+    | TlogoutUser
+    | TforgotFormCleaning
+    | TglobalCleaningForm
+    ;

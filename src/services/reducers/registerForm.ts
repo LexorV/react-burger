@@ -12,9 +12,35 @@ import {
     RESET_fORM_SUCCESS,
     RESET_fORM_FAILED,
     RESET_fORM_CLEANING,
-    GLOBAL_CLEANING_FORM
-} from '../action/registerForm'
-const initialState = {
+    GLOBAL_CLEANING_FORM,
+    TregisterFormAction
+} from '../action/registerForm';
+type TreplyAutchData = {
+    success?: boolean;
+    accessToken?: string;
+    refreshToken?: string;
+    user?: {
+        email: string;
+        name: string
+    }
+}
+type TregisterFormInitialState = {
+    email: string;
+    password: string;
+    name: string;
+    emailForgot:string;
+    emailCode:string;
+    registrationRequest:boolean;
+    registrationFailed:boolean;
+    registrationSuccess:boolean;
+    registerReceivedData:any;
+    resetSuccess:boolean;
+    resetFailed:boolean;
+    forgotSuccess:boolean;
+    forgotFailed:boolean;
+}
+
+const initialState:TregisterFormInitialState = {
     email: '',
     password: '',
     name: '',
@@ -30,7 +56,7 @@ const initialState = {
     forgotFailed: false,
 
 }
-export const RegistrationReduser = (state = initialState, action: any) => {
+export const RegistrationReduser = (state = initialState, action: TregisterFormAction) => {
     switch (action.type) {
         case CHANGE_REGISTER_FORM_VALUE: {
             return {

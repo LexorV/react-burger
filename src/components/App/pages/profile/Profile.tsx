@@ -1,6 +1,6 @@
 import {  Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './profile.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
 import {  useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi, refreshTokenApi } from '../../../../utils/burgerApi';
@@ -14,6 +14,7 @@ export const Profile = () => {
     const [isLogin, setIslogin] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    let location = useLocation()
     const onFormChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmailUser(e.target.value);
     }
@@ -37,20 +38,23 @@ export const Profile = () => {
                 if(err.message === 'jwt expired') {
                     refreshTokenApi()
                     .then((res) => {
-                        if(res & res.success) {
-                            let authToken = res.accessToken.split('Bearer ')[1];
-                                    setCookie('accessToken', authToken, {});
-                                    localStorage.setItem('refreshToken', res.refreshToken);
-                                    setIslogin(true)
-                        }
+                        let authToken = res.accessToken.split('Bearer ')[1];
+                        setCookie('accessToken', authToken, {});
+                        localStorage.setItem('refreshToken', res.refreshToken);
+                        setIslogin(true)
+                        getProfileData()
+                        setEmailUser(res.user.email);
+                        setNameUser(res.user.name);
                     })
                     .catch((err) => {
                         console.log(err)
-                        navigate('/login')
+                        if(err.message === 'token invalid') {
+                            navigate('/login')
+                        }
                     })
                 }
                 else {
-                    navigate('/login');
+                    navigate('/login', location);
                 }
             })
     }
@@ -67,25 +71,30 @@ export const Profile = () => {
                 }
             })
             .catch((err) => {
+                console.log(err)
                 console.log(err.message === 'jwt expired')
                 if(err.message === 'jwt expired') {
                     refreshTokenApi()
                     .then((res) => {
-                        if(res & res.success) {
-                            let authToken = res.accessToken.split('Bearer ')[1];
-                                    setCookie('accessToken', authToken, {});
-                                    localStorage.setItem('refreshToken', res.refreshToken);
-                                    setIslogin(true)
-                        }
+                        let authToken = res.accessToken.split('Bearer ')[1];
+                        setCookie('accessToken', authToken, {});
+                        localStorage.setItem('refreshToken', res.refreshToken);
+                        setIslogin(true)
+                        getProfileData()
+                        setEmailUser(res.user.email);
+                        setNameUser(res.user.name);
                     })
                     .catch((err) => {
                         console.log(err)
-                        navigate('/login');
+                        if(err.message === 'token invalid') {
+                            navigate('/login')
+                        }
                     })
                 }
                 else {
-                    console.log(err)
+                    navigate('/login', location);
                 }
+                
             })
     }
     const logoutUser = () => {
@@ -100,6 +109,7 @@ export const Profile = () => {
     }
 
     useEffect(() => {
+        setIslogin(true)
         postUserData()
         setIslogin(false)
     }, [isLogin])

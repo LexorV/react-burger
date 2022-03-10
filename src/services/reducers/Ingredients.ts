@@ -5,6 +5,23 @@ import {
 }
     from '../action/Ingredients';
 import { Tingredient } from '../types/ingredientsType'
+type TgetIngredientsRequest = {
+    readonly type: typeof GET_INGREDIENTS_REQUEST
+}
+type TingredientsSuccess = {
+    readonly type: typeof GET_INGREDIENTS_SUCCESS
+    ingredients: Tingredient[]
+}
+type TingredientsFailed = {
+    readonly type: typeof GET_INGREDIENTS_FAILED
+}
+type TingredientsAction =
+    TgetIngredientsRequest
+    | TingredientsSuccess
+    | TingredientsFailed;
+
+
+
 type TingredientsState = {
     ingredientsRequest: boolean;
     ingredientsFailed: boolean;
@@ -16,7 +33,7 @@ const initialState: TingredientsState = {
     ingredientsFailed: false,
     ingredients: null
 }
-export const reducerIngredients = (state = initialState, action: any) => {
+export const reducerIngredients = (state = initialState, action: TingredientsAction) => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST:
             {

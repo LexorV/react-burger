@@ -1,15 +1,34 @@
+
 import { OPEN_INGREDIENT_DETAILS, CLOSE_INGREDIENT_DETAILS } from '../action/IngredientDetail'
-import { OPEN_ORDER_MODAL } from '../action/order'
-import { Tingredient } from '../types/ingredientsType'
+import { OPEN_ORDER_MODAL } from '../action/order';
+import { Tingredient, TorderNumber } from '../types/ingredientsType';
 type IingredientDetailRedce = {
     modalOpen: boolean;
     ingredient: Tingredient | null;
 }
+type TopenIngredientDetals = {
+    readonly type: typeof OPEN_INGREDIENT_DETAILS
+    ingredient:Tingredient
+}
+type TcloseIngredientDetails = {
+    readonly type: typeof CLOSE_INGREDIENT_DETAILS
+}
+type TopenOrderModal = {
+    readonly type: typeof OPEN_ORDER_MODAL
+    order:TorderNumber
+}
+type TingredientDetailsAction =
+    TopenIngredientDetals
+    |TcloseIngredientDetails
+    |TopenOrderModal;
+
+
+
 const initialState: IingredientDetailRedce = {
     modalOpen: false,
     ingredient: null,
 }
-export const reducerIngredientDetail = (state = initialState, action: any) => {
+export const reducerIngredientDetail = (state = initialState, action: TingredientDetailsAction) => {
     switch (action.type) {
         case OPEN_INGREDIENT_DETAILS:
             {
