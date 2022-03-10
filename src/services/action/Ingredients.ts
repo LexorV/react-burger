@@ -1,5 +1,6 @@
 import { getIngredients } from '../../utils/burgerApi';
-import {Tingredient} from '../types/ingredientsType'
+import {Tingredient} from '../types/ingredientsType';
+import {AppThunk, AppDispatch} from '../types/index'
 export const GET_INGREDIENTS_REQUEST:'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS:'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED:'GET_INGREDIENTS_FAILED' = 'GET_INGREDIENTS_FAILED';
@@ -21,8 +22,8 @@ const getIngredsFailed = ():IgetIngredsFailed => ({
 })
 
 
-export function getIngredientsAction() {
-    return function(dispatch:Function) {
+export const  getIngredientsAction:AppThunk = () => {
+    return function(dispatch:AppDispatch) {
         dispatch({
             type: GET_INGREDIENTS_REQUEST
         });
@@ -30,11 +31,11 @@ export function getIngredientsAction() {
                 if(res && res.success) {
                     dispatch(getIngredientActionSuccess(res.data))
                 } else {
-                    dispatch(getIngredsFailed)
+                    dispatch(getIngredsFailed())
                 }
             })
             .catch(err => {
-                dispatch(getIngredsFailed)
+                dispatch(getIngredsFailed())
             })
     }
 }

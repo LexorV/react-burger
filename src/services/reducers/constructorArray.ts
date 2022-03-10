@@ -29,7 +29,7 @@ type TsortIngredients = {
 type TcleaConstructor = {
     readonly type: typeof CLEAR_CONSTRUCTOR
 }
-type TconstructorArrayAction =
+export type TconstructorArrayAction =
     TaddIngredient
     |TdeleteIngredient
     |TdeleteBun

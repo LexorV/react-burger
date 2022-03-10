@@ -3,6 +3,7 @@ import {
     GET_ORDER_SUCCESS,
     GET_ORDER_FAILED,
     ORDER_CLEANING,
+    TorderAction
 }
     from '../action/order';
 
@@ -16,7 +17,7 @@ const initialState: TorderState = {
     orderNumberFailed: false,
     orederNumber: null
 }
-export const orderReducer = (state = initialState, action:any) => {
+export const orderReducer = (state = initialState, action:TorderAction) => {
     switch (action.type) {
         case GET_ORDER_REQUEST:
             {

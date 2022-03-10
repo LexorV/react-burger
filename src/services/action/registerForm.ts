@@ -1,4 +1,4 @@
-import { type } from 'os';
+import {AppThunk, AppDispatch} from '../types/index'
 import {
     TforgotPasswordApi,
     TresetPasswordApi,
@@ -69,9 +69,9 @@ const loginFormRequest = (): TloginFormRequest => ({
     type: REGISTER_FORM_SUBMIT
 })
 
-export const register = (userDataRegister: any, sendApi: Function) => {
-    return function (dispatch: Function) {
-        dispatch(loginFormRequest)
+export const register:AppThunk = (userDataRegister: any, sendApi: Function) => {
+    return function (dispatch: AppDispatch) {
+        dispatch(loginFormRequest())
         sendApi(userDataRegister).then((res: Response) => {
             dispatch(loginFormSuccess(res))
         })
