@@ -112,7 +112,6 @@ export const sendProfileData = (changeDataProfile: TsendProfileData) => {
 
 }
 export const refreshTokenApi = () => {
-    console.log({ token: localStorage.getItem("refreshToken") })
     return fetch(`${urlServ}auth/token`, {
         method: 'POST',
         headers: new Headers([

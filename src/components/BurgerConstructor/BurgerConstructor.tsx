@@ -1,5 +1,4 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burgerConstructor.module.css';
