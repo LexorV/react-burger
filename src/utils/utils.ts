@@ -1,4 +1,4 @@
-export function setCookie(name: any, value: any, props: any) {
+export function setCookie(name: string, value: string | boolean, props: any) {
     props = props || {};
     let exp = props.expires;
     if (typeof exp == 'number' && exp) {
@@ -20,7 +20,7 @@ export function setCookie(name: any, value: any, props: any) {
     }
     document.cookie = updatedCookie;
 }
-export function getCookie(name: any) {
+export function getCookie(name: string) {
     const matches = document.cookie.match(
         new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
     );
@@ -29,7 +29,7 @@ export function getCookie(name: any) {
 export function deleteCookie(name:string) {
     setCookie(name, false, { expires: -1 });
   }
-export function validateField(fieldName: any, value: any, setErrosText: any, stateValid: any, setStateValid: any) {
+export function validateField(fieldName: 'email' | 'password', value: string, setErrosText: Function, stateValid: any, setStateValid: Function) {
     let checkValid = stateValid
     switch (fieldName) {
         case 'email':
