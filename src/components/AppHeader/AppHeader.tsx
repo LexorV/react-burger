@@ -1,7 +1,7 @@
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './appHeader.module.css'
 import { NavLink} from 'react-router-dom';
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 export default function AppHeader() {
     const [iconActiveConst, setIconActiveConst] = useState<'secondary'| 'primary'>('primary');
     const [iconActiveRibbon, seticonActiveRibbon] = useState<'secondary'| 'primary'>('secondary')
@@ -9,7 +9,6 @@ export default function AppHeader() {
     isActive ? `${headerStyle.link_style_active}
     text text_type_main-default pl-2`:
     `${headerStyle.link_style} text text_type_main-default pl-2`;
-    //let iconActive = ({isActive}:any) => isActive ?'primary':'secondary';
     const activeConst = () => {
         setIconActiveConst('primary');
         seticonActiveRibbon('secondary')

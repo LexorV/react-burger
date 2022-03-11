@@ -21,7 +21,6 @@ export const LoginForm = () => {
     const registerSend = () => {
         if (registerReceivedData) {
             let authToken = registerReceivedData.accessToken.split('Bearer ')[1];
-            console.log(registerReceivedData);
             setCookie('accessToken', authToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
             let from:any = location.state;

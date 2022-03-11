@@ -80,9 +80,20 @@ export const Profile = () => {
                         setCookie('accessToken', authToken, {});
                         localStorage.setItem('refreshToken', res.refreshToken);
                         setIslogin(true)
-                        getProfileData()
-                        setEmailUser(res.user.email);
-                        setNameUser(res.user.name);
+                        sendProfileData({
+                            'email': emailUser,
+                            'password': passwordUser,
+                            'name': nameUser
+                        })
+                        .then((res) => {
+                            if (res && res.success) {
+                                setEmailUser(res.user.email);
+                                setNameUser(res.user.name);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
                     })
                     .catch((err) => {
                         console.log(err)
