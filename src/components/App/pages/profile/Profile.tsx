@@ -1,11 +1,11 @@
-import {  Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import profile from './profile.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
-import {  useDispatch } from '../../../../services/hooks';
+import { useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData, logoutUserApi, refreshTokenApi } from '../../../../utils/burgerApi';
 import { deleteCookie, setCookie } from '../../../../utils/utils';
-import {LOGOUT_USER} from '../../../../services/action/registerForm';
+import { LOGOUT_USER } from '../../../../services/action/registerForm';
 
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
@@ -35,23 +35,23 @@ export const Profile = () => {
             .catch((err) => {
                 console.log(err)
                 console.log(err.message === 'jwt expired')
-                if(err.message === 'jwt expired') {
+                if (err.message === 'jwt expired') {
                     refreshTokenApi()
-                    .then((res) => {
-                        let authToken = res.accessToken.split('Bearer ')[1];
-                        setCookie('accessToken', authToken, {});
-                        localStorage.setItem('refreshToken', res.refreshToken);
-                        setIslogin(true)
-                        getProfileData()
-                        setEmailUser(res.user.email);
-                        setNameUser(res.user.name);
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        if(err.message === 'token invalid') {
-                            navigate('/login')
-                        }
-                    })
+                        .then((res) => {
+                            let authToken = res.accessToken.split('Bearer ')[1];
+                            setCookie('accessToken', authToken, {});
+                            localStorage.setItem('refreshToken', res.refreshToken);
+                            setIslogin(true)
+                            getProfileData()
+                            setEmailUser(res.user.email);
+                            setNameUser(res.user.name);
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            if (err.message === 'token invalid') {
+                                navigate('/login')
+                            }
+                        })
                 }
                 else {
                     navigate('/login', location);
@@ -73,39 +73,39 @@ export const Profile = () => {
             .catch((err) => {
                 console.log(err)
                 console.log(err.message === 'jwt expired')
-                if(err.message === 'jwt expired') {
+                if (err.message === 'jwt expired') {
                     refreshTokenApi()
-                    .then((res) => {
-                        let authToken = res.accessToken.split('Bearer ')[1];
-                        setCookie('accessToken', authToken, {});
-                        localStorage.setItem('refreshToken', res.refreshToken);
-                        setIslogin(true)
-                        sendProfileData({
-                            'email': emailUser,
-                            'password': passwordUser,
-                            'name': nameUser
-                        })
                         .then((res) => {
-                            if (res && res.success) {
-                                setEmailUser(res.user.email);
-                                setNameUser(res.user.name);
-                            }
+                            let authToken = res.accessToken.split('Bearer ')[1];
+                            setCookie('accessToken', authToken, {});
+                            localStorage.setItem('refreshToken', res.refreshToken);
+                            setIslogin(true)
+                            sendProfileData({
+                                'email': emailUser,
+                                'password': passwordUser,
+                                'name': nameUser
+                            })
+                                .then((res) => {
+                                    if (res && res.success) {
+                                        setEmailUser(res.user.email);
+                                        setNameUser(res.user.name);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log(err)
+                                })
                         })
                         .catch((err) => {
                             console.log(err)
+                            if (err.message === 'token invalid') {
+                                navigate('/login')
+                            }
                         })
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        if(err.message === 'token invalid') {
-                            navigate('/login')
-                        }
-                    })
                 }
                 else {
                     navigate('/login', location);
                 }
-                
+
             })
     }
     const logoutUser = () => {
@@ -114,7 +114,7 @@ export const Profile = () => {
         logoutUserApi({ 'token': token });
         localStorage.removeItem("refreshToken");
         dispatch({
-            type:LOGOUT_USER
+            type: LOGOUT_USER
         })
         navigate('/login');
     }
