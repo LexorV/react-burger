@@ -15,7 +15,9 @@ import { ProtectedRoute } from './pages/ProtectedRoute';
 import { CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal';
-import { NotFound } from './pages/NotFound/NotFound'
+import { NotFound } from './pages/NotFound/NotFound';
+import {Feed} from './pages/feed/feed';
+import {FeedDetailsOrder} from './pages/feed/FeedDetailsOrder'
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();
@@ -59,8 +61,10 @@ export default function App() {
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegisterForm />} />
                         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+                        <Route path="/feed" element={<Feed />}/>
                         <Route path="/reset-password" element={
                             <ResetPasswordForm />} />
+                            <Route path="/feed/:id" element = {<FeedDetailsOrder />} />
                         <Route path="/profile" element={<ProtectedRoute path="/profile">
                             <Profile />
                         </ProtectedRoute>} />

@@ -1,4 +1,4 @@
-import { getCookie} from './utils'
+import { getCookie } from './utils'
 import {
     TsendRegisterUser,
     TautchUser,
@@ -9,7 +9,7 @@ import {
 } from '../services/types/autchType';
 const urlServ = "https://norma.nomoreparties.space/api/";
 
-const checkResponse = (res:Response) => {
+const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err: any) => Promise.reject(err));
 }
 export const getIngredients = () => {
@@ -117,7 +117,7 @@ export const refreshTokenApi = () => {
         headers: new Headers([
             ['Content-Type', 'application/json'],
         ]),
-        body: JSON.stringify({ 'token': localStorage.getItem("refreshToken")}),
+        body: JSON.stringify({ 'token': localStorage.getItem("refreshToken") }),
     })
         .then(checkResponse)
 }
