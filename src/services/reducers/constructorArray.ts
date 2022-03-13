@@ -5,9 +5,40 @@ import {
     DELETE_BUN,
     CLEAR_CONSTRUCTOR
 }
-    from '../action/constructorArray'
+    from '../action/constructorArray';
+    
 import {ingredientsType} from '../constants'
 import { Tingredient } from '../types/ingredientsType'
+type TaddIngredient = {
+    readonly type: typeof ADD_INGREDIENT
+    ingredient:Tingredient
+}
+type TdeleteIngredient = {
+    readonly type: typeof DELETE_INGREDIENT
+    ingredient:Tingredient
+}
+type TdeleteBun = {
+    readonly type: typeof DELETE_BUN
+    bunInArray:Tingredient;
+}
+type TsortIngredients = {
+    readonly type: typeof SORT_INGERDIENTS
+    dropIndex:number;
+    dragIndex:number;
+}
+type TcleaConstructor = {
+    readonly type: typeof CLEAR_CONSTRUCTOR
+}
+export type TconstructorArrayAction =
+    TaddIngredient
+    |TdeleteIngredient
+    |TdeleteBun
+    |TsortIngredients
+    |TcleaConstructor;
+
+
+
+
 export type TarrayID = {
     ingredientsInConstructor: Tingredient[]
     arrayID: string[];
@@ -16,7 +47,7 @@ const initialState: TarrayID = {
     ingredientsInConstructor: [],
     arrayID: []
 }
-export const constructorArrayReducer = (state = initialState, action: any) => {
+export const constructorArrayReducer = (state = initialState, action: TconstructorArrayAction) => {
     switch (action.type) {
         case ADD_INGREDIENT:
             const uid = () => Date.now().toString(36) + Math.random().toString(36);

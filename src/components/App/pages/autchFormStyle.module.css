@@ -1,0 +1,28 @@
+.main {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    background-color:black;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+.box_form {
+    display:flex;
+    align-items:center;
+    flex-direction: column;
+    min-width: 480px;
+}
+.box_register {
+    display:flex;
+    align-items: center;
+    gap: 8px;
+}
+.link {
+    color: #4C4CFF;
+    cursor: pointer;
+}
+.link:hover {
+    opacity: 0.8;
+}

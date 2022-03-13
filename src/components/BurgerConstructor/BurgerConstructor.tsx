@@ -1,12 +1,12 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon, DragIcon, ConstructorElement, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import burgerConstructorStyle from './burgerConstructor.module.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import Modal from '../Modal/Modal';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from '../../services/hooks'
-import {ingredientsType} from '../../services/constants'
+import { ingredientsType } from '../../services/constants'
 import {
    Tingredient,
    TconstructorDrop
@@ -82,22 +82,22 @@ const IngredientsInConstructor: FC<{ ingredientsInConstructor: any, type: string
 
 export default function BurgerConstructor() {
    const { ingredients } = useSelector((state) => state.ingredients);
-   const [modalIsOpen, setModalIsOpen] = React.useState(false)
    const [commonPrice, setCommonPrice] = React.useState(0);
    const { ingredientsInConstructor } = useSelector((state) => state.arrayInConstructor);
    const { orederNumber, orderNumberFailed, orederNumberRequest } = useSelector((state) => state.order)
    const dispatch = useDispatch();
    const bunInArray = ingredientsInConstructor.find((e: Tingredient) => e.type === ingredientsType.bun);
    const closeModal = () => {
-      setModalIsOpen(false)
       dispatch({ type: ORDER_CLEANING })
       dispatch({ type: CLEAR_CONSTRUCTOR })
       setCommonPrice(0)
    }
-   const arrayId:any= ingredientsInConstructor.map((e: Tingredient) => e._id);
+   const navigate = useNavigate()
+   const arrayId: any = ingredientsInConstructor.map((e: Tingredient) => e._id);
    const openModal = () => {
       dispatch(sendOrderAction(arrayId))
       if (orderNumberFailed) {
+         navigate('/login')
          return (
             <p>Произошла ошибка при получении данных</p>
          )
@@ -105,9 +105,18 @@ export default function BurgerConstructor() {
       else if (orederNumberRequest) {
          return (
             <p>Загрузка...</p>
+
          )
       }
    }
+   React.useEffect(() => {
+      if (orderNumberFailed) {
+         navigate('/login')
+         dispatch({ type: ORDER_CLEANING })
+      }
+
+   }, [orderNumberFailed])
+
    React.useEffect(() => {
       if (orederNumber !== null) {
          dispatch({ type: OPEN_ORDER_MODAL, order: orederNumber })
@@ -162,7 +171,7 @@ export default function BurgerConstructor() {
                      Оформить заказ
                   </Button> : null}
                </div>
-
+               {orederNumberRequest && (<p>Загрузка...</p>)}
             </section>
             {orederNumber && (<Modal height={718} closeModal={closeModal}>
                <OrderDetails order={orederNumber} />
