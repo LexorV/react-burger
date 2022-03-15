@@ -1,0 +1,111 @@
+.feed {
+    display: flex;
+    margin-left: 15%;
+    gap:68px;
+}
+.card__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 812px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-left: 0;
+}
+.card__list::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+.card__list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+.box_cards {
+    width: 608px;
+}
+.card {
+    display: flex;
+    height: 214px;
+    width: 584px;
+    padding: 24px;
+    flex-direction: column;
+    position: relative;
+    background-color:#1C1C21;
+    list-style-type: none;
+    border-radius:40px;
+    box-sizing: border-box;
+}
+
+.card__number_box {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.card__bottom_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.card__picture-box {}
+
+.card__picture {
+    position: relative;
+    border: 2px solid transparent;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    z-index: 2;
+    object-fit: cover;
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)),
+    linear-gradient(to right, #801AB2, #4C4CFF);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+}
+
+.card__picture:not(:first-child) {
+    position: relative;
+    margin-left: -16px;
+}
+
+.card__price_box {
+    display: flex;
+    flex-direction: row;
+    padding-top: 25px;
+    margin: 0;
+}
+.card__price {
+    margin: 0;
+    padding-right: 9px;
+}
+.statistics {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-top: 100px;
+}
+.statistics__number_order {
+    display: flex;
+    gap: 36px;
+}
+.statistics__number {
+    color:#00CCCC;
+}
+
+.statistics__number_box {
+display: flex;
+flex-direction: column;
+width:280px;
+}
+
+.statistics__number_list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 8px;
+}
+
