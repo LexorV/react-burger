@@ -4,11 +4,26 @@ import {
     WS_CONNECTION_CLOSED,
     WS_GET_MESSAGE
 }
-    from '../action/webSoket'
+    from '../action/webSoket';
+    type ordersData = {
+        createdAt:string,
+        ingredients:any,
+        name:string,
+        number:number,
+        status:string,
+        updateAt:string,
+        _id:string,
+    }
 
-const initialState = {
+type WSorders = {
+    wsConnected:boolean,
+    orders:ordersData[] | null,
+    error:any
+}
+
+const initialState:WSorders = {
     wsConnected: false,
-    orders: [],
+    orders: null,
     error: undefined
 };
 
@@ -40,7 +55,7 @@ export const wsReducer = (state = initialState, action:any) => {
             return {
                 ...state,
                 error: undefined,
-                orders:[...state.orders, action.payload]
+                orders: action.payload
             }
 
         default:
