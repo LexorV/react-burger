@@ -26,13 +26,14 @@ export const FeedOrderStatistics = () => {
                 <p className="text text_type_main-medium">
                     Выполнено за все время:
                 </p>
-                <p className="text text_type_digits-large">{orders.total}</p>
+                {orders && (<p className="text text_type_digits-large">{orders.total}</p>)}
             </div>
             <div>
                 <p className="text text_type_main-medium">
                     Выполнено за сегодня:
                 </p>
-                <p className="text text_type_digits-large">{orders.totalToday}</p>
+
+                {orders && (<p className="text text_type_digits-large">{orders.totalToday}</p>)}
 
             </div>
 

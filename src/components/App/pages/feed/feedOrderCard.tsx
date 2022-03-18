@@ -1,9 +1,20 @@
 import feedStyle from './feed.module.css';
 import { FC, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from '../../../../services/hooks';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
 export const  FeedOrderCard = ({ordesData}:any) =>{
+    const { ingredients } = useSelector(state => state.ingredients);
+    const addIngredientsOrder = () => {
+        let ordersIngredient
+        if (ingredients) {
+            console.log(ingredients)
+            ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id))
+            console.log(ordersIngredient)
+            return ordersIngredient
+        }
+    }
 return (
     <li className={feedStyle.card}>
         <div className={feedStyle.card__number_box}>

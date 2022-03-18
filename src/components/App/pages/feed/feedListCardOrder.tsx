@@ -1,9 +1,9 @@
 import { FeedOrderCard } from './feedOrderCard';
 import feedStyle from './feed.module.css';
-import { useSelector, useDispatch } from '../../../../services/hooks';
 import { FC, useState, useEffect } from 'react';
 import { dataOrder } from '../../../../utils/testDataOrder';
 import { wsConnectionStart } from '../../../../services/action/webSoket';
+import { useSelector, useDispatch } from '../../../../services/hooks';
 
 const CardListOrder: any = () => {
     const { orders } = useSelector(state => state.ws);
@@ -14,8 +14,8 @@ const CardListOrder: any = () => {
         }
     }, [orders])
     if (ordersTemp.length > 0) {
-       const test = ordersTemp.map((el: any) => 
-                    <FeedOrderCard ordesData={el} />
+        const test = ordersTemp.map((el: any) =>
+            <FeedOrderCard ordesData={el} />
         )
         return test
     }
@@ -26,27 +26,11 @@ const CardListOrder: any = () => {
     }
 }
 export const FeedListCardOrder: FC = () => {
-    const { ingredients } = useSelector(state => state.ingredients);
     const { orders } = useSelector(state => state.ws)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(wsConnectionStart());
     }, []);
-    /*
-    useEffect(() => {
-        console.log(orders.orders)
-    },[orders]);
-*/
-
-    const addIngredientsOrder = () => {
-        let ordersIngredient
-        if (ingredients) {
-            console.log(ingredients)
-            ordersIngredient = ingredients.filter(el => dataOrder.orders.ingredients.includes(el._id))
-            console.log(ordersIngredient)
-            return ordersIngredient
-        }
-    }
 
 
     return (
