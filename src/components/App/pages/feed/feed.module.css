@@ -25,7 +25,7 @@
 }
 .card {
     display: flex;
-    max-height: 250px;
+    max-height: 400px;
     width: 584px;
     padding: 24px;
     flex-direction: column;
@@ -50,7 +50,9 @@
     justify-content: space-between;
 }
 
-.card__picture-box {}
+.card__picture_box {
+    display: flex;
+}
 
 .card__picture {
     position: relative;
@@ -65,6 +67,25 @@
     background-origin: border-box;
     background-clip: content-box, border-box;
 }
+.card_picture_last {
+    opacity: 0.6
+}
+.card_picture_number_box {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    z-index: 2;
+    margin-left: -16px;
+}
+.card_picture_number_text {
+    position: relative;
+    top: -80px;
+    right:-20px;
+    font-size:24px;
+    z-index: 20;
+}
+
 
 .card__picture:not(:first-child) {
     position: relative;
