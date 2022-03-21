@@ -10,7 +10,7 @@ import {
     WS_CONNECTION_SUCCESS,
     WS_GET_MESSAGE,
     WS_SEND_MESSAGE
-  } from '../services/action/webSoket';
+  } from './action/wsOrdes';
   
 import thunk from 'redux-thunk';
 const wsActions = {

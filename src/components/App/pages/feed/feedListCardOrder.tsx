@@ -1,15 +1,16 @@
-import { FeedOrderCard } from './feedOrderCard';
+import { FeedOrderCard } from './OrderCard';
 import feedStyle from './feed.module.css';
 import { FC, useState, useEffect } from 'react';
 import { dataOrder } from '../../../../utils/testDataOrder';
-import { wsConnectionStart } from '../../../../services/action/webSoket';
+import { wsConnectionStart } from '../../../../services/action/wsOrdes';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 
 const CardListOrder: any = () => {
-    const { orders } = useSelector(state => state.ws);
+    const { orders } = useSelector(state => state.wsOrdes);
     const [ordersTemp, setOrdesTemp] = useState([]);
     useEffect(() => {
         if (orders !== null) {
+            console.log(orders)
             setOrdesTemp(orders.orders)
         }
     }, [orders])
@@ -26,7 +27,7 @@ const CardListOrder: any = () => {
     }
 }
 export const FeedListCardOrder: FC = () => {
-    const { orders } = useSelector(state => state.ws)
+    const { orders } = useSelector(state => state.wsOrdes)
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(wsConnectionStart());

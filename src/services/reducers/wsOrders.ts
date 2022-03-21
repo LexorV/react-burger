@@ -4,7 +4,7 @@ import {
     WS_CONNECTION_CLOSED,
     WS_GET_MESSAGE
 }
-    from '../action/webSoket';
+    from '../action/wsOrdes';
     type ordersData = {
         createdAt:string,
         ingredients:any,
@@ -27,7 +27,7 @@ const initialState:WSorders = {
     error: undefined
 };
 
-export const wsReducer = (state = initialState, action:any) => {
+export const wsOrdesReducer = (state = initialState, action:any) => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS:
             return {

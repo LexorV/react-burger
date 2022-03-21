@@ -4,13 +4,13 @@ import { reducerIngredientDetail } from './IngredientDetail'
 import { constructorArrayReducer } from './constructorArray'
 import { orderReducer } from './oreder'
 import {RegistrationReduser} from './registerForm';
-import {wsReducer} from './webSoket'
+import {wsOrdesReducer} from './wsOrders'
 export const rootReducer = combineReducers({
     ingredients: reducerIngredients,
     ingredientDetail: reducerIngredientDetail,
     arrayInConstructor: constructorArrayReducer,
     order: orderReducer,
     registrationForm: RegistrationReduser,
-    ws:wsReducer
+    wsOrdes:wsOrdesReducer
 })
  export  default rootReducer
