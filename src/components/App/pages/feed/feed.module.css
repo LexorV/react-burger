@@ -129,4 +129,51 @@ width:280px;
     padding: 0;
     gap: 8px;
 }
+.details_main {
+display:flex;
+justify-content:center;
+}
+.details_main_popap {
+    display: flex;
+    flex-direction: column;
+}
+.details_bottom_box {
+display: flex;
+flex-direction: row;
+justify-content:space-between;
+}
+.details_box_price {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.details_number_order {
+    text-align: center;
+}
+.details_list_ingredient {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.details_ingredient_price_box {
+    display: flex;
+    gap: 9px;
+    align-items: center;
+}
+.details_lists {
+    max-height: 194px;
+    max-width: 640px;
+    list-style-type: none;
+    padding:0;
+    box-sizing: border-box;
+    padding-right: 24px;
+
+}
+.details_lists::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+.details_lists::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
 
