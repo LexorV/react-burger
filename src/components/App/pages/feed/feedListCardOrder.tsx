@@ -10,7 +10,6 @@ const CardListOrder: any = () => {
     const [ordersTemp, setOrdesTemp] = useState([]);
     useEffect(() => {
         if (orders !== null) {
-            console.log(orders)
             setOrdesTemp(orders.orders)
         }
     }, [orders])

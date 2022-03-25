@@ -9,8 +9,7 @@ import {
     Tab,
     Counter
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import burgerIngredientsStyle from './burgerIngredients.module.css'
 import { ingredientsType } from '../../services/constants'
 const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({ ingredient, setModalIsOpen }) => {

@@ -13,7 +13,6 @@ const OrdesDoneList: any = () => {
     }
     useEffect(() => {
         filterDoneOrder()
-        console.log(ordersTemp)
     }, [orders])
     if (ordersTemp.length > 0) {
         const temp = ordersTemp.map((el: any) =>

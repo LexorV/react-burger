@@ -11,7 +11,8 @@ export type Tingredient = {
     readonly type: string;
     readonly __v: number;
     readonly _id: string;
-    idConstr?: string
+    numberIngred?: number;
+    idConstr?: string;
 }
 export type TconstructorDrop = {
     index: number;

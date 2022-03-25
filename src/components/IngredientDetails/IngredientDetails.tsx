@@ -18,7 +18,7 @@ export const IngredientDetails = () => {
     const urlIdData = useParams();
     return (
         <>
-            {ingredients && (
+            {ingredients && dataIngrid && (
                 <div className={ingredientDetailsStyles.main}>
                     <h2 className={`${ingredientDetailsStyles.title} mt-10 mr-10 ml-10 text text_type_main-large`}>Детали ингредиента</h2>
                     <img className={ingredientDetailsStyles.picture} src={dataIngrid.image} alt={dataIngrid.name} />
