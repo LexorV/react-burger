@@ -61,6 +61,7 @@ export const reducerIngredientDetail = (state = initialState, action: Tingredien
                     ...state,
                     modalOpen: false,
                     ingredient: null,
+                    orderCard:null
                 }
             }
             case OPEN_ORDER_CARD: {

@@ -37,7 +37,6 @@ export const FeedDetailsOrder = () => {
     const [totalCard, setTotalCard] = useState(0);
     const dispatch = useDispatch();
     const urlIdData = useParams();
-    console.log(urlIdData)
     
     useEffect(() => {
         if (orders && ingredients) {
@@ -60,11 +59,8 @@ export const FeedDetailsOrder = () => {
             })
             const totalCardTemp = ingredientsArrayCard.map((el:any) => el.price * el.numberIngred).reduce((sum, current) => sum + current);
             setTotalCard(totalCardTemp)
-            console.log(totalCardTemp)
-            console.log(testArray)
             //console.log(ordersCard)
             setingredientsArray(ingredientsArrayCard)
-            console.log(ingredientsArrayCard)
             setOrdesTemp(ordersCard)
 
         }
@@ -72,16 +68,12 @@ export const FeedDetailsOrder = () => {
             dispatch(wsConnectionStart());
         }
     }, [orders, ingredients])
-    console.log(urlIdData)
-    console.log(ordersTemp)
-
-  
     return (
         <>
         { ordersTemp && ingredients && (
         <section className={feedStyle.details_main}>
         <div  className={feedStyle.details_main_popap}>
-            <h2 className={`text_type_main-small mb-10 ${feedStyle.details_number_order}`}>{`#${ordersTemp.number}`}</h2>
+            <h2 className={`text_type_main-small mt-10  mb-10 ${feedStyle.details_number_order}`}>{`#${ordersTemp.number}`}</h2>
             <p className='text text_type_main-small mb-3'>{ordersTemp.name}</p>
             <p className='text text_type_main-small mb-15'>Выполнен</p>
             <p className ='text text_type_main-medium mb-6'>Cостав:</p>

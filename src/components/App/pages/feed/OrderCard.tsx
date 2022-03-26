@@ -2,6 +2,7 @@ import feedStyle from './feed.module.css';
 import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useLocation, Link } from "react-router-dom";
+import {openOrderCard} from '../../../../services/action/orderCard';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -25,7 +26,6 @@ export const FeedOrderCard = ({ ordesData }: any) => {
     const [ingredientPictureArray, setIngredientPictureArray] = useState<any>([]);
     const [numberMoreSix, setNumberMoreSix] = useState<any>(1);
     const [totalCard, setTotalCard] = useState(0);
-    let location = useLocation();
     const addIngredientsOrder = () => {
         let ordersIngredient
         if (ingredients) {
@@ -38,13 +38,19 @@ export const FeedOrderCard = ({ ordesData }: any) => {
         }
         return ordersIngredient
     }
+    const dispatch = useDispatch()
+    const openModal = () => {
+        dispatch(openOrderCard(ordesData))
+    }
+    let location = useLocation();
+
     useEffect(() => {
         addIngredientsOrder()
     }, [ingredients, ordesData])
 
     return (
         <Link to={{ pathname: `/feed/${ordesData._id}` }} state={{ positionPopap: location }}>
-        <li className={feedStyle.card}>
+        <li onClickCapture={openModal} className={feedStyle.card}>
             <div className={feedStyle.card__number_box}>
                 <p className="text text_type_digits-default">{ordesData.number}</p>
                 <p className="text text_type_main-default text_color_inactive">{ordesData.createdAt}</p>

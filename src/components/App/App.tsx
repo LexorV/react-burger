@@ -21,7 +21,7 @@ import {FeedDetailsOrder} from './pages/feed/FeedDetailsOrder'
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();
-    const { ingredient } = useSelector(state => state.ingredientDetail);
+    const { ingredient, orderCard } = useSelector(state => state.ingredientDetail);
     type Tlocation = {
         pathname?: string;
         state?: any
@@ -31,14 +31,20 @@ export default function App() {
     }
     let location: Tlocation = useLocation()
     const navigate = useNavigate();
-    let positionPopap = ingredient && location.state && location.state.positionPopap
+    let positionPopap = location.state && location.state.positionPopap
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
-        navigate('/')
+        navigate(positionPopap.pathname)
     }
     React.useEffect(() => {
         dispatch(getIngredientsAction());
     }, [dispatch])
+    React.useEffect(() => {
+        navigate(JSON.parse(window.sessionStorage.getItem('lastRoute') || '{}'))
+        window.onbeforeunload = () => {
+            window.sessionStorage.setItem('lastRoute', JSON.stringify(window.location.pathname))
+        }
+    }, [])
     if (ingredientsFailed) {
         return <div>Произошла ошибка</div>;
     } else if (ingredientsRequest) {
@@ -53,6 +59,11 @@ export default function App() {
                             <Route path={'/ingredients/:id'} element={
                                 <Modal height={539} closeModal={() => closeModal()}>
                                     <IngredientDetails />
+                                </Modal>
+                            } />
+                            <Route path={"/feed/:id"} element={
+                                <Modal height={716} closeModal={() => closeModal()}>
+                                    <FeedDetailsOrder />
                                 </Modal>
                             } />)
                         </Routes>}

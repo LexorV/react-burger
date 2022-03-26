@@ -29,7 +29,7 @@ const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({
     }
 
     return (
-        <Link className={burgerIngredientsStyle.liks_style} to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap: location }}>
+        <Link className={burgerIngredientsStyle.liks_style} to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap:location }}>
             <li ref={dragRef} onClickCapture={openModal} key={ingredient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
                 {countIngredient > 0 ? <Counter count={countIngredient} size="default" /> : null}
                 <img alt={ingredient.name} src={ingredient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
