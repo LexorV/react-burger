@@ -52,7 +52,7 @@ export const FeedOrderCard = ({ ordesData }: any) => {
     }, [ingredients, ordesData])
 
     return (
-        <Link to={{ pathname: `/feed/${ordesData._id}` }} state={{ positionPopap: location }}>
+        <Link className={feedStyle.card__liks_style} to={{ pathname: `/feed/${ordesData._id}` }} state={{ positionPopap: location }}>
             <li onClickCapture={openModal} className={feedStyle.card}>
                 <div className={feedStyle.card__number_box}>
                     <p className="text text_type_digits-default">{ordesData.number}</p>

@@ -102,6 +102,12 @@
     margin: 0;
     padding-right: 9px;
 }
+.card__liks_style {
+    text-decoration: none;
+    color:white;
+    display: flex;
+    flex-direction: column;
+}
 .statistics {
     display: flex;
     flex-direction: column;
