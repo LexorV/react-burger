@@ -2,10 +2,12 @@ import feedStyle from './feed.module.css';
 import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useLocation, Link } from "react-router-dom";
-import {openOrderCard} from '../../../../services/action/orderCard';
+import { openOrderCard } from '../../../../services/action/orderCard';
+import {orderDateChange} from '../../../../utils/utils';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { Console } from 'console';
 const ListPicture = ({ pictureArray }: any) => {
     if (pictureArray.length > 0) {
         const test = pictureArray.map((el: any, index: any) =>
@@ -24,6 +26,7 @@ const ListPicture = ({ pictureArray }: any) => {
 export const FeedOrderCard = ({ ordesData }: any) => {
     const { ingredients } = useSelector(state => state.ingredients);
     const [ingredientPictureArray, setIngredientPictureArray] = useState<any>([]);
+    const [ordesDate, setOrdesDate] = useState('01.01.2022')
     const [numberMoreSix, setNumberMoreSix] = useState<any>(1);
     const [totalCard, setTotalCard] = useState(0);
     const addIngredientsOrder = () => {
@@ -43,33 +46,33 @@ export const FeedOrderCard = ({ ordesData }: any) => {
         dispatch(openOrderCard(ordesData))
     }
     let location = useLocation();
-
     useEffect(() => {
         addIngredientsOrder()
+        setOrdesDate(orderDateChange(ordesData.createdAt))
     }, [ingredients, ordesData])
 
     return (
         <Link to={{ pathname: `/feed/${ordesData._id}` }} state={{ positionPopap: location }}>
-        <li onClickCapture={openModal} className={feedStyle.card}>
-            <div className={feedStyle.card__number_box}>
-                <p className="text text_type_digits-default">{ordesData.number}</p>
-                <p className="text text_type_main-default text_color_inactive">{ordesData.createdAt}</p>
-            </div>
-            <h2 className='text text_type_main-medium pb-6'>{ordesData.name}</h2>
-            <div className={feedStyle.card__bottom_box}>
-                <div className={feedStyle.card__picture_box} >
-                    <ListPicture pictureArray={ingredientPictureArray} />
-                    {ingredientPictureArray[6] && (<div className={feedStyle.card_picture_number_box}>
-                        <img className={`${feedStyle.card__picture} ${feedStyle.card_picture_last}`}
-                            style={{ zIndex: 8 }} alt={ingredientPictureArray[6].name}
-                            src={ingredientPictureArray[6].image}></img><p className={feedStyle.card_picture_number_text}>{`+${numberMoreSix}`}</p></div>)}
+            <li onClickCapture={openModal} className={feedStyle.card}>
+                <div className={feedStyle.card__number_box}>
+                    <p className="text text_type_digits-default">{ordesData.number}</p>
+                    <p className="text text_type_main-default text_color_inactive">{ordesDate}</p>
                 </div>
-                <div className={feedStyle.card__price_box}>
-                    <p className={`${feedStyle.card__price} text text_type_digits-default `}>{totalCard}</p>
-                    <CurrencyIcon type="primary" />
-                </div>
+                <h2 className='text text_type_main-medium pb-6'>{ordesData.name}</h2>
+                <div className={feedStyle.card__bottom_box}>
+                    <div className={feedStyle.card__picture_box} >
+                        <ListPicture pictureArray={ingredientPictureArray} />
+                        {ingredientPictureArray[6] && (<div className={feedStyle.card_picture_number_box}>
+                            <img className={`${feedStyle.card__picture} ${feedStyle.card_picture_last}`}
+                                style={{ zIndex: 8 }} alt={ingredientPictureArray[6].name}
+                                src={ingredientPictureArray[6].image}></img><p className={feedStyle.card_picture_number_text}>{`+${numberMoreSix}`}</p></div>)}
+                    </div>
+                    <div className={feedStyle.card__price_box}>
+                        <p className={`${feedStyle.card__price} text text_type_digits-default `}>{totalCard}</p>
+                        <CurrencyIcon type="primary" />
+                    </div>
 
-            </div>
-        </li> </Link>
+                </div>
+            </li> </Link>
     )
 }
