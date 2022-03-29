@@ -191,6 +191,14 @@ min-width: 640px;
     gap: 20px;
 
 }
+.details_status_text {
+    text-align: left;
+    width: 100%;
+}
+.details_name {
+    text-align: left;
+    width: 100%;
+}
 .details_lists::-webkit-scrollbar {
     width: 8px;
     background-color: #2F2F37;

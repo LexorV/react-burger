@@ -79,8 +79,8 @@ export const FeedDetailsOrder = () => {
         <section className={feedStyle.details_main}>
         <div  className={feedStyle.details_main_popap}>
             <h2 className={`text_type_main-small mt-10  mb-10 ${feedStyle.details_number_order}`}>{`#${ordersTemp.number}`}</h2>
-            <p className={`text text_type_main-small mb-3 ${feedStyle.details_name }`}>{ordersTemp.name}</p>
-            <p className={`${feedStyle.details_status_text} text text_type_main-small mb-15`}>{ordersTemp.status === 'done' ? 'Выполнен':'не выполнен'}</p>
+            <p className={`text text_type_main-medium mb-3 ${feedStyle.details_name }`}>{ordersTemp.name}</p>
+            <p style={ordersTemp.status === 'done' ? {color:'#00CCCC'} : {color:'red'}} className={`${feedStyle.details_status_text} text text_type_main-small mb-15`}>{ordersTemp.status === 'done' ? 'Выполнен':'не выполнен'}</p>
             <p className ='text text_type_main-medium mb-6'>Cостав:</p>
             <ul className={feedStyle.details_lists}>
                <IngredientsInOrder oderData={ingredientsArray} />
