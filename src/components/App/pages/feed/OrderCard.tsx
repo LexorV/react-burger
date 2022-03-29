@@ -7,7 +7,6 @@ import {orderDateChange} from '../../../../utils/utils';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Console } from 'console';
 const ListPicture = ({ pictureArray }: any) => {
     if (pictureArray.length > 0) {
         const test = pictureArray.map((el: any, index: any) =>
@@ -31,10 +30,25 @@ export const FeedOrderCard = ({ ordesData }: any) => {
     const [totalCard, setTotalCard] = useState(0);
     const addIngredientsOrder = () => {
         let ordersIngredient
-        if (ingredients) {
+        if (ingredients && ordesData) {
             ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
             setNumberMoreSix(ordersIngredient.length - 5);
-            const totalCardTemp = ordersIngredient.map((el) => el.price).reduce((sum, current) => sum + current);
+            const orderArrayWitchNumber = ordesData.ingredients.map((el:any) => {
+                const result2 = ordesData.ingredients.map((element:any) => {
+                    let number = 0
+                    number = element === el ? number + 1: number;
+                    return number
+                })
+                const result4 = result2.reduce((a:any, b:any) => a + b)
+
+                return {id:el, number:result4 }
+            })
+            const ingredientsArrayCard = ingredients.filter(el => ordesData.ingredients.includes(el._id)).map((element) => {
+                const result = orderArrayWitchNumber.find((e:any) => e.id === element._id)
+                element['numberIngred'] =  result.number
+                return element
+            })
+            const totalCardTemp = ingredientsArrayCard.map((el:any) => el.price * el.numberIngred).reduce((sum, current) => sum + current);
             setTotalCard(totalCardTemp)
             setIngredientPictureArray(ordersIngredient)
 

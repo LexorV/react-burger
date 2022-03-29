@@ -7,7 +7,7 @@ const OrdesDoneList: any = () => {
     const filterDoneOrder = () => {
         if (orders !== null) {
             const tempOrder = orders.orders.filter((el: any) => el.status === 'done')
-                .slice(0, 5).map((el: any) => el.number)
+                .slice(0, 10).map((el: any) => el.number)
             setOrdesTemp(tempOrder)
         }
     }
@@ -16,7 +16,7 @@ const OrdesDoneList: any = () => {
     }, [orders])
     if (ordersTemp.length > 0) {
         const temp = ordersTemp.map((el: any) =>
-            <li className={`text text_type_digits-default ${feedStyle.statistics__number}`}>{el}</li>
+            <li className={`text text_type_digits-default ${feedStyle.statistics__number_list} ${feedStyle.statistics__number}`}>{el}</li>
         )
         return temp
     }
@@ -39,7 +39,7 @@ const OrdesNotDoneList: any = () => {
     }, [orders])
     if (ordersTemp.length > 0) {
         const temp = ordersTemp.map((el: any) =>
-            <li className={'text text_type_digits-default'}>{el}</li>
+            <li className={`text text_type_digits-default ${feedStyle.statistics__number_list}`}>{el}</li>
         )
         return temp
     }
@@ -60,13 +60,13 @@ export const FeedOrderStatistics = () => {
             <div className={feedStyle.statistics__number_order}>
                 <div className={feedStyle.statistics__number_box}>
                     <p className='text text_type_main-medium mb-6'>Готовы:</p>
-                    <ul className={feedStyle.statistics__number_list}>
+                    <ul className={feedStyle.statistics__number_lists}>
                         <OrdesDoneList />
                     </ul>
                 </div>
                 <div className={feedStyle.statistics__number_box}>
                     <p className='text text_type_main-medium  mb-6'>В работе:</p>
-                    <ul className={feedStyle.statistics__number_list}>
+                    <ul className={feedStyle.statistics__number_lists}>
                         <OrdesNotDoneList />
                     </ul>
                 </div>

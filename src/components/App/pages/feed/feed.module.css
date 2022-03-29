@@ -128,13 +128,21 @@ flex-direction: column;
 width:280px;
 }
 
-.statistics__number_list {
+.statistics__number_lists {
     list-style-type: none;
     display: flex;
     flex-direction: column;
     padding: 0;
     gap: 8px;
+    height:160px;
+    overflow-x: auto;
+      overflow-y: hidden;
+      flex-wrap: wrap;
 }
+.statistics__number_list {
+    width:100px;
+}
+
 .details_main {
 display:flex;
 justify-content:center;
