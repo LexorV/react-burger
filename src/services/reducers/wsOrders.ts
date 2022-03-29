@@ -51,7 +51,6 @@ export const wsOrdesReducer = (state = initialState, action:any) => {
             };
 
         case WS_GET_MESSAGE:
-            console.log(action.payload)
             return {
                 ...state,
                 error: undefined,

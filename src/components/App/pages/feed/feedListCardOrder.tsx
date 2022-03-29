@@ -2,7 +2,7 @@ import { FeedOrderCard } from './OrderCard';
 import feedStyle from './feed.module.css';
 import { FC, useState, useEffect } from 'react';
 import { dataOrder } from '../../../../utils/testDataOrder';
-import { wsConnectionStart } from '../../../../services/action/wsOrdes';
+import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 
 const CardListOrder: any = () => {
@@ -26,11 +26,7 @@ const CardListOrder: any = () => {
     }
 }
 export const FeedListCardOrder: FC = () => {
-    const { orders } = useSelector(state => state.wsOrdes)
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(wsConnectionStart());
-    }, []);
+    
 
 
     return (

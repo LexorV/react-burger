@@ -59,6 +59,8 @@ export default function BurgerIngredients() {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false)
     const [current, setCurrent] = React.useState<string>('Булки');
     const { ingredients } = useSelector(state => state.ingredients);
+    const { orders } = useSelector(state => state.wsOrdes)
+    console.log(orders)
     const tabClick = (current: string) => {
         if (current === 'Булки') {
             setCurrent('Булки')

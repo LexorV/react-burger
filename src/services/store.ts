@@ -27,6 +27,6 @@ declare global {
     }
 }
 export const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunkMiddleware, socketMiddleware('wss://norma.nomoreparties.space/orders/all', wsActions)));
+const enhancer = composeWithDevTools(applyMiddleware(thunk, socketMiddleware('wss://norma.nomoreparties.space/orders/all', wsActions)));
 export const store = createStore(rootReducer, enhancer);
 export default store;
