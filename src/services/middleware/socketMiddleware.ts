@@ -1,11 +1,11 @@
-export const socketMiddleware = (wsUrl: any, wsActions: any) => (store: any) => {
+export const socketMiddleware = (wsActions: any) => (store: any) => {
     let socket: any = null;
     return (next: any) => (action: any) => {
         const { dispatch, getState } = store;
         const { type, payload } = action;
         const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
         if (type === wsInit) {
-            socket = new WebSocket(`${wsUrl}`);
+            socket = new WebSocket(payload);
         }
         if (socket) {
             socket.onopen = (event: any) => {

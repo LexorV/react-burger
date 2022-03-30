@@ -3,12 +3,13 @@ import {FeedListCardOrder} from './feedListCardOrder';
 import { FeedOrderStatistics } from './feedOrderStatistics';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { FC, useState, useEffect } from 'react';
+import {urlWebSoketFeed} from '../../../../utils/burgerApi'
 import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
 export const Feed = () => {
     const { orders } = useSelector(state => state.wsOrdes)
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(wsConnectionStart());
+        dispatch(wsConnectionStart(urlWebSoketFeed));
         return () => {
             dispatch(wsConnectionClosed())
         }

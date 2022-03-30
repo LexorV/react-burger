@@ -7,9 +7,10 @@ export const WS_CONNECTION_START = 'WS_CONNECTION_START';
 export const ORDES_FILTER_GENERAL = 'ORDES_FILTER_GENERAL';
 export const TOTAL_PRICE_CARDS = 'TOTAL_PRICE_CARDS';
 
-export const wsConnectionStart = () => {
+export const wsConnectionStart = (urlServ:any) => {
     return {
-        type: WS_CONNECTION_START
+        type: WS_CONNECTION_START,
+        payload:urlServ
     };
 };
 

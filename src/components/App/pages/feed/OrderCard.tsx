@@ -3,7 +3,7 @@ import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useLocation, Link } from "react-router-dom";
 import { openOrderCard } from '../../../../services/action/orderCard';
-import {orderDateChange, ordesCardFilter, totalCardOrder} from '../../../../utils/utils';
+import { orderDateChange, ordesCardFilter, totalCardOrder } from '../../../../utils/utils';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -31,7 +31,7 @@ export const FeedOrderCard = ({ ordesData }: any) => {
     const [totalCard, setTotalCard] = useState(0);
     const addIngredientsOrder = () => {
         if (ingredients && orders && ordesData) {
-           const  ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
+            const ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
             setNumberMoreSix(ordersIngredient.length - 5);
             setTotalCard(totalCardOrder(ordesCardFilter(ordesData, ingredients)))
             setIngredientPictureArray(ordersIngredient)

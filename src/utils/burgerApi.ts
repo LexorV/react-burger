@@ -8,6 +8,7 @@ import {
     TlogoutUserApi
 } from '../services/types/autchType';
 const urlServ = "https://norma.nomoreparties.space/api/";
+export const urlWebSoketFeed = 'wss://norma.nomoreparties.space/orders/all';
 
 const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err: any) => Promise.reject(err));
