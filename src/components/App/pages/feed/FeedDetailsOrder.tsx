@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { wsConnectionStart } from '../../../../services/action/wsOrdes';
 import { v4 as uuidv4 } from 'uuid';
-import {orderDateChange} from '../../../../utils/utils';
+import {orderDateChange, ordesCardFilter, totalCardOrder} from '../../../../utils/utils';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -38,31 +38,13 @@ export const FeedDetailsOrder = () => {
     const [ordesDate, setOrdesDate] = useState('01.01.2022');
     const dispatch = useDispatch();
     const urlIdData = useParams();
-    
     useEffect(() => {
         if (orders && ingredients) {
             const ordersCard:any = orders.orders.find((e: any) => e._id === urlIdData.id);
-            const orderArrayWitchNumber = ordersCard.ingredients.map((el:any) => {
-                const result2 = ordersCard.ingredients.map((element:any) => {
-                    let number = 0
-                    number = element === el ? number + 1: number;
-                    return number
-                })
-                const result4 = result2.reduce((a:any, b:any) => a + b)
-
-                return {id:el, number:result4 }
-            })
-            const ingredientsArrayCard = ingredients.filter(el => ordersCard.ingredients.includes(el._id)).map((element) => {
-                const result = orderArrayWitchNumber.find((e:any) => e.id === element._id)
-                element['numberIngred'] =  result.number
-                return element
-            })
-            const totalCardTemp = ingredientsArrayCard.map((el:any) => el.price * el.numberIngred).reduce((sum, current) => sum + current);
-            setTotalCard(totalCardTemp)
-            setingredientsArray(ingredientsArrayCard)
+            setingredientsArray(ordesCardFilter(ordersCard, ingredients))
+            console.log(ordersCard)
             setOrdesTemp(ordersCard)
         }
-
         else {
             dispatch(wsConnectionStart());
         }
@@ -72,6 +54,11 @@ export const FeedDetailsOrder = () => {
             setOrdesDate(orderDateChange(ordersTemp.createdAt))
         }
     },[ordersTemp])
+    useEffect(() => {
+        if(ingredientsArray) {
+            setTotalCard(totalCardOrder(ingredientsArray))
+        }
+    },[ingredientsArray])
 
     return (
         <>

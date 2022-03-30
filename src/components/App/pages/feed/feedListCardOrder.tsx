@@ -1,9 +1,7 @@
 import { FeedOrderCard } from './OrderCard';
 import feedStyle from './feed.module.css';
 import { FC, useState, useEffect } from 'react';
-import { dataOrder } from '../../../../utils/testDataOrder';
-import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
-import { useSelector, useDispatch } from '../../../../services/hooks';
+import { useSelector} from '../../../../services/hooks';
 
 const CardListOrder: any = () => {
     const { orders } = useSelector(state => state.wsOrdes);

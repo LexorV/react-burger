@@ -3,7 +3,7 @@ import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useLocation, Link } from "react-router-dom";
 import { openOrderCard } from '../../../../services/action/orderCard';
-import {orderDateChange} from '../../../../utils/utils';
+import {orderDateChange, ordesCardFilter, totalCardOrder} from '../../../../utils/utils';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -24,36 +24,18 @@ const ListPicture = ({ pictureArray }: any) => {
 
 export const FeedOrderCard = ({ ordesData }: any) => {
     const { ingredients } = useSelector(state => state.ingredients);
+    const { orders } = useSelector(state => state.wsOrdes);
     const [ingredientPictureArray, setIngredientPictureArray] = useState<any>([]);
     const [ordesDate, setOrdesDate] = useState('01.01.2022')
     const [numberMoreSix, setNumberMoreSix] = useState<any>(1);
     const [totalCard, setTotalCard] = useState(0);
     const addIngredientsOrder = () => {
-        let ordersIngredient
-        if (ingredients && ordesData) {
-            ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
+        if (ingredients && orders && ordesData) {
+           const  ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
             setNumberMoreSix(ordersIngredient.length - 5);
-            const orderArrayWitchNumber = ordesData.ingredients.map((el:any) => {
-                const result2 = ordesData.ingredients.map((element:any) => {
-                    let number = 0
-                    number = element === el ? number + 1: number;
-                    return number
-                })
-                const result4 = result2.reduce((a:any, b:any) => a + b)
-
-                return {id:el, number:result4 }
-            })
-            const ingredientsArrayCard = ingredients.filter(el => ordesData.ingredients.includes(el._id)).map((element) => {
-                const result = orderArrayWitchNumber.find((e:any) => e.id === element._id)
-                element['numberIngred'] =  result.number
-                return element
-            })
-            const totalCardTemp = ingredientsArrayCard.map((el:any) => el.price * el.numberIngred).reduce((sum, current) => sum + current);
-            setTotalCard(totalCardTemp)
+            setTotalCard(totalCardOrder(ordesCardFilter(ordesData, ingredients)))
             setIngredientPictureArray(ordersIngredient)
-
         }
-        return ordersIngredient
     }
     const dispatch = useDispatch()
     const openModal = () => {

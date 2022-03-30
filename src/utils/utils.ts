@@ -66,6 +66,30 @@ export const orderDateChange = (date: any) => {
     const timeZone = new Intl.NumberFormat("ru-RU", { signDisplay: "exceptZero" }).format(0 - earlier.getTimezoneOffset() / 60);;
     return `${days()}, ${hours}:${minutes} i-GMT${timeZone}`;
 };
+export const ordesCardFilter = (ordersCard:any, ingredients:any) => {
+    const orderArrayWitchNumber = ordersCard.ingredients.map((el:any) => {
+        const result2 = ordersCard.ingredients.map((element:any) => {
+            let number = 0
+            number = element === el ? number + 1: number;
+            return number
+        })
+        const result4 = result2.reduce((a:any, b:any) => a + b)
+
+        return {id:el, number:result4 }
+    })
+    const ingredientsArrayCard = ingredients.filter((el:any) => ordersCard.ingredients.includes(el._id)).map((element:any) => {
+        const result = orderArrayWitchNumber.find((e:any) => e.id === element._id)
+        element['numberIngred'] =  result.number
+        return element
+    })
+    return ingredientsArrayCard
+}
+export const totalCardOrder = (cardOrder:any) => {
+return cardOrder.map((el:any) => el.price * el.numberIngred).reduce((sum:any, current:any) => sum + current);
+}
+
+
+
   /*
 validateForm() {
 this.setState({formValid: this.state.emailValid &&
