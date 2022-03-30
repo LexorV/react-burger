@@ -1,6 +1,7 @@
 import feedStyle from './feed.module.css';
 import { useSelector } from '../../../../services/hooks';
 import { FC, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 const OrdesDoneList: any = () => {
     const { orders } = useSelector(state => state.wsOrdes);
     const [ordersTemp, setOrdesTemp] = useState([]);
@@ -16,12 +17,12 @@ const OrdesDoneList: any = () => {
     }, [orders])
     if (ordersTemp.length > 0) {
         const temp = ordersTemp.map((el: any) =>
-            <li className={`text text_type_digits-default ${feedStyle.statistics__number_list} ${feedStyle.statistics__number}`}>{el}</li>
+            <li key={uuidv4()} className={`text text_type_digits-default ${feedStyle.statistics__number_list} ${feedStyle.statistics__number}`}>{el}</li>
         )
         return temp
     }
     return (
-        <li className={'text text_type_main-small'}>Готовых заказов нет</li>
+        <li key={uuidv4()} className={'text text_type_main-small'}>Готовых заказов нет</li>
     )
 }
 const OrdesNotDoneList: any = () => {
@@ -39,12 +40,12 @@ const OrdesNotDoneList: any = () => {
     }, [orders])
     if (ordersTemp.length > 0) {
         const temp = ordersTemp.map((el: any) =>
-            <li className={`text text_type_digits-default ${feedStyle.statistics__number_list}`}>{el}</li>
+            <li key={uuidv4()} className={`text text_type_digits-default ${feedStyle.statistics__number_list}`}>{el}</li>
         )
         return temp
     }
     return (
-        <li className={'text text_type_main-small'}>Все заказы готовы</li>
+        <li key={uuidv4()} className={'text text_type_main-small'}>Все заказы готовы</li>
     )
 }
 

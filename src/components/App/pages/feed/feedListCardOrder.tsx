@@ -13,7 +13,7 @@ const CardListOrder: any = () => {
     }, [orders])
     if (ordersTemp.length > 0) {
         const test = ordersTemp.map((el: any) =>
-            <FeedOrderCard ordesData={el} />
+            <FeedOrderCard key={el._id} ordesData={el} />
         )
         return test
     }

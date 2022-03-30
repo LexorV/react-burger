@@ -10,7 +10,7 @@ import {
 const ListPicture = ({ pictureArray }: any) => {
     if (pictureArray.length > 0) {
         const test = pictureArray.map((el: any, index: any) =>
-            <img className={feedStyle.card__picture} style={{ zIndex: pictureArray.length - index }} alt={el.name} src={el.image}></img>
+            <img key={el._id} className={feedStyle.card__picture} style={{ zIndex: pictureArray.length - index }} alt={el.name} src={el.image}></img>
         ).slice(0, 5);
         return test
     }
@@ -49,7 +49,7 @@ export const FeedOrderCard = ({ ordesData }: any) => {
 
     return (
         <Link className={feedStyle.card__liks_style} to={{ pathname: `/feed/${ordesData._id}` }} state={{ positionPopap: location }}>
-            <li onClickCapture={openModal} className={feedStyle.card}>
+            <li key={ordesData._id} onClickCapture={openModal} className={feedStyle.card}>
                 <div className={feedStyle.card__number_box}>
                     <p className="text text_type_digits-default">{ordesData.number}</p>
                     <p className="text text_type_main-default text_color_inactive">{ordesDate}</p>
