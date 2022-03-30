@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { wsConnectionStart } from '../../../../services/action/wsOrdes';
-import { v4 as uuidv4 } from 'uuid';
 import { urlWebSoketFeed } from '../../../../utils/burgerApi'
 import { orderDateChange, ordesCardFilter, totalCardOrder } from '../../../../utils/utils';
 import {
@@ -12,7 +11,7 @@ import {
 const IngredientsInOrder = ({ oderData }: any) => {
     if (oderData) {
         return oderData.map((el: any) =>
-        (<li className={feedStyle.details_list_ingredient}>
+        (<li key={el._id} className={feedStyle.details_list_ingredient}>
             <img className={`${feedStyle.card__picture} mr-4`} alt='картинка' src={el.image}></img>
             <p className='text text_type_main-small mr-6'>{el.name}</p>
             <div className={feedStyle.details_ingredient_price_box}>
@@ -44,7 +43,6 @@ export const FeedDetailsOrder = () => {
         if (orders && ingredients) {
             const ordersCard: any = orders.orders.find((e: any) => e._id === urlIdData.id);
             setingredientsArray(ordesCardFilter(ordersCard, ingredients))
-            console.log(ordersCard)
             setOrdesTemp(ordersCard)
         }
         else {
