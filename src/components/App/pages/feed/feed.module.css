@@ -1,8 +1,9 @@
 .feed {
     display: flex;
     margin-left: 15%;
-    gap:68px;
+    gap: 68px;
 }
+
 .card__list {
     display: flex;
     flex-direction: column;
@@ -12,10 +13,12 @@
     overflow-x: hidden;
     padding-left: 0;
 }
+
 .card__list::-webkit-scrollbar {
     width: 8px;
     background-color: #2F2F37;
 }
+
 .card__list::-webkit-scrollbar-thumb {
     background-color: #8585AD;
 }
@@ -23,109 +26,27 @@
 .box_cards {
     width: 608px;
 }
-.card {
-    display: flex;
-    max-height: 400px;
-    width: 584px;
-    padding: 24px;
-    flex-direction: column;
-    position: relative;
-    background-color:#1C1C21;
-    list-style-type: none;
-    border-radius:40px;
-    box-sizing: border-box;
-}
 
-.card__number_box {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-bottom: 24px;
-}
-
-.card__bottom_box {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.card__picture_box {
-    display: flex;
-}
-
-.card__picture {
-    position: relative;
-    border: 2px solid transparent;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    z-index: 2;
-    object-fit: cover;
-    background-image: linear-gradient(rgb(0, 0, 0), rgb(0, 0, 0)),
-    linear-gradient(to right, #801AB2, #4C4CFF);
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-}
-.card_picture_last {
-    opacity: 0.6
-}
-.card_picture_number_box {
-    position: relative;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    z-index: 2;
-    margin-left: -16px;
-}
-.card_picture_number_text {
-    position: relative;
-    top: -80px;
-    right:-20px;
-    font-size:24px;
-    z-index: 20;
-}
-
-
-.card__picture:not(:first-child) {
-    position: relative;
-    margin-left: -16px;
-}
-
-.card__price_box {
-    display: flex;
-    flex-direction: row;
-    padding-top: 25px;
-    margin: 0;
-}
-.card__price {
-    margin: 0;
-    padding-right: 9px;
-}
-.card__liks_style {
-    text-decoration: none;
-    color:white;
-    display: flex;
-    flex-direction: column;
-}
 .statistics {
     display: flex;
     flex-direction: column;
     gap: 60px;
     margin-top: 100px;
 }
+
 .statistics__number_order {
     display: flex;
     gap: 36px;
 }
+
 .statistics__number {
-    color:#00CCCC;
+    color: #00CCCC;
 }
 
 .statistics__number_box {
-display: flex;
-flex-direction: column;
-width:280px;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
 }
 
 .statistics__number_lists {
@@ -134,76 +55,12 @@ width:280px;
     flex-direction: column;
     padding: 0;
     gap: 8px;
-    height:160px;
+    height: 160px;
     overflow-x: auto;
-      overflow-y: hidden;
-      flex-wrap: wrap;
+    overflow-y: hidden;
+    flex-wrap: wrap;
 }
+
 .statistics__number_list {
-    width:100px;
+    width: 100px;
 }
-
-.details_main {
-display:flex;
-justify-content:center;
-}
-.details_main_popap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 640px;
-}
-.details_bottom_box {
-display: flex;
-flex-direction: row;
-justify-content:space-between;
-min-width: 640px;
-}
-.details_box_price {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-.details_number_order {
-    text-align: center;
-}
-.details_list_ingredient {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.details_ingredient_price_box {
-    display: flex;
-    gap: 9px;
-    align-items: center;
-}
-.details_lists {
-    display: flex;
-    flex-direction: column;
-    height: 312px;
-    width: 640px;
-    list-style-type: none;
-    padding:0;
-    box-sizing: border-box;
-    padding-right: 24px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    gap: 20px;
-
-}
-.details_status_text {
-    text-align: left;
-    width: 100%;
-}
-.details_name {
-    text-align: left;
-    width: 100%;
-}
-.details_lists::-webkit-scrollbar {
-    width: 8px;
-    background-color: #2F2F37;
-}
-.details_lists::-webkit-scrollbar-thumb {
-    background-color: #8585AD;
-}
-

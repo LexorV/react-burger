@@ -17,7 +17,7 @@ import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal';
 import { NotFound } from './pages/NotFound/NotFound';
 import {Feed} from './pages/feed/feed';
-import {FeedDetailsOrder} from './pages/feed/FeedDetailsOrder';
+import {FeedDetailsOrder} from '../OrdesCards/DetailsOrder';
 import {HistoryOrdes} from './pages/profile/HistoryOrdes';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
