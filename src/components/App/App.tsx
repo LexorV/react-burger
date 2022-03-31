@@ -17,7 +17,8 @@ import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal';
 import { NotFound } from './pages/NotFound/NotFound';
 import {Feed} from './pages/feed/feed';
-import {FeedDetailsOrder} from './pages/feed/FeedDetailsOrder'
+import {FeedDetailsOrder} from './pages/feed/FeedDetailsOrder';
+import {HistoryOrdes} from './pages/profile/HistoryOrdes';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();
@@ -79,7 +80,9 @@ export default function App() {
                         <Route path="/profile" element={<ProtectedRoute path="/profile">
                             <Profile />
                         </ProtectedRoute>} />
-
+                        <Route path="/profile/orders" element={<ProtectedRoute path="/profile/orders">
+                            <HistoryOrdes />
+                        </ProtectedRoute>} />
                         <Route path={'/ingredients/:id'} element={
                             <IngredientDetails />
                         } />)
