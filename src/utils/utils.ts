@@ -51,19 +51,24 @@ export const orderDateChange = (date: any) => {
     const now = new Date();
     const days = () => {
         const daysNumber = Math.floor((now.getTime() - earlier.getTime()) / (60 * 60 * 24 * 1000));
+        let daysText = 'Нет Даты';
         if (daysNumber === 0) {
-            return 'Сегодня'
+            daysText =  'Сегодня'
         }
         else if (daysNumber === 1) {
-            return 'Вчера'
+            daysText =  'Вчера'
         }
         else if (daysNumber > 1) {
-            return `${days} дня назад`
+            daysText =  `${daysNumber} ${daysNumber>1 && daysNumber<5?'дня':'дней'} назад`
         }
+        else {
+            daysText =  'Нет Даты'
+        }
+        return daysText
     }
     const hours = earlier.getHours().toString();
     const minutes = earlier.getMinutes().toString().padStart(2, '0');
-    const timeZone = new Intl.NumberFormat("ru-RU", { signDisplay: "exceptZero" }).format(0 - earlier.getTimezoneOffset() / 60);;
+    const timeZone = new Intl.NumberFormat("ru-RU", { signDisplay: "exceptZero" }).format(0 - earlier.getTimezoneOffset() / 60);
     return `${days()}, ${hours}:${minutes} i-GMT${timeZone}`;
 };
 export const ordesCardFilter = (ordersCard:any, ingredients:any) => {

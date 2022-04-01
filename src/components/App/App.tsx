@@ -16,9 +16,9 @@ import { CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal';
 import { NotFound } from './pages/NotFound/NotFound';
-import {Feed} from './pages/feed/feed';
-import {FeedDetailsOrder} from '../OrdesCards/DetailsOrder';
-import {HistoryOrdes} from './pages/profile/HistoryOrdes';
+import { Feed } from './pages/feed/feed';
+import { FeedDetailsOrder } from '../OrdesCards/DetailsOrder';
+import { HistoryOrdes } from './pages/profile/HistoryOrdes';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();
@@ -66,17 +66,22 @@ export default function App() {
                                 <Modal height={716} closeModal={() => closeModal()}>
                                     <FeedDetailsOrder />
                                 </Modal>
-                            } />)
+                            } />
+                            <Route path={"/profile/orders/:id"} element={<ProtectedRoute path="/profile/orders/id">
+                                <Modal height={716} closeModal={() => closeModal()}>
+                                    <FeedDetailsOrder />
+                                </Modal>
+                            </ProtectedRoute>} />
                         </Routes>}
                     <Routes location={positionPopap || location}>
                         <Route path="/" element={<MainBlock />} />
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegisterForm />} />
                         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-                        <Route path="/feed" element={<Feed />}/>
+                        <Route path="/feed" element={<Feed />} />
                         <Route path="/reset-password" element={
                             <ResetPasswordForm />} />
-                            <Route path="/feed/:id" element = {<FeedDetailsOrder />} />
+                        <Route path="/feed/:id" element={<FeedDetailsOrder />} />
                         <Route path="/profile" element={<ProtectedRoute path="/profile">
                             <Profile />
                         </ProtectedRoute>} />

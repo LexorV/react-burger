@@ -1,9 +1,11 @@
 import profile from './profile.module.css';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { deleteCookie, setCookie } from '../../../../utils/utils';
+import { FC, useState, useEffect } from 'react';
+import { deleteCookie, setCookie, getCookie } from '../../../../utils/utils';
 import { LOGOUT_USER } from '../../../../services/action/registerForm';
 import {logoutUserApi, refreshTokenApi } from '../../../../utils/burgerApi';
+import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
 export const ProfileMenu = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,6 +20,7 @@ export const ProfileMenu = () => {
         })
         navigate('/login');
     }
+  
 
     return (
         <div className={profile.menu__box}>

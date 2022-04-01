@@ -48,7 +48,7 @@ export const OrderCard = ({ ordesData }: any) => {
     }, [ingredients, ordesData])
 
     return (
-        <Link className={cardsOrdersStyle.card__liks_style} to={{ pathname: `/feed/${ordesData._id}` }} state={{ positionPopap: location }}>
+        <Link className={cardsOrdersStyle.card__liks_style} to={{ pathname: `${location.pathname}/${ordesData._id}` }} state={{ positionPopap: location }}>
             <li key={ordesData._id} onClickCapture={openModal} className={cardsOrdersStyle.card}>
                 <div className={cardsOrdersStyle.card__number_box}>
                     <p className="text text_type_digits-default">{ordesData.number}</p>

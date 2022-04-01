@@ -39,3 +39,22 @@ cursor: pointer;
     display: flex;
     justify-content: space-between;
 }
+.card__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 812px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-left: 0;
+}
+
+.card__list::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.card__list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
