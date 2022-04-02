@@ -1,11 +1,9 @@
 import profile from './profile.module.css';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { useLocation, Link, useNavigate } from "react-router-dom";
-import { FC, useState, useEffect } from 'react';
 import { deleteCookie, setCookie, getCookie } from '../../../../utils/utils';
 import { LOGOUT_USER } from '../../../../services/action/registerForm';
-import {logoutUserApi, refreshTokenApi } from '../../../../utils/burgerApi';
-import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
+import {logoutUserApi} from '../../../../utils/burgerApi';
 export const ProfileMenu = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

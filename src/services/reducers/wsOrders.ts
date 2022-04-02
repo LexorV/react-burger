@@ -47,7 +47,8 @@ export const wsOrdesReducer = (state = initialState, action:any) => {
             return {
                 ...state,
                 error: undefined,
-                wsConnected: false
+                wsConnected: false,
+                orders: null
             };
 
         case WS_GET_MESSAGE:

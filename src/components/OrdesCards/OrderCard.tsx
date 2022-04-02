@@ -29,6 +29,8 @@ export const OrderCard = ({ ordesData }: any) => {
     const [ordesDate, setOrdesDate] = useState('01.01.2022')
     const [numberMoreSix, setNumberMoreSix] = useState<any>(1);
     const [totalCard, setTotalCard] = useState(0);
+    const [isHistory, setIsHistory] = useState(false);
+    let location = useLocation();
     const addIngredientsOrder = () => {
         if (ingredients && orders && ordesData) {
             const ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
@@ -41,11 +43,21 @@ export const OrderCard = ({ ordesData }: any) => {
     const openModal = () => {
         dispatch(openOrderCard(ordesData))
     }
-    let location = useLocation();
+  
+   
     useEffect(() => {
         addIngredientsOrder()
         setOrdesDate(orderDateChange(ordesData.createdAt))
     }, [ingredients, ordesData])
+    useEffect(() => {
+        if(location.pathname === "/profile/orders") {
+            setIsHistory(true)
+        }
+        else {
+            setIsHistory(false)
+        }
+    }, [ordesData])
+
 
     return (
         <Link className={cardsOrdersStyle.card__liks_style} to={{ pathname: `${location.pathname}/${ordesData._id}` }} state={{ positionPopap: location }}>
@@ -55,6 +67,7 @@ export const OrderCard = ({ ordesData }: any) => {
                     <p className="text text_type_main-default text_color_inactive">{ordesDate}</p>
                 </div>
                 <h2 className='text text_type_main-medium pb-6'>{ordesData.name}</h2>
+                { isHistory && (<p style={ordesData.status === 'done' ? { color: '#00CCCC' } : { color: 'white' }} className={`${cardsOrdersStyle.details_status_text} text text_type_main-small mb-6`}>{ordesData.status === 'done' ? 'Выполнен' : 'Готовится'}</p>)}
                 <div className={cardsOrdersStyle.card__bottom_box}>
                     <div className={cardsOrdersStyle.card__picture_box} >
                         <ListPicture pictureArray={ingredientPictureArray} />
