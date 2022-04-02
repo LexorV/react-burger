@@ -1,6 +1,6 @@
 import profile from './profile.module.css';
 import { useSelector, useDispatch } from '../../../../services/hooks';
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, Link, useNavigate, NavLink } from "react-router-dom";
 import { deleteCookie, setCookie, getCookie } from '../../../../utils/utils';
 import { LOGOUT_USER } from '../../../../services/action/registerForm';
 import {logoutUserApi} from '../../../../utils/burgerApi';
@@ -18,13 +18,17 @@ export const ProfileMenu = () => {
         })
         navigate('/login');
     }
+    const setActive = ({ isActive }: any) =>
+    isActive ? `${profile.links__profile_menu_active }
+    text text_type_main-medium `:
+    `${profile.links__profile_menu} text text_type_main-medium`;
   
 
     return (
         <div className={profile.menu__box}>
             <ul className={profile.menu__lists}>
-                <Link to={{ pathname:"/profile"}}><li className={`${profile.menu__list} ${profile.menu__list_active} text text_type_main-medium`}>Профиль</li></Link>
-                <Link to={{ pathname:"/profile/orders"}}><li className={`${profile.menu__list} text text_type_main-medium`}>История заказов</li></Link>
+               <li className={`${profile.menu__list}`}> <NavLink  to="/profile"  className={setActive} end>Профиль </NavLink></li>
+                <li className={`${profile.menu__list}`}><NavLink  to="/profile/orders" className={setActive} end>История заказов </NavLink></li>
                 <li onClick={logoutUser} className={`${profile.menu__list} text text_type_main-medium`}>Выход</li>
             </ul>
             <p className="text text_type_main-default text_color_inactive mt-20">В этом разделе вы можете

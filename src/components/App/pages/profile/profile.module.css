@@ -11,6 +11,12 @@
     margin-top:120px;
     gap: 60px;
 }
+.main__box_history {
+    display: flex;
+    justify-content: center;
+    margin-top:40px;
+    gap: 60px;
+}
 .menu__box {
     display:flex;
     flex-direction: column;
@@ -23,9 +29,9 @@
 .menu__list {
 min-height: 64px;
 display: flex;
-opacity:0.4;
 align-items: center;
 cursor: pointer;
+color:#8585AD;
 }
 .inputs__box {
     display: flex;
@@ -43,7 +49,7 @@ cursor: pointer;
     display: flex;
     flex-direction: column;
     gap: 14px;
-    max-height: 812px;
+    max-height: 750px;
     overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 0;
@@ -56,5 +62,14 @@ cursor: pointer;
 
 .card__list::-webkit-scrollbar-thumb {
     background-color: #8585AD;
+}
+.links__profile_menu {
+    text-decoration:none;
+  color:#8585AD;
+}
+.links__profile_menu_active {
+    opacity: 1;
+    color: white;
+    text-decoration:none;
 }
 
