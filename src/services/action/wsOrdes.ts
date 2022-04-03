@@ -1,59 +1,69 @@
-export const WS_CONNECTION_SUCCESS = 'WS_CONNECTION_SUCCESS';
-export const WS_CONNECTION_ERROR = 'WS_CONNECTION_ERROR';
-export const WS_CONNECTION_CLOSED = 'WS_CONNECTION_CLOSED';
-export const  WS_GET_MESSAGE = 'WS_GET_MESSAGE';
-export const  WS_SEND_MESSAGE = ' WS_SEND_MESSAGE'
-export const WS_CONNECTION_START = 'WS_CONNECTION_START';
-export const ORDES_FILTER_GENERAL = 'ORDES_FILTER_GENERAL';
-export const TOTAL_PRICE_CARDS = 'TOTAL_PRICE_CARDS';
+import {TordersList} from '../../services/types/ordersType'
+export const WS_CONNECTION_SUCCESS:'WS_CONNECTION_SUCCESS' = 'WS_CONNECTION_SUCCESS';
+export const WS_CONNECTION_ERROR:'WS_CONNECTION_ERROR' = 'WS_CONNECTION_ERROR';
+export const WS_CONNECTION_CLOSED:'WS_CONNECTION_CLOSED' = 'WS_CONNECTION_CLOSED';
+export const  WS_GET_MESSAGE:'WS_GET_MESSAGE' = 'WS_GET_MESSAGE';
+export const  WS_SEND_MESSAGE:'WS_SEND_MESSAGE' = 'WS_SEND_MESSAGE'
+export const WS_CONNECTION_START:'WS_CONNECTION_START' = 'WS_CONNECTION_START';
 
-export const wsConnectionStart = (urlServ:any) => {
+type TwsConnectionStart = {
+    readonly type: typeof WS_CONNECTION_START
+    payload:string
+}
+type TwsConnectionSuccess = {
+    readonly type: typeof WS_CONNECTION_SUCCESS
+}
+type TwsConnectionError = {
+    readonly type: typeof WS_CONNECTION_ERROR
+}
+type TwsConnectionClosed = {
+    readonly type: typeof WS_CONNECTION_CLOSED
+}
+type TwsGetMessage = {
+    readonly type: typeof WS_GET_MESSAGE
+    payload: TordersList
+}
+type TwsSendMessage = {
+    readonly type: typeof WS_SEND_MESSAGE,
+    payload:any
+}
+
+
+export const wsConnectionStart = (urlServ:string):TwsConnectionStart => {
     return {
         type: WS_CONNECTION_START,
         payload:urlServ
     };
 };
 
-export const wsConnectionSuccess = () => {
+export const wsConnectionSuccess = ():TwsConnectionSuccess => {
     return {
         type: WS_CONNECTION_SUCCESS
     };
 };
 
-export const wsConnectionError = () => {
+export const wsConnectionError = ():TwsConnectionError => {
     return {
         type: WS_CONNECTION_ERROR
     };
 };
 
-export const wsConnectionClosed = () => {
+export const wsConnectionClosed = ():TwsConnectionClosed => {
     return {
         type: WS_CONNECTION_CLOSED
     };
 };
 
-export const wsGetMessage = (orders:any) => {
+export const wsGetMessage = (orders:TordersList):TwsGetMessage => {
     return {
         type: WS_GET_MESSAGE,
         payload: orders
     };
 };
 
-export const wsSendMessage = (orders:any) => {
+export const wsSendMessage = (orders:any):TwsSendMessage => {
     return {
         type: WS_SEND_MESSAGE,
         payload: orders
     };
 };
-export const ordesFilterArray = (orders:any) => {
-    return {
-        type:ORDES_FILTER_GENERAL,
-        orders: orders
-    }
-}
-export const totalPriceCard = (price:any) => {
-    return {
-        type:TOTAL_PRICE_CARDS,
-        price: price
-    }
-}
