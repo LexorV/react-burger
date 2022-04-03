@@ -1,14 +1,15 @@
 import feedStyle from './feed.module.css';
 import { useSelector } from '../../../../services/hooks';
 import { FC, useState, useEffect } from 'react';
+import { TordersCard } from '../../../../services/types/ordersType'
 import { v4 as uuidv4 } from 'uuid';
-const OrdesDoneList: any = () => {
+const OrdesDoneList: FC = () => {
     const { orders } = useSelector(state => state.wsOrdes);
     const [ordersTemp, setOrdesTemp] = useState([]);
     const filterDoneOrder = () => {
         if (orders !== null) {
-            const tempOrder = orders.orders.filter((el: any) => el.status === 'done')
-                .slice(0, 10).map((el: any) => el.number)
+            const tempOrder = orders.orders.filter((el: TordersCard) => el.status === 'done')
+                .slice(0, 10).map((el: TordersCard) => el.number)
             setOrdesTemp(tempOrder)
         }
     }
@@ -16,22 +17,27 @@ const OrdesDoneList: any = () => {
         filterDoneOrder()
     }, [orders])
     if (ordersTemp.length > 0) {
-        const temp = ordersTemp.map((el: any) =>
-            <li key={uuidv4()} className={`text text_type_digits-default ${feedStyle.statistics__number_list} ${feedStyle.statistics__number}`}>{el}</li>
+        return (
+            <>
+                {ordersTemp.map((el: TordersCard) => (
+                    <li key={uuidv4()} className={`text text_type_digits-default ${feedStyle.statistics__number_list} ${feedStyle.statistics__number}`}>{el}</li>
+                ))
+                }
+            </>
+
         )
-        return temp
     }
     return (
         <li key={uuidv4()} className={'text text_type_main-small'}>Готовых заказов нет</li>
     )
 }
-const OrdesNotDoneList: any = () => {
+const OrdesNotDoneList: FC = () => {
     const { orders } = useSelector(state => state.wsOrdes);
     const [ordersTemp, setOrdesTemp] = useState([]);
     const filterDoneOrder = () => {
         if (orders !== null) {
-            const tempOrder = orders.orders.filter((el: any) => el.status === 'pending')
-                .slice(0, 5).map((el: any) => el.number)
+            const tempOrder = orders.orders.filter((el: TordersCard) => el.status === 'pending')
+                .slice(0, 5).map((el: TordersCard) => el.number)
             setOrdesTemp(tempOrder)
         }
     }
@@ -39,10 +45,14 @@ const OrdesNotDoneList: any = () => {
         filterDoneOrder()
     }, [orders])
     if (ordersTemp.length > 0) {
-        const temp = ordersTemp.map((el: any) =>
-            <li key={uuidv4()} className={`text text_type_digits-default ${feedStyle.statistics__number_list}`}>{el}</li>
+        return (
+            <>
+                {ordersTemp.map((el: TordersCard) => (
+                    <li key={uuidv4()} className={`text text_type_digits-default ${feedStyle.statistics__number_list}`}>{el}</li>
+                ))
+                }
+            </>
         )
-        return temp
     }
     return (
         <li key={uuidv4()} className={'text text_type_main-small'}>Все заказы готовы</li>
@@ -52,10 +62,8 @@ const OrdesNotDoneList: any = () => {
 
 
 
-export const FeedOrderStatistics = () => {
+export const FeedOrderStatistics:FC = () => {
     const { orders } = useSelector(state => state.wsOrdes);
-
-    // console.log(orders)
     return (
         <div className={feedStyle.statistics}>
             <div className={feedStyle.statistics__number_order}>

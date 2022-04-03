@@ -1,26 +1,33 @@
 import cardsOrdersStyle from './cardsOrders.module.css';
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { wsConnectionStart } from '../../services/action/wsOrdes';
 import { urlWebSoketFeed } from '../../utils/burgerApi'
 import { orderDateChange, ordesCardFilter, totalCardOrder } from '../../utils/utils';
+import { Tingredient } from '../../services/types/ingredientsType';
+import { TordersCard } from '../../services/types/ordersType';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
-const IngredientsInOrder = ({ oderData }: any) => {
+const IngredientsInOrder: FC<{ oderData: Tingredient[] }> = ({ oderData }) => {
     if (oderData) {
-        return oderData.map((el: any) =>
-        (<li key={el._id} className={cardsOrdersStyle.details_list_ingredient}>
-            <img className={`${cardsOrdersStyle.card__picture} mr-4`} alt='картинка' src={el.image}></img>
-            <p className='text text_type_main-small mr-6'>{el.name}</p>
-            <div className={cardsOrdersStyle.details_ingredient_price_box}>
-                <p>{`${el.numberIngred} x ${el.numberIngred * el.price}`}</p>
-                <CurrencyIcon type="primary" />
-            </div>
-        </li>)
-
+        return (
+            <>
+                {
+                    oderData.map((el) =>
+                    (<li key={el._id} className={cardsOrdersStyle.details_list_ingredient}>
+                        <img className={`${cardsOrdersStyle.card__picture} mr-4`} alt='картинка' src={el.image}></img>
+                        <p className='text text_type_main-small mr-6'>{el.name}</p>
+                        <div className={cardsOrdersStyle.details_ingredient_price_box}>
+                            <p>{`${el.numberIngred} x ${el?.numberIngred ?? 1 * el.price}`}</p>
+                            <CurrencyIcon type="primary" />
+                        </div>
+                    </li>))
+                }
+            </>
         )
+
     }
     else {
         return (
@@ -30,18 +37,18 @@ const IngredientsInOrder = ({ oderData }: any) => {
 }
 
 
-export const FeedDetailsOrder = () => {
+export const FeedDetailsOrder: FC = () => {
     const { orders } = useSelector(state => state.wsOrdes);
     const { ingredients } = useSelector(state => state.ingredients);
     const [ordersTemp, setOrdesTemp] = useState<any>(null);
     const [ingredientsArray, setingredientsArray] = useState<any>(null);
-    const [totalCard, setTotalCard] = useState(0);
-    const [ordesDate, setOrdesDate] = useState('01.01.2022');
+    const [totalCard, setTotalCard] = useState<number>(0);
+    const [ordesDate, setOrdesDate] = useState<string>('01.01.2022');
     const dispatch = useDispatch();
     const urlIdData = useParams();
     useEffect(() => {
         if (orders && ingredients) {
-            const ordersCard: any = orders.orders.find((e: any) => e._id === urlIdData.id);
+            const ordersCard = orders.orders.find((e: TordersCard) => e._id === urlIdData.id);
             setingredientsArray(ordesCardFilter(ordersCard, ingredients))
             setOrdesTemp(ordersCard)
         }

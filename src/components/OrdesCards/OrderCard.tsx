@@ -4,15 +4,22 @@ import { useSelector, useDispatch } from '../../services/hooks';
 import { useLocation, Link } from "react-router-dom";
 import { openOrderCard } from '../../services/action/orderCard';
 import { orderDateChange, ordesCardFilter, totalCardOrder } from '../../utils/utils';
+import { Tingredient } from '../../services/types/ingredientsType';
+import { TordersCard } from '../../services/types/ordersType'
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
-const ListPicture = ({ pictureArray }: any) => {
+const ListPicture: FC<{ pictureArray: Tingredient[] }> = ({ pictureArray }) => {
     if (pictureArray.length > 0) {
-        const test = pictureArray.map((el: any, index: any) =>
-            <img key={el._id} className={cardsOrdersStyle.card__picture} style={{ zIndex: pictureArray.length - index }} alt={el.name} src={el.image}></img>
-        ).slice(0, 5);
-        return test
+        return (
+            <>
+                {
+                    pictureArray.slice(0, 4).map((el, index: number) => (
+                        <img key={el._id} className={cardsOrdersStyle.card__picture} style={{ zIndex: pictureArray.length - index }} alt={el.name} src={el.image}></img>
+                    ))
+                }
+            </>
+        )
     }
     else {
         return (
@@ -22,14 +29,14 @@ const ListPicture = ({ pictureArray }: any) => {
 }
 
 
-export const OrderCard = ({ ordesData }: any) => {
+export const OrderCard: FC<{ ordesData: TordersCard }> = ({ ordesData }) => {
     const { ingredients } = useSelector(state => state.ingredients);
     const { orders } = useSelector(state => state.wsOrdes);
-    const [ingredientPictureArray, setIngredientPictureArray] = useState<any>([]);
-    const [ordesDate, setOrdesDate] = useState('01.01.2022')
-    const [numberMoreSix, setNumberMoreSix] = useState<any>(1);
-    const [totalCard, setTotalCard] = useState(0);
-    const [isHistory, setIsHistory] = useState(false);
+    const [ingredientPictureArray, setIngredientPictureArray] = useState<Tingredient[] | []>([]);
+    const [ordesDate, setOrdesDate] = useState<string>('01.01.2022')
+    const [numberMoreSix, setNumberMoreSix] = useState<number>(1);
+    const [totalCard, setTotalCard] = useState<number>(0);
+    const [isHistory, setIsHistory] = useState<boolean>(false);
     let location = useLocation();
     const addIngredientsOrder = () => {
         if (ingredients && orders && ordesData) {
@@ -43,14 +50,14 @@ export const OrderCard = ({ ordesData }: any) => {
     const openModal = () => {
         dispatch(openOrderCard(ordesData))
     }
-  
-   
+
+
     useEffect(() => {
         addIngredientsOrder()
         setOrdesDate(orderDateChange(ordesData.createdAt))
     }, [ingredients, ordesData])
     useEffect(() => {
-        if(location.pathname === "/profile/orders") {
+        if (location.pathname === "/profile/orders") {
             setIsHistory(true)
         }
         else {
@@ -67,7 +74,7 @@ export const OrderCard = ({ ordesData }: any) => {
                     <p className="text text_type_main-default text_color_inactive">{ordesDate}</p>
                 </div>
                 <h2 className='text text_type_main-medium pb-6'>{ordesData.name}</h2>
-                { isHistory && (<p style={ordesData.status === 'done' ? { color: '#00CCCC' } : { color: 'white' }} className={`${cardsOrdersStyle.details_status_text} text text_type_main-small mb-6`}>{ordesData.status === 'done' ? 'Выполнен' : 'Готовится'}</p>)}
+                {isHistory && (<p style={ordesData.status === 'done' ? { color: '#00CCCC' } : { color: 'white' }} className={`${cardsOrdersStyle.details_status_text} text text_type_main-small mb-6`}>{ordesData.status === 'done' ? 'Выполнен' : 'Готовится'}</p>)}
                 <div className={cardsOrdersStyle.card__bottom_box}>
                     <div className={cardsOrdersStyle.card__picture_box} >
                         <ListPicture pictureArray={ingredientPictureArray} />
