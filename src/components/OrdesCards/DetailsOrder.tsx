@@ -5,12 +5,12 @@ import { useSelector, useDispatch } from '../../services/hooks';
 import { wsConnectionStart } from '../../services/action/wsOrdes';
 import { urlWebSoketFeed } from '../../utils/burgerApi'
 import { orderDateChange, ordesCardFilter, totalCardOrder } from '../../utils/utils';
-import { Tingredient } from '../../services/types/ingredientsType';
+import { TingredientOrder } from '../../services/types/ingredientsType';
 import { TordersCard } from '../../services/types/ordersType';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
-const IngredientsInOrder: FC<{ oderData: Tingredient[] }> = ({ oderData }) => {
+const IngredientsInOrder: FC<{ oderData: TingredientOrder[] }> = ({ oderData }) => {
     if (oderData) {
         return (
             <>
@@ -20,7 +20,7 @@ const IngredientsInOrder: FC<{ oderData: Tingredient[] }> = ({ oderData }) => {
                         <img className={`${cardsOrdersStyle.card__picture} mr-4`} alt='картинка' src={el.image}></img>
                         <p className='text text_type_main-small mr-6'>{el.name}</p>
                         <div className={cardsOrdersStyle.details_ingredient_price_box}>
-                            <p>{`${el.numberIngred} x ${el?.numberIngred ?? 1 * el.price}`}</p>
+                            <p>{`${el.numberIngred} x ${el.numberIngred * el.price}`}</p>
                             <CurrencyIcon type="primary" />
                         </div>
                     </li>))
