@@ -2,7 +2,6 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import profile from './profile.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
-import { useDispatch } from '../../../../services/hooks';
 import { getProfileData, sendProfileData,refreshTokenApi } from '../../../../utils/burgerApi';
 import { setCookie } from '../../../../utils/utils';
 import {ProfileMenu} from './ProfileMenu'
@@ -12,7 +11,6 @@ export const Profile = () => {
     const [nameUser, setNameUser] = useState('');
     const [passwordUser, setPaswordUser] = useState('');
     const [isLogin, setIslogin] = useState(false);
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     let location = useLocation()
     const onFormChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +31,6 @@ export const Profile = () => {
                 }
             })
             .catch((err) => {
-                console.log(err)
                 console.log(err.message === 'jwt expired')
                 if (err.message === 'jwt expired') {
                     refreshTokenApi()

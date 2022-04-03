@@ -2,7 +2,8 @@ import {
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
     WS_CONNECTION_CLOSED,
-    WS_GET_MESSAGE
+    WS_GET_MESSAGE,
+    TwsOrdesAction
 }
     from '../action/wsOrdes';
     type ordersData = {
@@ -17,8 +18,8 @@ import {
 
 type WSorders = {
     wsConnected:boolean,
-    orders:ordersData[] | null,
-    error:any
+    orders:any;
+    error:any;
 }
 
 const initialState:WSorders = {
@@ -27,7 +28,7 @@ const initialState:WSorders = {
     error: undefined
 };
 
-export const wsOrdesReducer = (state = initialState, action:any) => {
+export const wsOrdesReducer = (state = initialState, action:TwsOrdesAction) => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS:
             return {

@@ -15,6 +15,7 @@ type TwsConnectionSuccess = {
 }
 type TwsConnectionError = {
     readonly type: typeof WS_CONNECTION_ERROR
+    payload:any
 }
 type TwsConnectionClosed = {
     readonly type: typeof WS_CONNECTION_CLOSED
@@ -24,9 +25,16 @@ type TwsGetMessage = {
     payload: TordersList
 }
 type TwsSendMessage = {
-    readonly type: typeof WS_SEND_MESSAGE,
+    readonly type: typeof WS_SEND_MESSAGE
     payload:any
 }
+export type TwsOrdesAction = 
+TwsConnectionStart
+|TwsConnectionSuccess
+|TwsConnectionError
+|TwsConnectionClosed
+|TwsGetMessage
+|TwsSendMessage;
 
 
 export const wsConnectionStart = (urlServ:string):TwsConnectionStart => {
@@ -42,9 +50,10 @@ export const wsConnectionSuccess = ():TwsConnectionSuccess => {
     };
 };
 
-export const wsConnectionError = ():TwsConnectionError => {
+export const wsConnectionError = (payload:any):TwsConnectionError => {
     return {
-        type: WS_CONNECTION_ERROR
+        type: WS_CONNECTION_ERROR,
+        payload
     };
 };
 
