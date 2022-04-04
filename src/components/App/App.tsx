@@ -22,7 +22,6 @@ import { HistoryOrdes } from './pages/profile/HistoryOrdes';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();
-    const { ingredient, orderCard } = useSelector(state => state.ingredientDetail);
     type Tlocation = {
         pathname?: string;
         state?: any
@@ -30,9 +29,9 @@ export default function App() {
         hash?: string;
         key?: string;
     }
-    let location: Tlocation = useLocation()
+    const location: Tlocation = useLocation()
     const navigate = useNavigate();
-    let positionPopap = location.state && location.state.positionPopap
+    const positionPopap = location.state && location.state.positionPopap
     const closeModal: () => void = () => {
         dispatch({ type: CLOSE_INGREDIENT_DETAILS })
         navigate(positionPopap.pathname)
@@ -87,7 +86,7 @@ export default function App() {
                             <Profile />
                         </ProtectedRoute>} />
                         <Route path={"/profile/orders/:id"} element={<ProtectedRoute path="/profile/orders/id">
-                        <FeedDetailsOrder />
+                            <FeedDetailsOrder />
                         </ProtectedRoute>} />
                         <Route path="/profile/orders" element={<ProtectedRoute path="/profile/orders">
                             <HistoryOrdes />

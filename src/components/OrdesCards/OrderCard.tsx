@@ -37,12 +37,11 @@ export const OrderCard: FC<{ ordesData: TordersCard }> = ({ ordesData }) => {
     const [numberMoreSix, setNumberMoreSix] = useState<number>(1);
     const [totalCard, setTotalCard] = useState<number>(0);
     const [isHistory, setIsHistory] = useState<boolean>(false);
-    let location = useLocation();
+    const location = useLocation();
     const addIngredientsOrder = () => {
         if (ingredients && orders && ordesData) {
             const ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
             setNumberMoreSix(ordersIngredient.length - 5);
-            //console.log(ingredients)
             setTotalCard(totalCardOrder(ordesCardFilter(ordesData, ingredients)))
             setIngredientPictureArray(ordersIngredient)
         }

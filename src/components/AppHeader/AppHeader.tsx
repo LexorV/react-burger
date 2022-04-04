@@ -1,15 +1,15 @@
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './appHeader.module.css'
-import { NavLink} from 'react-router-dom';
-import {useState} from 'react'
+import { NavLink } from 'react-router-dom';
+import { useState } from 'react'
 export default function AppHeader() {
-    const [iconActiveConst, setIconActiveConst] = useState<'secondary'| 'primary'>('primary');
-    const [iconActiveRibbon, seticonActiveRibbon] = useState<'secondary'| 'primary'>('secondary');
-    const [iconActiveFeed, setIconActiveFeed] = useState<'secondary'| 'primary'>('secondary');
+    const [iconActiveConst, setIconActiveConst] = useState<'secondary' | 'primary'>('primary');
+    const [iconActiveRibbon, seticonActiveRibbon] = useState<'secondary' | 'primary'>('secondary');
+    const [iconActiveFeed, setIconActiveFeed] = useState<'secondary' | 'primary'>('secondary');
     const setActive = ({ isActive }: any) =>
-    isActive ? `${headerStyle.link_style_active}
+        isActive ? `${headerStyle.link_style_active}
     text text_type_main-default pl-2`:
-    `${headerStyle.link_style} text text_type_main-default pl-2`;
+            `${headerStyle.link_style} text text_type_main-default pl-2`;
     const activeConst = () => {
         setIconActiveConst('primary');
         seticonActiveRibbon('secondary')
@@ -31,11 +31,11 @@ export default function AppHeader() {
         <header className={`${headerStyle.header} pt-4 pb-4`}>
             <nav className={headerStyle.menu}>
                 <li className={`${headerStyle.menu_link} ${setActive} p-5`}>
-                    <BurgerIcon type= {iconActiveConst} />
+                    <BurgerIcon type={iconActiveConst} />
                     <NavLink onClick={activeConst} to="/" className={setActive}>Конструктор</NavLink>
                 </li>
                 <li className={`${headerStyle.menu_link} pl-2 p-5`}>
-                    <ListIcon type= {iconActiveFeed} />
+                    <ListIcon type={iconActiveFeed} />
                     <NavLink onClick={activeFeed} to="/feed" className={setActive}>Лента заказов</NavLink>
                 </li>
             </nav>

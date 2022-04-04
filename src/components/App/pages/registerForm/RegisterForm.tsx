@@ -1,35 +1,35 @@
-import {Input, Button} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import {sendRegisterUser} from '../../../../utils/burgerApi';
-import {getCookie} from '../../../../utils/utils'
-import {useSelector, useDispatch} from '../../../../services/hooks';
-import {useNavigate, Link} from 'react-router-dom';
-import {useState, useEffect, ChangeEvent, SyntheticEvent} from 'react';
-import {register} from '../../../../services/action/registerForm'
-import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../../../services/action/registerForm';
+import { sendRegisterUser } from '../../../../utils/burgerApi';
+import { getCookie } from '../../../../utils/utils'
+import { useSelector, useDispatch } from '../../../../services/hooks';
+import { useNavigate, Link } from 'react-router-dom';
+import { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react';
+import { register } from '../../../../services/action/registerForm'
+import { setRegisterFormValue, GLOBAL_CLEANING_FORM } from '../../../../services/action/registerForm';
 
 export const RegisterForm = () => {
-    const {name, email, password, registerReceivedData, registrationFailed} = useSelector((state) => state.registrationForm);
+    const { name, email, password, registerReceivedData, registrationFailed } = useSelector((state) => state.registrationForm);
     const [passwordState,
-        setPasswordState] = useState < 'password' | 'text' > ('password');
+        setPasswordState] = useState<'password' | 'text'>('password');
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const registerSend = () => {
-        let token = getCookie('accessToken')
+        const token = getCookie('accessToken')
         if (registerReceivedData) {
             navigate('/');
         }
-        else if(token) {
+        else if (token) {
             navigate('/')
         }
     }
 
     useEffect(() => {
         registerSend();
-        dispatch({type:GLOBAL_CLEANING_FORM});
-    },[registerReceivedData] )
+        dispatch({ type: GLOBAL_CLEANING_FORM });
+    }, [registerReceivedData])
 
-    const onChangeForm = (e : SyntheticEvent) => {
+    const onChangeForm = (e: SyntheticEvent) => {
         e.preventDefault();
         dispatch(register({
             name,
@@ -42,7 +42,7 @@ export const RegisterForm = () => {
             ? 'text'
             : 'password')
     }
-    const onFormChange = (e : ChangeEvent<HTMLInputElement>) => {
+    const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setRegisterFormValue(e.target.name, e.target.value));
     }
     return (

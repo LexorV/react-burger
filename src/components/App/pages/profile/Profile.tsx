@@ -12,7 +12,7 @@ export const Profile = () => {
     const [passwordUser, setPaswordUser] = useState('');
     const [isLogin, setIslogin] = useState(false);
     const navigate = useNavigate();
-    let location = useLocation()
+    const location = useLocation()
     const onFormChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
         setEmailUser(e.target.value);
     }
@@ -35,7 +35,7 @@ export const Profile = () => {
                 if (err.message === 'jwt expired') {
                     refreshTokenApi()
                         .then((res) => {
-                            let authToken = res.accessToken.split('Bearer ')[1];
+                            const authToken = res.accessToken.split('Bearer ')[1];
                             setCookie('accessToken', authToken, {});
                             localStorage.setItem('refreshToken', res.refreshToken);
                             setIslogin(true)
@@ -73,7 +73,7 @@ export const Profile = () => {
                 if (err.message === 'jwt expired') {
                     refreshTokenApi()
                         .then((res) => {
-                            let authToken = res.accessToken.split('Bearer ')[1];
+                            const authToken = res.accessToken.split('Bearer ')[1];
                             setCookie('accessToken', authToken, {});
                             localStorage.setItem('refreshToken', res.refreshToken);
                             setIslogin(true)

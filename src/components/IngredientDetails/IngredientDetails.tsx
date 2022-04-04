@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Tingredient } from '../../services/types/ingredientsType';
 import ingredientDetailsStyles from './ingredientDetails.module.css';
-import { useSelector, useDispatch } from '../../services/hooks';
+import { useSelector} from '../../services/hooks';
 import { useParams } from "react-router-dom";
 export type TingredientDetails = {
     dataIngrid: Tingredient

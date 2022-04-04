@@ -17,13 +17,13 @@ export const LoginForm = () => {
         useSelector((state) => state.registrationForm);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    let location = useLocation();
+    const location = useLocation();
     const registerSend = () => {
         if (registerReceivedData) {
-            let authToken = registerReceivedData.accessToken.split('Bearer ')[1];
+            const authToken = registerReceivedData.accessToken.split('Bearer ')[1];
             setCookie('accessToken', authToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
-            let from: any = location.state;
+            const from: any = location.state;
             if (from !== null) {
                 navigate(from)
             }

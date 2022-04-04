@@ -29,7 +29,7 @@ export const ForgotPasswordForm = () => {
         registerSend();
     }, [forgotSuccess])
     useEffect(()=> {
-        let token = getCookie('accessToken');
+        const token = getCookie('accessToken');
         if(token) {
             navigate('/')
         }

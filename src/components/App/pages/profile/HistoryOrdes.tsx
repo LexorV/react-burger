@@ -3,7 +3,7 @@ import { ProfileMenu } from './ProfileMenu';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { getCookie } from '../../../../utils/utils';
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
 import { CardListOrder } from '../../../OrdesCards/listCardOrder'
 import {urlWebSoketHistory} from '../../../../utils/burgerApi';
@@ -12,7 +12,7 @@ export const HistoryOrdes = () => {
     const dispatch = useDispatch();
     const location = useLocation()
     const navigate = useNavigate()
-    let token = getCookie('accessToken')
+    const token = getCookie('accessToken')
     useEffect(() => {
         dispatch(wsConnectionStart(urlWebSoketHistory(token)))
         return () => {
