@@ -1,11 +1,11 @@
 import feedStyle from  './feed.module.css';
 import { FeedOrderStatistics } from './feedOrderStatistics';
-import { useSelector, useDispatch } from '../../../../services/hooks';
-import { FC, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from '../../services/hooks';
+import { FC,useEffect } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import {urlWebSoketFeed} from '../../../../utils/burgerApi';
-import {CardListOrder} from '../../../../components/OrdesCards/listCardOrder'
-import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
+import {urlWebSoketFeed} from '../../utils/burgerApi';
+import {CardListOrder} from '../../components/OrdesCards/listCardOrder'
+import { wsConnectionStart, wsConnectionClosed } from '../../services/action/wsOrdes';
 const FeedListCardOrder: FC = () => {
     const { orders } = useSelector(state => state.wsOrdes)
     return (

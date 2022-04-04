@@ -5,20 +5,20 @@ import { DndProvider } from "react-dnd";
 import { useSelector, useDispatch } from '../../services/hooks'
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getIngredientsAction } from '../../services/action/Ingredients'
-import { LoginForm } from './pages/LoginForm/LoginForm'
-import { RegisterForm } from './pages/registerForm/RegisterForm';
-import { ForgotPasswordForm } from './pages/forgot-passwordForm/ForgotPassword';
-import { ResetPasswordForm } from './pages/reset-passwordForm/ResetPasswordForm';
-import { Profile } from './pages/profile/Profile';
+import { LoginForm } from '../../pages/LoginForm/LoginForm'
+import { RegisterForm } from '../../pages/registerForm/RegisterForm';
+import { ForgotPasswordForm } from '../../pages/forgot-passwordForm/ForgotPassword';
+import { ResetPasswordForm } from '../../pages/reset-passwordForm/ResetPasswordForm';
+import { Profile } from '../../pages/profile/Profile';
 import { MainBlock } from '../MainBlock/MainBlock';
-import { ProtectedRoute } from './pages/ProtectedRoute';
+import { ProtectedRoute } from '../../pages/ProtectedRoute';
 import { CLOSE_INGREDIENT_DETAILS } from '../../services/action/IngredientDetail'
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails'
 import { Modal } from '../Modal/Modal';
-import { NotFound } from './pages/NotFound/NotFound';
-import { Feed } from './pages/feed/feed';
+import { NotFound } from '../../pages/NotFound/NotFound';
+import { Feed } from '../../pages/feed/feed';
 import { FeedDetailsOrder } from '../OrdesCards/DetailsOrder';
-import { HistoryOrdes } from './pages/profile/HistoryOrdes';
+import { HistoryOrdes } from '../../pages/profile/HistoryOrdes';
 export default function App() {
     const { ingredientsRequest, ingredientsFailed } = useSelector(state => state.ingredients);
     const dispatch = useDispatch();

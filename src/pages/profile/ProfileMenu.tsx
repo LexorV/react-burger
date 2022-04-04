@@ -1,9 +1,9 @@
 import profile from './profile.module.css';
-import { useDispatch } from '../../../../services/hooks';
+import { useDispatch } from '../../services/hooks';
 import { useNavigate, NavLink } from "react-router-dom";
-import { deleteCookie } from '../../../../utils/utils';
-import { LOGOUT_USER } from '../../../../services/action/registerForm';
-import { logoutUserApi } from '../../../../utils/burgerApi';
+import { deleteCookie } from '../../utils/utils';
+import { LOGOUT_USER } from '../../services/action/registerForm';
+import { logoutUserApi } from '../../utils/burgerApi';
 export const ProfileMenu = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

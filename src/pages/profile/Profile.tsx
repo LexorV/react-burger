@@ -2,8 +2,8 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import profile from './profile.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
-import { getProfileData, sendProfileData, refreshTokenApi } from '../../../../utils/burgerApi';
-import { setCookie } from '../../../../utils/utils';
+import { getProfileData, sendProfileData, refreshTokenApi } from '../../utils/burgerApi';
+import { setCookie } from '../../utils/utils';
 import { ProfileMenu } from './ProfileMenu'
 
 export const Profile = () => {

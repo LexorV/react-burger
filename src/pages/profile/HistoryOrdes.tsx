@@ -1,12 +1,12 @@
 import profile from './profile.module.css';
 import { ProfileMenu } from './ProfileMenu';
 import { useEffect } from 'react';
-import { useSelector, useDispatch } from '../../../../services/hooks';
-import { getCookie } from '../../../../utils/utils';
+import { useSelector, useDispatch } from '../../services/hooks';
+import { getCookie } from '../../utils/utils';
 import { useLocation, useNavigate } from "react-router-dom";
-import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
-import { CardListOrder } from '../../../OrdesCards/listCardOrder'
-import {urlWebSoketHistory} from '../../../../utils/burgerApi';
+import { wsConnectionStart, wsConnectionClosed } from '../../services/action/wsOrdes';
+import { CardListOrder } from '../../components/OrdesCards/listCardOrder'
+import {urlWebSoketHistory} from '../../utils/burgerApi';
 export const HistoryOrdes = () => {
     const { orders } = useSelector(state => state.wsOrdes)
     const dispatch = useDispatch();

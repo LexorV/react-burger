@@ -1,5 +1,5 @@
 import { Navigate, useLocation  } from 'react-router-dom';
-import { getCookie } from '../../../utils/utils'
+import { getCookie } from '../utils/utils'
 export const ProtectedRoute = ({ children,  ...rest }:any) => {
     const location = useLocation()
         const token = getCookie('accessToken')

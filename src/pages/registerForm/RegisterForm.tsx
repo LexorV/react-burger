@@ -1,12 +1,12 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import { sendRegisterUser } from '../../../../utils/burgerApi';
-import { getCookie } from '../../../../utils/utils'
-import { useSelector, useDispatch } from '../../../../services/hooks';
+import { sendRegisterUser } from '../../utils/burgerApi';
+import { getCookie } from '../../utils/utils'
+import { useSelector, useDispatch } from '../../services/hooks';
 import { useNavigate, Link } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react';
-import { register } from '../../../../services/action/registerForm'
-import { setRegisterFormValue, GLOBAL_CLEANING_FORM } from '../../../../services/action/registerForm';
+import { register } from '../../services/action/registerForm'
+import { setRegisterFormValue, GLOBAL_CLEANING_FORM } from '../../services/action/registerForm';
 
 export const RegisterForm = () => {
     const { name, email, password, registerReceivedData, registrationFailed } = useSelector((state) => state.registrationForm);

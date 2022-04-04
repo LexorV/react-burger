@@ -1,7 +1,7 @@
 import feedStyle from './feed.module.css';
-import { useSelector } from '../../../../services/hooks';
+import { useSelector } from '../../services/hooks';
 import { FC, useState, useEffect } from 'react';
-import { TordersCard } from '../../../../services/types/ordersType'
+import { TordersCard } from '../../services/types/ordersType'
 import { v4 as uuidv4 } from 'uuid';
 const OrdesDoneList: FC = () => {
     const { orders } = useSelector(state => state.wsOrdes);

@@ -1,13 +1,13 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import { forgotPasswordApi } from '../../../../utils/burgerApi';
-import {validateField} from '../../../../utils/utils';
-import { useSelector, useDispatch } from '../../../../services/hooks';
+import { forgotPasswordApi } from '../../utils/burgerApi';
+import {validateField} from '../../utils/utils';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { Link, useNavigate} from 'react-router-dom';
-import {getCookie} from '../../../../utils/utils'
+import {getCookie} from '../../utils/utils'
 import { useEffect, useState, ChangeEvent, SyntheticEvent } from 'react';
-import { forgotPassword } from '../../../../services/action/registerForm';
-import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../../../services/action/registerForm';
+import { forgotPassword } from '../../services/action/registerForm';
+import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
     const { emailForgot, registerReceivedData, forgotSuccess} = useSelector((state) => state.registrationForm);
    const [validErrosText, setValidErrosText] = useState('');
