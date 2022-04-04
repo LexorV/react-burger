@@ -1,6 +1,6 @@
 import { BurgerIcon, Logo, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import headerStyle from './appHeader.module.css'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useState } from 'react'
 export default function AppHeader() {
     const [iconActiveConst, setIconActiveConst] = useState<'secondary' | 'primary'>('primary');
@@ -39,8 +39,8 @@ export default function AppHeader() {
                     <NavLink onClick={activeFeed} to="/feed" className={setActive}>Лента заказов</NavLink>
                 </li>
             </nav>
-            <div className={`${headerStyle.logo_box} pr-30`}>
-                <Logo /></div>
+            <Link to='/' className={`${headerStyle.logo_box} pr-30`}>
+                <Logo /></Link>
             <div className={`${headerStyle.menu_link} ${setActive} p-5`} >
                 <ProfileIcon type={iconActiveRibbon} />
                 <NavLink onClick={activeRibbon} to="/profile" className={setActive}>Личный кабинет</NavLink>
