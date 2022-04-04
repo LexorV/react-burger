@@ -1,5 +1,5 @@
 import cardsOrdersStyle from './cardsOrders.module.css';
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { FC, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { wsConnectionStart } from '../../services/action/wsOrdes';
@@ -7,6 +7,8 @@ import { urlWebSoketFeed } from '../../utils/burgerApi'
 import { orderDateChange, ordesCardFilter, totalCardOrder } from '../../utils/utils';
 import { TingredientOrder } from '../../services/types/ingredientsType';
 import { TordersCard } from '../../services/types/ordersType';
+import {urlWebSoketHistory} from '../../utils/burgerApi';
+import { getCookie } from '../../utils/utils';
 import {
     CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -46,6 +48,9 @@ export const FeedDetailsOrder: FC = () => {
     const [ordesDate, setOrdesDate] = useState<string>('01.01.2022');
     const dispatch = useDispatch();
     const urlIdData = useParams();
+    const location = useLocation()
+    const token = getCookie('accessToken')
+
     useEffect(() => {
         if (orders && ingredients) {
             const ordersCard = orders.orders.find((e: TordersCard) => e._id === urlIdData.id);
@@ -53,6 +58,8 @@ export const FeedDetailsOrder: FC = () => {
             setOrdesTemp(ordersCard)
         }
         else {
+            location.pathname === `/profile/orders/${urlIdData.id}` ?
+            dispatch(wsConnectionStart(urlWebSoketHistory(token))):
             dispatch(wsConnectionStart(urlWebSoketFeed));
         }
     }, [orders, ingredients])

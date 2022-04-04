@@ -42,6 +42,7 @@ export const OrderCard: FC<{ ordesData: TordersCard }> = ({ ordesData }) => {
         if (ingredients && orders && ordesData) {
             const ordersIngredient = ingredients.filter(el => ordesData.ingredients.includes(el._id));
             setNumberMoreSix(ordersIngredient.length - 5);
+            //console.log(ingredients)
             setTotalCard(totalCardOrder(ordesCardFilter(ordesData, ingredients)))
             setIngredientPictureArray(ordersIngredient)
         }

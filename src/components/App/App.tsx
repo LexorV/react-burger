@@ -40,6 +40,7 @@ export default function App() {
     React.useEffect(() => {
         dispatch(getIngredientsAction());
     }, [dispatch])
+
     React.useEffect(() => {
         navigate(JSON.parse(window.sessionStorage.getItem('lastRoute') || '{}'))
         window.onbeforeunload = () => {
@@ -84,6 +85,9 @@ export default function App() {
                         <Route path="/feed/:id" element={<FeedDetailsOrder />} />
                         <Route path="/profile" element={<ProtectedRoute path="/profile">
                             <Profile />
+                        </ProtectedRoute>} />
+                        <Route path={"/profile/orders/:id"} element={<ProtectedRoute path="/profile/orders/id">
+                        <FeedDetailsOrder />
                         </ProtectedRoute>} />
                         <Route path="/profile/orders" element={<ProtectedRoute path="/profile/orders">
                             <HistoryOrdes />

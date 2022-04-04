@@ -2,6 +2,7 @@ import feedStyle from  './feed.module.css';
 import { FeedOrderStatistics } from './feedOrderStatistics';
 import { useSelector, useDispatch } from '../../../../services/hooks';
 import { FC, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from "react-router-dom";
 import {urlWebSoketFeed} from '../../../../utils/burgerApi';
 import {CardListOrder} from '../../../../components/OrdesCards/listCardOrder'
 import { wsConnectionStart, wsConnectionClosed } from '../../../../services/action/wsOrdes';
@@ -18,6 +19,8 @@ const FeedListCardOrder: FC = () => {
     )
 }
 export const Feed = () => {
+    const location = useLocation()
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(wsConnectionStart(urlWebSoketFeed));
@@ -25,6 +28,11 @@ export const Feed = () => {
             dispatch(wsConnectionClosed())
         }
     }, [dispatch]);
+    useEffect(() => {
+        if(location.pathname !== '/feed') {
+            navigate('/feed');
+        }
+    }, [])
 return (
     <section className={feedStyle.feed}>
         <FeedListCardOrder/>
