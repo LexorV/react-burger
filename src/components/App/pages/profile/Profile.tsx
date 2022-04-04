@@ -2,9 +2,9 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import profile from './profile.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect, ChangeEvent } from 'react';
-import { getProfileData, sendProfileData,refreshTokenApi } from '../../../../utils/burgerApi';
+import { getProfileData, sendProfileData, refreshTokenApi } from '../../../../utils/burgerApi';
 import { setCookie } from '../../../../utils/utils';
-import {ProfileMenu} from './ProfileMenu'
+import { ProfileMenu } from './ProfileMenu'
 
 export const Profile = () => {
     const [emailUser, setEmailUser] = useState('');
@@ -45,7 +45,7 @@ export const Profile = () => {
                         })
                         .catch((err) => {
                             console.log(err)
-                            if (err.message === 'token invalid') {
+                            if (err.message === 'Token is invalid') {
                                 navigate('/login')
                             }
                         })
@@ -116,8 +116,8 @@ export const Profile = () => {
 
     return (
         <div className={profile.main}>
-              <div className={profile.main__box}>
-            <ProfileMenu />
+            <div className={profile.main__box}>
+                <ProfileMenu />
                 <div className={profile.inputs__box}>
                     <Input icon="EditIcon" type="text" placeholder="Имя" value={nameUser} onChange={onFormChangeName}></Input>
                     <Input icon="EditIcon" type="text" placeholder="Логин" value={emailUser} onChange={onFormChangeEmail}></Input>
@@ -128,8 +128,8 @@ export const Profile = () => {
                         <Button onClick={cleanerForm} type="primary" size="small">Отмена</Button>
                     </div>
                 </div>
-                </div>
             </div>
+        </div>
     )
 
 }

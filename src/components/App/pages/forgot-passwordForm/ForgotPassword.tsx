@@ -50,7 +50,7 @@ export const ForgotPasswordForm = () => {
     }
     return (
         <div className={autchFormStyle.main}>
-            <form className={autchFormStyle.box_form}>
+            <form onSubmit={onChangeForm} className={autchFormStyle.box_form}>
                 <h2 className="text text_type_main-medium pb-6">Востановление пароля</h2>
                 <div className="pb-6">
                     <Input type="email"
@@ -60,7 +60,7 @@ export const ForgotPasswordForm = () => {
                         onChange={onFormChange}></Input>
                         <p>{validErrosText}</p>
                 </div>
-                <Button onClick={onChangeForm} type="primary" size="medium">Востановить</Button>
+                <Button type="primary" size="medium">Востановить</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Вспомнили пароль?</p>
                     <Link to='/login' className={`text text_type_main-default ${autchFormStyle.link}`} >Войти</Link>

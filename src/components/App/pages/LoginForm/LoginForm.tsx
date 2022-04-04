@@ -23,8 +23,8 @@ export const LoginForm = () => {
             let authToken = registerReceivedData.accessToken.split('Bearer ')[1];
             setCookie('accessToken', authToken, {});
             localStorage.setItem('refreshToken', registerReceivedData.refreshToken);
-            let from:any = location.state;
-            if(from !== null) {
+            let from: any = location.state;
+            if (from !== null) {
                 navigate(from)
             }
             else {
@@ -53,7 +53,7 @@ export const LoginForm = () => {
     }
     return (
         <div className={autchFormStyle.main}>
-            <form className={autchFormStyle.box_form}>
+            <form onSubmit={onChangeForm} className={autchFormStyle.box_form}>
                 <h2 className="text text_type_main-medium pb-6">Вход</h2>
                 <div className="pb-6">
                     <Input name={'email'}
@@ -73,7 +73,7 @@ export const LoginForm = () => {
                         value={password}
                         onChange={onFormChange}></Input>
                 </div>
-                <Button onClick={onChangeForm}
+                <Button
                     type="primary"
                     size="medium" >
                     Войти</Button>

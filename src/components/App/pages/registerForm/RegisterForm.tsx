@@ -47,7 +47,7 @@ export const RegisterForm = () => {
     }
     return (
         <div className={autchFormStyle.main}>
-            <form className={autchFormStyle.box_form}>
+            <form onSubmit={onChangeForm} className={autchFormStyle.box_form}>
                 <h2 className="text text_type_main-medium pb-6">Регистрация</h2>
                 <div className="pb-6">
                     <Input
@@ -76,7 +76,7 @@ export const RegisterForm = () => {
                         onChange={onFormChange}></Input>
                 </div>
                 {registrationFailed === true && <p>Проверьте правильность заполнения формы</p>}
-                <Button onClick={onChangeForm} type="primary" size="medium">Зарегистрироваться</Button>
+                <Button type="primary" size="medium">Зарегистрироваться</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?</p>
                     <Link

@@ -45,7 +45,7 @@ export const ResetPasswordForm = () => {
     }
     return (
         <div className={autchFormStyle.main}>
-            <form className={autchFormStyle.box_form}>
+            <form onSubmit={onChangeForm} className={autchFormStyle.box_form}>
                 <h2 className="text text_type_main-medium pb-6">Востановление пароля</h2>
                 <div className="pb-6">
                     <Input
@@ -65,7 +65,7 @@ export const ResetPasswordForm = () => {
                         value={emailCode}
                         onChange={onFormChange}></Input>
                 </div>
-                <Button onClick={onChangeForm} type="primary" size="medium">Сохранить</Button>
+                <Button type="primary" size="medium">Сохранить</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Вспомнили пароль?</p>
                     <Link
