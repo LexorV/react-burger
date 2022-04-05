@@ -1,5 +1,5 @@
 import React from 'react';
-import { FC, useEffect, } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { useDrag } from "react-dnd";
 import { Tingredient } from '../../services/types/ingredientsType'
@@ -29,7 +29,7 @@ const Ingredient: FC<{ ingredient: Tingredient, setModalIsOpen: Function }> = ({
     }
 
     return (
-        <Link className={burgerIngredientsStyle.liks_style} to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap:location }}>
+        <Link className={burgerIngredientsStyle.liks_style} to={{ pathname: `/ingredients/${_id}` }} state={{ positionPopap: location }}>
             <li ref={dragRef} onClickCapture={openModal} key={ingredient._id} className={`${burgerIngredientsStyle.card_list} pl-4`}>
                 {countIngredient > 0 ? <Counter count={countIngredient} size="default" /> : null}
                 <img alt={ingredient.name} src={ingredient.image} className={`${burgerIngredientsStyle.picture} pl-4 pr-4`}></img>
@@ -59,15 +59,26 @@ export default function BurgerIngredients() {
     const [modalIsOpen, setModalIsOpen] = React.useState<boolean>(false)
     const [current, setCurrent] = React.useState<string>('Булки');
     const { ingredients } = useSelector(state => state.ingredients);
-    const { orders } = useSelector(state => state.wsOrdes)
+    const bun = useRef<any>(null);
+    const sauce = useRef<any>(null);
+    const main = useRef<any>(null);
     const tabClick = (current: string) => {
         if (current === 'Булки') {
+            if (bun.current) {
+                bun.current.scrollIntoView({ block: "start", behavior: "smooth" })
+            }
             setCurrent('Булки')
         }
         else if (current === 'Соусы') {
+            if (bun.current) {
+                sauce.current.scrollIntoView({ block: "start", behavior: "smooth" })
+            }
             setCurrent('Соусы')
         }
         else if (current === 'Начинки') {
+            if (bun.current) {
+                main.current.scrollIntoView({ block: "start", behavior: "smooth" })
+            }
             setCurrent('Начинки')
         }
     }
@@ -99,15 +110,15 @@ export default function BurgerIngredients() {
                     <h2 className="text text_type_main-medium">
                         Булки
                     </h2>
-                    <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
+                    <ul ref={bun} className={`${burgerIngredientsStyle.lists} pl-2`}>
                         <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type={ingredientsType.bun} />
                     </ul>
                     <h2 className="text text_type_main-medium">Соусы</h2>
-                    <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
+                    <ul ref={sauce} className={`${burgerIngredientsStyle.lists} pl-2`}>
                         <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type={ingredientsType.sauce} />
                     </ul>
                     <h2 className="text text_type_main-medium">Начинки</h2>
-                    <ul className={`${burgerIngredientsStyle.lists} pl-2`}>
+                    <ul ref={main} className={`${burgerIngredientsStyle.lists} pl-2`}>
                         <Ingredients setModalIsOpen={setModalIsOpen} data={ingredients} type={ingredientsType.main} />
                     </ul>
                 </div>

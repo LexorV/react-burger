@@ -7,7 +7,6 @@ import { autchUser } from '../../utils/burgerApi';
 import { setCookie, getCookie } from '../../utils/utils'
 import { useSelector, useDispatch } from '../../services/hooks';
 import { setRegisterFormValue, GLOBAL_CLEANING_FORM } from '../../services/action/registerForm';
-import { refreshTokenApi } from '../../utils/burgerApi';
 
 export const LoginForm = () => {
     const [passwordState,
