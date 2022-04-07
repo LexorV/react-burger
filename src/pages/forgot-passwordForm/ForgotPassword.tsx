@@ -1,13 +1,13 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import { forgotPasswordApi } from '../../../../utils/burgerApi';
-import {validateField} from '../../../../utils/utils';
-import { useSelector, useDispatch } from '../../../../services/hooks';
+import { forgotPasswordApi } from '../../utils/burgerApi';
+import {validateField} from '../../utils/utils';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { Link, useNavigate} from 'react-router-dom';
-import {getCookie} from '../../../../utils/utils'
+import {getCookie} from '../../utils/utils'
 import { useEffect, useState, ChangeEvent, SyntheticEvent } from 'react';
-import { forgotPassword } from '../../../../services/action/registerForm';
-import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../../../services/action/registerForm';
+import { forgotPassword } from '../../services/action/registerForm';
+import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
     const { emailForgot, registerReceivedData, forgotSuccess} = useSelector((state) => state.registrationForm);
    const [validErrosText, setValidErrosText] = useState('');
@@ -29,7 +29,7 @@ export const ForgotPasswordForm = () => {
         registerSend();
     }, [forgotSuccess])
     useEffect(()=> {
-        let token = getCookie('accessToken');
+        const token = getCookie('accessToken');
         if(token) {
             navigate('/')
         }
@@ -50,7 +50,7 @@ export const ForgotPasswordForm = () => {
     }
     return (
         <div className={autchFormStyle.main}>
-            <form className={autchFormStyle.box_form}>
+            <form onSubmit={onChangeForm} className={autchFormStyle.box_form}>
                 <h2 className="text text_type_main-medium pb-6">Востановление пароля</h2>
                 <div className="pb-6">
                     <Input type="email"
@@ -60,7 +60,7 @@ export const ForgotPasswordForm = () => {
                         onChange={onFormChange}></Input>
                         <p>{validErrosText}</p>
                 </div>
-                <Button onClick={onChangeForm} type="primary" size="medium">Востановить</Button>
+                <Button type="primary" size="medium">Востановить</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Вспомнили пароль?</p>
                     <Link to='/login' className={`text text_type_main-default ${autchFormStyle.link}`} >Войти</Link>

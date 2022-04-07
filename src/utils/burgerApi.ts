@@ -1,4 +1,4 @@
-import { getCookie} from './utils'
+import { getCookie } from './utils'
 import {
     TsendRegisterUser,
     TautchUser,
@@ -8,8 +8,10 @@ import {
     TlogoutUserApi
 } from '../services/types/autchType';
 const urlServ = "https://norma.nomoreparties.space/api/";
+export const urlWebSoketFeed = 'wss://norma.nomoreparties.space/orders/all';
+export const urlWebSoketHistory = (token:any) => `wss://norma.nomoreparties.space/orders?token=${token}`
 
-const checkResponse = (res:Response) => {
+const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err: any) => Promise.reject(err));
 }
 export const getIngredients = () => {
@@ -117,7 +119,7 @@ export const refreshTokenApi = () => {
         headers: new Headers([
             ['Content-Type', 'application/json'],
         ]),
-        body: JSON.stringify({ 'token': localStorage.getItem("refreshToken")}),
+        body: JSON.stringify({ 'token': localStorage.getItem("refreshToken") }),
     })
         .then(checkResponse)
 }

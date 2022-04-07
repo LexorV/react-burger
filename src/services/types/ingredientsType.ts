@@ -1,4 +1,4 @@
-export type Tingredient = {
+export interface Tingredient  {
     readonly calories: number;
     readonly carbohydrates: number;
     readonly fat: number;
@@ -11,8 +11,12 @@ export type Tingredient = {
     readonly type: string;
     readonly __v: number;
     readonly _id: string;
-    idConstr?: string
+    idConstr?: string;
 }
+export interface TingredientOrder extends Tingredient {
+    numberIngred: number;
+}
+
 export type TconstructorDrop = {
     index: number;
     ingredient: Tingredient;

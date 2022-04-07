@@ -1,10 +1,10 @@
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import autchFormStyle from '../autchFormStyle.module.css';
-import { useSelector, useDispatch } from '../../../../services/hooks';
+import { useSelector, useDispatch } from '../../services/hooks';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { resetPasswordApi } from '../../../../utils/burgerApi';
-import { resetPassword, RESET_fORM_CLEANING } from '../../../../services/action/registerForm';
-import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../../../services/action/registerForm';
+import { resetPasswordApi } from '../../utils/burgerApi';
+import { resetPassword, RESET_fORM_CLEANING } from '../../services/action/registerForm';
+import { setRegisterFormValue, GLOBAL_CLEANING_FORM} from '../../services/action/registerForm';
 import { useState, useEffect, ChangeEvent, SyntheticEvent } from 'react';
 export const ResetPasswordForm = () => {
     const { password, emailCode, registerReceivedData, resetSuccess} = useSelector((state) => state.registrationForm);
@@ -45,7 +45,7 @@ export const ResetPasswordForm = () => {
     }
     return (
         <div className={autchFormStyle.main}>
-            <form className={autchFormStyle.box_form}>
+            <form onSubmit={onChangeForm} className={autchFormStyle.box_form}>
                 <h2 className="text text_type_main-medium pb-6">Востановление пароля</h2>
                 <div className="pb-6">
                     <Input
@@ -65,7 +65,7 @@ export const ResetPasswordForm = () => {
                         value={emailCode}
                         onChange={onFormChange}></Input>
                 </div>
-                <Button onClick={onChangeForm} type="primary" size="medium">Сохранить</Button>
+                <Button type="primary" size="medium">Сохранить</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>
                     <p className="text text_type_main-default text_color_inactive">Вспомнили пароль?</p>
                     <Link

@@ -1,0 +1,66 @@
+.feed {
+    display: flex;
+    margin-left: 15%;
+    gap: 68px;
+}
+
+.card__list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-height: 812px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding-left: 0;
+}
+
+.card__list::-webkit-scrollbar {
+    width: 8px;
+    background-color: #2F2F37;
+}
+
+.card__list::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+}
+
+.box_cards {
+    width: 608px;
+}
+
+.statistics {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-top: 100px;
+}
+
+.statistics__number_order {
+    display: flex;
+    gap: 36px;
+}
+
+.statistics__number {
+    color: #00CCCC;
+}
+
+.statistics__number_box {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
+
+.statistics__number_lists {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 8px;
+    height: 160px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: wrap;
+}
+
+.statistics__number_list {
+    width: 100px;
+}

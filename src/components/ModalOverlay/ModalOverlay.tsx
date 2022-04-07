@@ -1,5 +1,5 @@
-import modalOverlayStyle from './modalOverlay.module.css'
-import { useSelector } from 'react-redux';
+import modalOverlayStyle from './modalOverlay.module.css';
+import { useSelector } from '../../services/hooks';
 import { TmodalOverlayComponent } from '../../services/types/ModalType';
 import { FC } from 'react';
 
