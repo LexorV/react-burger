@@ -44,3 +44,9 @@
     align-items: center;
     gap: 10px;
 }
+
+.open_elements_shift {
+    padding-top: 100px;
+    box-sizing: content-box;
+    transition: padding .2s ease-in-out;
+}

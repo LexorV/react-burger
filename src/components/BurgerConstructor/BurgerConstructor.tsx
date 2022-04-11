@@ -31,8 +31,8 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
          isDrag: monitor.isDragging()
       })
    });
- 
-   const [{isHover}, dropIngred] = useDrop({
+
+   const [{ isHover }, dropIngred] = useDrop({
       accept: 'ingredientInConstructior',
       drop(data: TconstructorDrop) {
          dispatch({
@@ -43,9 +43,9 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
       },
       collect: monitor => ({
          isHover: monitor.isOver(),
-     })
+      })
    })
-   const borderColor = isHover ? 'green' : 'transparent';
+   const shiftStyle = isHover ? burgerConstructorStyle.open_elements_shift : '';
    dragRef(dropIngred(DropDragRef))
    const handleClose = () => {
       dispatch({ type: DELETE_INGREDIENT, ingredient: ingredient })
@@ -53,7 +53,7 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
    return (
       <>
          {!isDrag &&
-            (<li ref={DropDragRef} style={{borderColor}} className={burgerConstructorStyle.open_elements_box}>
+            (<li ref={DropDragRef} className={`${burgerConstructorStyle.open_elements_box} ${shiftStyle}`}>
                <DragIcon type="primary" />
                <ConstructorElement isLocked={false} handleClose={handleClose}
                   thumbnail={ingredient.image ?? ''} text={ingredient.name ?? ''} price={ingredient.price ?? 0} />
@@ -140,7 +140,7 @@ export default function BurgerConstructor() {
       },
       [ingredientsInConstructor]
    )
-   const [{isHover}, dropTarget] = useDrop({
+   const [{ isHover }, dropTarget] = useDrop({
       accept: 'ingredient',
       drop(ingredient: Tingredient) {
          if (ingredient.type === ingredientsType.bun) {
@@ -159,15 +159,15 @@ export default function BurgerConstructor() {
       },
       collect: monitor => ({
          isHover: monitor.isOver(),
-     })
+      })
    })
-   const borderColor = isHover ? {border:'solid 1px Fuchsia'} : {border:'transparent'};
+   const borderColor = isHover ? { border: 'solid 1px Fuchsia' } : { border: 'transparent' };
    if (ingredients !== null) {
       return (
          <section className={'pt-25'}>
             <div ref={dropTarget} style={borderColor} className={`${burgerConstructorStyle.constructor}  mt-4 `}>
                <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} ingredientsInConstructor={ingredientsInConstructor} />
-               <ul  className={`${burgerConstructorStyle.open_elements} pt-4`}>
+               <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
                   <IngredientsInConstructor type={ingredientsType.bun} ingredientsInConstructor={ingredientsInConstructor} />
                </ul>
                <IngredientsInConstructorLock positionEn={'bottom'} position={'Низ'} ingredientsInConstructor={ingredientsInConstructor} />
