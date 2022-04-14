@@ -5,7 +5,7 @@ import { validateField } from '../../utils/utils';
 import { useSelector, useDispatch } from '../../services/hooks';
 import { Link, useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/utils'
-import { useEffect, useState, ChangeEvent, SyntheticEvent, useRef } from 'react';
+import { useEffect, useState, ChangeEvent, SyntheticEvent} from 'react';
 import { forgotPassword } from '../../services/action/registerForm';
 import { setRegisterFormValue, fORGOT_FORM_CLEANING } from '../../services/action/registerForm';
 export const ForgotPasswordForm = () => {
@@ -15,8 +15,7 @@ export const ForgotPasswordForm = () => {
     const [validErr, setValidErr] = useState(false);
     const [buttonPressed, setButtonPressed] = useState(false);
     const registerSend = () => {
-        console.log(registerReceivedData)
-        if (registerReceivedData ) {
+        if (registerReceivedData) {
             navigate('/login');
         }
     }
@@ -36,7 +35,7 @@ export const ForgotPasswordForm = () => {
         }
     }, [])
     useEffect(() => {
-        if(buttonPressed === true) {
+        if (buttonPressed === true) {
             isValid === true ? setValidErr(false) : setValidErr(true)
             if (isValid === true) {
                 dispatch(forgotPassword({
@@ -47,13 +46,13 @@ export const ForgotPasswordForm = () => {
         }
         setButtonPressed(false)
 
-    },[buttonPressed] )
+    }, [buttonPressed])
 
     const onChangeForm = (e: SyntheticEvent) => {
         if (emailForgot) {
-         validateField('email', emailForgot, setValidErrosText, isValid, setIsvalid)
+            validateField('email', emailForgot, setValidErrosText, isValid, setIsvalid)
         }
-        else if(emailForgot=== '') {
+        else if (emailForgot === '') {
             setValidErr(true)
             setValidErrosText('Поле не должно быть пустым')
         }
@@ -61,11 +60,11 @@ export const ForgotPasswordForm = () => {
         setButtonPressed(true)
     }
     const onFormChange = (e: ChangeEvent<HTMLInputElement>) => {
-        
+
         dispatch(setRegisterFormValue(e.target.name, e.target.value));
     }
     const validFocus = (e: any) => {
-            setValidErr(false)
+        setValidErr(false)
     }
     return (
         <div className={autchFormStyle.main}>
@@ -81,7 +80,7 @@ export const ForgotPasswordForm = () => {
                         onFocus={validFocus}
                         onChange={onFormChange}
                         success={true}
-                        ></Input>
+                    ></Input>
                 </div>
                 <Button type="primary" size="medium">Востановить</Button>
                 <div className={`${autchFormStyle.box_register} mt-20`}>

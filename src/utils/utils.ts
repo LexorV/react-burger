@@ -34,26 +34,28 @@ export function validateField(fieldName: 'email' | 'password' | 'name', value: s
     switch (fieldName) {
         case 'email':
             checkValid = value.match(/^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$/i);
-            console.log(checkValid);
             setStateValid(checkValid ? true : false);
             setErrosText(checkValid  ? '' : 'Неправильный Email');
             break;
         case 'password':
             checkValid = value.length >= 6;
-            setErrosText(checkValid ? '' : 'Слишком короткий пароль не менее, чем 6 символов');
+            setErrosText(checkValid ? '' : 'Не менее, чем 6 символов');
             setStateValid(checkValid);
             break;
         case 'name':
-            if (value.length > 0) {
-                setErrosText('введите имя')
+            if (value.length === 0) {
+                setErrosText('Введите имя')
+                setStateValid(false)
                 break;
             }
             else if(value.length > 12) {
-                setErrosText('Слишком длинное имя, введите не более 12 символов' )
+                setErrosText('Не более 12 символов' )
+                setStateValid(false)
                 break;
             }
             else {
-                setErrosText('ошибка имени')
+                setStateValid(true)
+                setErrosText('')
                 break;
             }
 
