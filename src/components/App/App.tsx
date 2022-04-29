@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, Routes, Route, useLocation, } from 'react-router-dom';
+import { useNavigate, Routes, Route, useLocation} from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { DndProvider } from "react-dnd";
 import { useSelector, useDispatch } from '../../services/hooks'
@@ -41,6 +41,9 @@ export default function App() {
     }, [dispatch])
 
     React.useEffect(() => {
+        if(location.pathname === '/react-burger') {
+            navigate('/')
+        }
         navigate(JSON.parse(window.sessionStorage.getItem('lastRoute') || '{}'))
         window.onbeforeunload = () => {
             window.sessionStorage.setItem('lastRoute', JSON.stringify(window.location.pathname))

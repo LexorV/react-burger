@@ -31,7 +31,8 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
          isDrag: monitor.isDragging()
       })
    });
-   const [, dropIngred] = useDrop({
+
+   const [{ isHover }, dropIngred] = useDrop({
       accept: 'ingredientInConstructior',
       drop(data: TconstructorDrop) {
          dispatch({
@@ -39,8 +40,12 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
             dragIndex: data.index,
             dropIndex: index
          })
-      }
+      },
+      collect: monitor => ({
+         isHover: monitor.isOver(),
+      })
    })
+   const shiftStyle = isHover ? burgerConstructorStyle.open_elements_shift : '';
    dragRef(dropIngred(DropDragRef))
    const handleClose = () => {
       dispatch({ type: DELETE_INGREDIENT, ingredient: ingredient })
@@ -48,7 +53,7 @@ const ConstructorIngredient: FC<{ ingredient: Tingredient, index: number }> = ({
    return (
       <>
          {!isDrag &&
-            (<li ref={DropDragRef} className={burgerConstructorStyle.open_elements_box}>
+            (<li ref={DropDragRef} className={`${burgerConstructorStyle.open_elements_box} ${shiftStyle}`}>
                <DragIcon type="primary" />
                <ConstructorElement isLocked={false} handleClose={handleClose}
                   thumbnail={ingredient.image ?? ''} text={ingredient.name ?? ''} price={ingredient.price ?? 0} />
@@ -135,7 +140,7 @@ export default function BurgerConstructor() {
       },
       [ingredientsInConstructor]
    )
-   const [, dropTarget] = useDrop({
+   const [{ isHover }, dropTarget] = useDrop({
       accept: 'ingredient',
       drop(ingredient: Tingredient) {
          if (ingredient.type === ingredientsType.bun) {
@@ -151,12 +156,16 @@ export default function BurgerConstructor() {
             dispatch({ type: ADD_INGREDIENT, ingredient: ingredient })
          }
 
-      }
+      },
+      collect: monitor => ({
+         isHover: monitor.isOver(),
+      })
    })
+   const borderColor = isHover ? { border: 'solid 1px Fuchsia' } : { border: 'transparent' };
    if (ingredients !== null) {
       return (
-         <>
-            <section ref={dropTarget} className={`${burgerConstructorStyle.constructor} pt-25 mt-4 `}>
+         <section className={'pt-25'}>
+            <div ref={dropTarget} style={borderColor} className={`${burgerConstructorStyle.constructor}  mt-4 `}>
                <IngredientsInConstructorLock positionEn={'top'} position={'Верх'} ingredientsInConstructor={ingredientsInConstructor} />
                <ul className={`${burgerConstructorStyle.open_elements} pt-4`}>
                   <IngredientsInConstructor type={ingredientsType.bun} ingredientsInConstructor={ingredientsInConstructor} />
@@ -172,11 +181,11 @@ export default function BurgerConstructor() {
                   </Button> : null}
                </div>
                {orederNumberRequest && (<p>Загрузка...</p>)}
-            </section>
+            </div>
             {orederNumber && (<Modal height={718} closeModal={closeModal}>
                <OrderDetails order={orederNumber} />
             </Modal>)}
-         </>
+         </section>
       )
    }
    else {
