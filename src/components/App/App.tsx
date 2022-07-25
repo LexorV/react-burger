@@ -77,6 +77,7 @@ export default function App() {
                             </ProtectedRoute>} />
                         </Routes>}
                     <Routes location={positionPopap || location}>
+                     <Route path="/react-burger" element={<MainBlock />} />
                         <Route path="/" element={<MainBlock />} />
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/register" element={<RegisterForm />} />
